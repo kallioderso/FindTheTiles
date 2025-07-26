@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Find the Tiles</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Find the Tiles</h1>
+    </header>
+    <section class="scores">
+        <div class="score-box">
+            <div class="score-label">Highscore</div>
+            <div class="score-value" id="highscore">0</div>
+        </div>
+        <div class="score-box">
+            <div class="score-label">Current Score</div>
+            <div class="score-value" id="currentscore">0</div>
+        </div>
+    </section>
+    <main class="board-container">
+        <div class="board" id="gameboard">
+            <!-- Tiles werden per JS generiert -->
+        </div>
+    </main>
+    <script>
+        // 7x7 Tiles generieren
+        const board = document.getElementById('gameboard');
+        for (let i = 0; i < 49; i++) {
+            const tile = document.createElement('div');
+            tile.className = 'tile';
+            tile.dataset.index = i;
+            // tile.textContent = ''; // Optional: Nummer anzeigen
+            board.appendChild(tile);
+        }
+        // Platzhalter für spätere Spiellogik
+    </script>
+</body>
+</html>
