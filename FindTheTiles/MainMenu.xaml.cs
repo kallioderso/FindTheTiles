@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Storage;
 
@@ -9,6 +10,8 @@ public partial class MainMenu : ContentPage
     public MainMenu()
     {
         InitializeComponent();
+        if(Preferences.Get("FirstStart", true))
+            Application.Current.MainPage.Navigation.PushAsync(new Tutorial(), true);
     }
 
     protected override void OnAppearing()
@@ -18,10 +21,43 @@ public partial class MainMenu : ContentPage
         int lastScore = Preferences.Get("LastScore", 0);
         HighscoreLabel.Text = highscore.ToString();
         CurrentScoreLabel.Text = lastScore.ToString();
+        UpdateTileCoins();
+    }
+    
+    protected override void OnSizeAllocated(double width, double height)
+    {
+        base.OnSizeAllocated(width, height);
+
+        string orientation = height > width ? "Portrait" : "Landscape";
+        
+        VisualStateManager.GoToState(HighscoreLabel, orientation);
+        VisualStateManager.GoToState(CurrentScoreLabel, orientation);
+        VisualStateManager.GoToState(LabelCurrentScoreTitel, orientation);
+        VisualStateManager.GoToState(LabelHighScoreTitel, orientation);
+        VisualStateManager.GoToState(StackLayoutOrientation1, orientation);
+        VisualStateManager.GoToState(StackLayoutOrientation2, orientation);
+        VisualStateManager.GoToState(Titel, orientation);
+        VisualStateManager.GoToState(MainStackLayout, orientation);
     }
 
-    private void Button_OnClicked(object? sender, EventArgs e)
+
+
+    private void UpdateTileCoins()
     {
-        Navigation.PushAsync(new GameView());
+        int tileCoins = Preferences.Get("XP", 0);
+        TileCoinsCountLabel.Text = tileCoins.ToString();
+    }
+    
+    private async void Button_OnClicked(object? sender, EventArgs e)
+    {
+        await Application.Current.MainPage.Navigation.PushAsync(new GameView(), true);
+    }
+
+    private void HelpButton_OnClicked(object? sender, EventArgs e)
+    {
+    }
+
+    private void ShopButton_OnClicked(object? sender, EventArgs e)
+    {
     }
 }

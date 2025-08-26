@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FindTheTiles.Tutorial">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+    <ContentPage.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Color="#F9FBFF" Offset="0.0" />
+            <GradientStop Color="#E6F0FF" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    <ContentPage.Content>
+        <Grid>
+            <Button
+                x:Name="ExitButton"
+                Text="✕"
+                FontSize="16"
+                BackgroundColor="#F3F7FF"
+                TextColor="#2D5FFF"
+                CornerRadius="16"
+                WidthRequest="44"
+                HeightRequest="44"
+                BorderColor="#E0E8FF"
+                BorderWidth="2"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                Margin="0,16,16,0"
+                Clicked="ExitButton_Clicked"/>
+            
+            <StackLayout 
+                Orientation="Vertical" 
+                Spacing="20"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center">
+                <Frame
+                    x:Name="TutorialFrame"
+                    BackgroundColor="#F3F7FF"
+                    CornerRadius="20"
+                    Padding="22,14"
+                    HasShadow="True"
+                    BorderColor="#E0E8FF"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <Label x:Name="TutorialLabel"
+                           FontAttributes="Bold"
+                           TextColor="#2D5FFF"
+                           HorizontalOptions="Center"
+                           Shadow="2,2,8,#B0C4FF" 
+                           FontSize="20">
+                        Find the Tiles - Tutorial
+                    </Label>
+                </Frame>
+                <StackLayout>
+                    <VerticalStackLayout>
+                        <Frame 
+                            x:Name="FortschritsFrame"
+                            BackgroundColor="#F3F7FF"
+                            CornerRadius="20"
+                            Padding="22,14"
+                            HasShadow="True"
+                            BorderColor="#E0E8FF"
+                            IsEnabled="False"
+                            IsVisible="False"
+                            VerticalOptions="Center"
+                            WidthRequest="356">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="Fortschritt"
+                                       FontSize="{OnPlatform 15, Android=14, iOS=14}"
+                                       TextColor="#7A8FA6"/>
+                                <ProgressBar x:Name="FinishProgress" ProgressColor="#2D5FFF" BackgroundColor="#E0E8FF" Progress="0" HeightRequest="{OnPlatform WinUI=20}" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </VerticalStackLayout>
+                    <Grid x:Name="TilesGrid"
+                          RowSpacing="8"
+                          ColumnSpacing="8"
+                          Padding="8"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="44"/>
+                            <RowDefinition Height="44"/>
+                            <RowDefinition Height="44"/>
+                            <RowDefinition Height="44"/>
+                            <RowDefinition Height="44"/>
+                            <RowDefinition Height="44"/>
+                            <RowDefinition Height="44"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="44"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

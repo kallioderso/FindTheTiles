@@ -10,62 +10,433 @@
             <GradientStop Color="#E6F0FF" Offset="1.0" />
         </LinearGradientBrush>
     </ContentPage.Background>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label" x:Key="Titel">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup>
+                            <VisualState x:Name="Portrait">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Portrait"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="FontSize" Value="44"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Landscape">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Landscape"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="FontSize" Value="40"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style TargetType="Label" x:Key="ScoreLabel">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup>
+                            <VisualState x:Name="Portrait">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Portrait"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="FontSize" Value="26"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Landscape">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Landscape"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="FontSize" Value="18"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style TargetType="Label" x:Key="TextLabel">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup>
+                            <VisualState x:Name="Portrait">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Portrait"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="FontSize" Value="15"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Landscape">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Landscape"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="FontSize" Value="12"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style TargetType="VerticalStackLayout" x:Key="MainStackLayout">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup>
+                            <VisualState x:Name="Portrait">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Portrait"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="Spacing" Value="44"/>
+                                    <Setter Property="Padding" Value="32, 70"/>
+                                    <Setter Property="Margin" Value="0,0,0,0"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Landscape">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Landscape"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="Spacing" Value="12"/>
+                                    <Setter Property="Padding" Value="0, 0"/>
+                                    <Setter Property="Margin" Value="0,10,0,0"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style TargetType="Grid" x:Key="LevelGrid">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup>
+                            <VisualState x:Name="Portrait">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Portrait"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="WidthRequest" Value="250"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Landscape">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Landscape"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="WidthRequest" Value="170"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style TargetType="StackLayout" x:Key="Slayoutscores">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup>
+                            <VisualState x:Name="Portrait">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Portrait"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="Spacing" Value="22"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Landscape">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Landscape"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="Spacing" Value="12"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style TargetType="ProgressBar" x:Key="LevelProgress">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup>
+                            <VisualState x:Name="Portrait">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Portrait"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="WidthRequest" Value="200"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Landscape">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Landscape"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="WidthRequest" Value="140"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style TargetType="Label" x:Key="LevelText">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup>
+                            <VisualState x:Name="Portrait">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Portrait"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="FontSize" Value="16"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Landscape">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Landscape"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="FontSize" Value="14"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style TargetType="Label" x:Key="LevelProgressText">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup>
+                            <VisualState x:Name="Portrait">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Portrait"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="FontSize" Value="13"/>
+                                    <Setter Property="Margin" Value="0,40,0,0"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Landscape">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Landscape"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="FontSize" Value="11"/>
+                                    <Setter Property="Margin" Value="0,40,0,0"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style TargetType="Label" x:Key="hilfsTexte">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup>
+                            <VisualState x:Name="Portrait">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Portrait"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Landscape">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Landscape"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="WidthRequest" Value="250"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style TargetType="Frame" x:Key="HilfsFrame">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup>
+                            <VisualState x:Name="Portrait">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Portrait"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="Margin" Value="0,0,0,60"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Landscape">
+                                <VisualState.StateTriggers>
+                                    <OrientationStateTrigger Orientation="Landscape"/>
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Property="Margin" Value="550,0,5,120"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <Grid>
+        <VerticalStackLayout x:Name="MainStackLayout" Padding="32,70" Spacing="44" Margin="0,0,0,0" HorizontalOptions="Center" VerticalOptions="Center" Style="{OnPlatform Android={StaticResource MainStackLayout}}">
+            <Label Text="Find the Tiles"
+                   x:Name="Titel"
+                   FontAttributes="Bold"
+                   TextColor="#2D5FFF"
+                   HorizontalOptions="Center"
+                   Shadow="2,2,8,#B0C4FF" 
+                   FontSize="44"
+                   Style="{OnPlatform Android={StaticResource Titel}}"/>
 
-    <VerticalStackLayout Padding="32,70" Spacing="44" HorizontalOptions="Center" VerticalOptions="Center">
-        <Label Text="Find the Tiles"
-               FontSize="44"
-               FontAttributes="Bold"
-               TextColor="#2D5FFF"
-               HorizontalOptions="Center"
-               Shadow="2,2,8,#B0C4FF" />
-
-        <HorizontalStackLayout Spacing="28" HorizontalOptions="Center">
-            <Frame BackgroundColor="#F3F7FF"
-                   CornerRadius="20"
-                   Padding="22,14"
-                   HasShadow="True"
-                   BorderColor="#E0E8FF">
-                <VerticalStackLayout Spacing="2">
-                    <Label Text="Highscore"
-                           FontSize="15"
-                           TextColor="#7A8FA6"
-                           HorizontalOptions="Center"/>
-                    <Label Text="0"
-                           x:Name="HighscoreLabel"
-                           FontSize="26"
-                           FontAttributes="Bold"
-                           TextColor="#2D5FFF"
-                           HorizontalOptions="Center"/>
-                </VerticalStackLayout>
-            </Frame>
-            <Frame BackgroundColor="#F3F7FF"
-                   CornerRadius="20"
-                   Padding="22,14"
-                   HasShadow="True"
-                   BorderColor="#E0E8FF">
-                <VerticalStackLayout Spacing="2">
-                    <Label Text="Aktueller Score"
-                           FontSize="15"
-                           TextColor="#7A8FA6"
-                           HorizontalOptions="Center"/>
-                    <Label Text="0"
-                           x:Name="CurrentScoreLabel"
-                           FontSize="26"
-                           FontAttributes="Bold"
-                           TextColor="#2D5FFF"
-                           HorizontalOptions="Center"/>
-                </VerticalStackLayout>
-            </Frame>
-        </HorizontalStackLayout>
-
-        <Button Text="Spiel starten"
-                FontSize="22"
-                BackgroundColor="#6EC1E4"
-                TextColor="#FFFFFF"
-                CornerRadius="18"
-                Padding="24,12"
-                HorizontalOptions="Center"
-                Clicked="Button_OnClicked"
-                Shadow="0,4,12,#B0C4FF" />
-    </VerticalStackLayout>
+            <StackLayout x:Name="StackLayoutOrientation1" Spacing="22" Orientation="Vertical" Style="{OnPlatform Android={StaticResource Slayoutscores}}">
+                <Frame BackgroundColor="#F3F7FF"
+                       x:Name="TileCoinFrame"
+                       CornerRadius="20"
+                       Padding="22,14"
+                       HasShadow="True"
+                       BorderColor="#E0E8FF">
+                    <VerticalStackLayout>
+                        <Label Text="Tile-Coins"
+                               x:Name="TileCoinsLabel"
+                               FontSize="16"
+                               TextColor="#7A8FA6"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Start"
+                               Style="{OnPlatform Android={StaticResource LevelText}}"/>
+                        
+                        <HorizontalStackLayout HorizontalOptions="Center">
+                            <Label
+                                x:Name="TileCoinsCountLabel"
+                                Text="0"
+                                TextColor="#7A8FA6"
+                                FontSize="16" 
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"/>
+                            <Image  
+                                Source="tilecoins.png" 
+                                HeightRequest="44" 
+                                WidthRequest="44"
+                                VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+                <StackLayout x:Name="StackLayoutOrientation2" Spacing="22" HorizontalOptions="Center" Orientation="Horizontal" Style="{OnPlatform Android={StaticResource Slayoutscores}}">
+                    <Frame BackgroundColor="#F3F7FF"
+                           x:Name="HighscoreFrame"
+                           CornerRadius="20"
+                           Padding="22,14"
+                           HasShadow="True"
+                           BorderColor="#E0E8FF">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Highscore"
+                                   x:Name="LabelHighScoreTitel"
+                                   TextColor="#7A8FA6"
+                                   FontSize="15"
+                                   HorizontalOptions="Center"
+                                   Style="{OnPlatform Android={StaticResource TextLabel}}"/>
+                            <Label Text="0"
+                                   x:Name="HighscoreLabel"
+                                   FontAttributes="Bold"
+                                   TextColor="#2D5FFF"
+                                   FontSize="18"
+                                   HorizontalOptions="Center"
+                                   Style="{OnPlatform Android={StaticResource ScoreLabel}}"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                    <Frame BackgroundColor="#F3F7FF"
+                           x:Name="LastScoreFrame"
+                           CornerRadius="20"
+                           Padding="22,14"
+                           HasShadow="True"
+                           BorderColor="#E0E8FF">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Aktueller Score"
+                                   x:Name="LabelCurrentScoreTitel"
+                                   TextColor="#7A8FA6"
+                                   FontSize="15"
+                                   HorizontalOptions="Center"
+                                   Style="{OnPlatform Android={StaticResource TextLabel}}"/>
+                            <Label Text="0"
+                                   x:Name="CurrentScoreLabel"
+                                   FontAttributes="Bold"
+                                   FontSize="18"
+                                   TextColor="#2D5FFF"
+                                   HorizontalOptions="Center"
+                                   Style="{OnPlatform Android={StaticResource ScoreLabel}}"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
+            
+            <Button Text="Spiel starten"
+                    x:Name="StartButton"
+                    FontSize="22"
+                    BackgroundColor="#6EC1E4"
+                    TextColor="#FFFFFF"
+                    CornerRadius="18"
+                    BorderColor="#6EC1E4"
+                    Padding="24,12"
+                    HorizontalOptions="Center"
+                    Clicked="Button_OnClicked"
+                    Shadow="0,4,12,#B0C4FF" />
+        </VerticalStackLayout>
+        
+        <VerticalStackLayout
+            HorizontalOptions="Start"
+            VerticalOptions="End"
+            Margin="16,0,0,16">
+           <Frame 
+               x:Name="HilfsFrame"
+               BackgroundColor="#F3F7FF"
+               CornerRadius="20"
+               Padding="22,14"
+               HasShadow="True"
+               BorderColor="#E0E8FF"
+               IsVisible="False"
+               Margin="0,0,0,200"
+               Style="{StaticResource HilfsFrame}">
+               <Label
+                   x:Name="hilfsTexte"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="#ec5353"
+                   Margin="10,0,0,10"
+                   IsVisible="False"
+                   Style="{StaticResource hilfsTexte}">
+               </Label>
+           </Frame>
+            <HorizontalStackLayout
+                Spacing="2">
+                <ImageButton
+                    x:Name="HelpButton"
+                    Source="helpicon.png"
+                    BackgroundColor="#F3F7FF"
+                    CornerRadius="16"
+                    WidthRequest="44"
+                    HeightRequest="44"
+                    BorderColor="#E0E8FF"
+                    BorderWidth="2"
+                    Clicked="HelpButton_OnClicked"/>
+                <ImageButton
+                    x:Name="ShopButton"
+                    Source="shop.png"
+                    BackgroundColor="#F3F7FF"
+                    CornerRadius="16"
+                    WidthRequest="44"
+                    HeightRequest="44"
+                    BorderColor="#E0E8FF"
+                    BorderWidth="2"
+                    Clicked="ShopButton_OnClicked"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        
+    </Grid>
 </ContentPage>
