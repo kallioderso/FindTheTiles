@@ -1,17 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Storage;
+﻿namespace FindTheTiles;
 
-namespace FindTheTiles;
-
-public partial class MainMenu : ContentPage
+public partial class MainMenu
 {
     public MainMenu()
     {
         InitializeComponent();
         if(Preferences.Get("FirstStart", true))
-            Application.Current.MainPage.Navigation.PushAsync(new Tutorial(), true);
+            Application.Current?.MainPage?.Navigation?.PushAsync(new Tutorial(), true);
     }
 
     protected override void OnAppearing()
@@ -50,14 +45,46 @@ public partial class MainMenu : ContentPage
     
     private async void Button_OnClicked(object? sender, EventArgs e)
     {
-        await Application.Current.MainPage.Navigation.PushAsync(new GameView(), true);
+        try
+        {
+            if (Application.Current?.MainPage?.Navigation != null)
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new GameView(), true);
+            }
+        }
+        catch (Exception)
+        {
+            //inactive
+        }
     }
 
-    private void HelpButton_OnClicked(object? sender, EventArgs e)
+    private async void HelpButton_OnClicked(object? sender, EventArgs e)
     {
+        try
+        {
+            if (Application.Current?.MainPage?.Navigation != null)
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new Tutorial(), true);
+            }
+        }
+        catch (Exception)
+        {
+            //inactive
+        }
     }
 
-    private void ShopButton_OnClicked(object? sender, EventArgs e)
+    private async void ShopButton_OnClicked(object? sender, EventArgs e)
     {
+        try
+        {
+            if (Application.Current?.MainPage?.Navigation != null)
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new Shop(), true);
+            }
+        }
+        catch (Exception)
+        {
+            //inactive
+        }
     }
 }

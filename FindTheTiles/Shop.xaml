@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FindTheTiles.Shop"
+             BackgroundColor="#F9FBFF"
+    >
+    <ContentPage.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Color="#F9FBFF" Offset="0.0" />
+            <GradientStop Color="#E6F0FF" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Button
+        x:Name="ExitButton"
+        Text="✕"
+        FontSize="16"
+        BackgroundColor="#F3F7FF"
+        TextColor="#2D5FFF"
+        CornerRadius="16"
+        WidthRequest="44"
+        HeightRequest="44"
+        BorderColor="#E0E8FF"
+        BorderWidth="2"
+        HorizontalOptions="End"
+        VerticalOptions="Start"
+        Margin="0,16,16,0"
+        Clicked="ExitButton_Clicked"/>
+
+</ContentPage>

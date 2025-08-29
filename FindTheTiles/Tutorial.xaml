@@ -48,8 +48,7 @@
                            FontAttributes="Bold"
                            TextColor="#2D5FFF"
                            HorizontalOptions="Center"
-                           Shadow="2,2,8,#B0C4FF" 
-                           FontSize="20">
+                           FontSize="20"><!-- Shadow="2,2,8,#B0C4FF" -->
                         Find the Tiles - Tutorial
                     </Label>
                 </Frame>

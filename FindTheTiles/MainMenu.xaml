@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FindTheTiles.MainMenu"
@@ -113,30 +113,7 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
-            <Style TargetType="Grid" x:Key="LevelGrid">
-                <Setter Property="VisualStateManager.VisualStateGroups">
-                    <VisualStateGroupList>
-                        <VisualStateGroup>
-                            <VisualState x:Name="Portrait">
-                                <VisualState.StateTriggers>
-                                    <OrientationStateTrigger Orientation="Portrait"/>
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Property="WidthRequest" Value="250"/>
-                                </VisualState.Setters>
-                            </VisualState>
-                            <VisualState x:Name="Landscape">
-                                <VisualState.StateTriggers>
-                                    <OrientationStateTrigger Orientation="Landscape"/>
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Property="WidthRequest" Value="170"/>
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </Setter>
-            </Style>
+           
             <Style TargetType="StackLayout" x:Key="Slayoutscores">
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
@@ -161,30 +138,7 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
-            <Style TargetType="ProgressBar" x:Key="LevelProgress">
-                <Setter Property="VisualStateManager.VisualStateGroups">
-                    <VisualStateGroupList>
-                        <VisualStateGroup>
-                            <VisualState x:Name="Portrait">
-                                <VisualState.StateTriggers>
-                                    <OrientationStateTrigger Orientation="Portrait"/>
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Property="WidthRequest" Value="200"/>
-                                </VisualState.Setters>
-                            </VisualState>
-                            <VisualState x:Name="Landscape">
-                                <VisualState.StateTriggers>
-                                    <OrientationStateTrigger Orientation="Landscape"/>
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Property="WidthRequest" Value="140"/>
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </Setter>
-            </Style>
+
             <Style TargetType="Label" x:Key="LevelText">
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
@@ -209,43 +163,10 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
-            <Style TargetType="Label" x:Key="LevelProgressText">
+            <Style TargetType="Label" x:Key="Hilfstexte">
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup>
-                            <VisualState x:Name="Portrait">
-                                <VisualState.StateTriggers>
-                                    <OrientationStateTrigger Orientation="Portrait"/>
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Property="FontSize" Value="13"/>
-                                    <Setter Property="Margin" Value="0,40,0,0"/>
-                                </VisualState.Setters>
-                            </VisualState>
-                            <VisualState x:Name="Landscape">
-                                <VisualState.StateTriggers>
-                                    <OrientationStateTrigger Orientation="Landscape"/>
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Property="FontSize" Value="11"/>
-                                    <Setter Property="Margin" Value="0,40,0,0"/>
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </Setter>
-            </Style>
-            <Style TargetType="Label" x:Key="hilfsTexte">
-                <Setter Property="VisualStateManager.VisualStateGroups">
-                    <VisualStateGroupList>
-                        <VisualStateGroup>
-                            <VisualState x:Name="Portrait">
-                                <VisualState.StateTriggers>
-                                    <OrientationStateTrigger Orientation="Portrait"/>
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                </VisualState.Setters>
-                            </VisualState>
                             <VisualState x:Name="Landscape">
                                 <VisualState.StateTriggers>
                                     <OrientationStateTrigger Orientation="Landscape"/>
@@ -286,15 +207,14 @@
     </ContentPage.Resources>
     
     <Grid>
-        <VerticalStackLayout x:Name="MainStackLayout" Padding="32,70" Spacing="44" Margin="0,0,0,0" HorizontalOptions="Center" VerticalOptions="Center" Style="{OnPlatform Android={StaticResource MainStackLayout}}">
+        <VerticalStackLayout x:Name="MainStackLayout" Padding="32,70" Spacing="44" Margin="0,0,0,0" HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource MainStackLayout}">
             <Label Text="Find the Tiles"
                    x:Name="Titel"
                    FontAttributes="Bold"
                    TextColor="#2D5FFF"
                    HorizontalOptions="Center"
-                   Shadow="2,2,8,#B0C4FF" 
                    FontSize="44"
-                   Style="{OnPlatform Android={StaticResource Titel}}"/>
+                   Style="{OnPlatform Android={StaticResource Titel}}"/><!-- Shadow="2,2,8,#B0C4FF" -->
 
             <StackLayout x:Name="StackLayoutOrientation1" Spacing="22" Orientation="Vertical" Style="{OnPlatform Android={StaticResource Slayoutscores}}">
                 <Frame BackgroundColor="#F3F7FF"
@@ -385,8 +305,7 @@
                     BorderColor="#6EC1E4"
                     Padding="24,12"
                     HorizontalOptions="Center"
-                    Clicked="Button_OnClicked"
-                    Shadow="0,4,12,#B0C4FF" />
+                    Clicked="Button_OnClicked" /><!-- Shadow="0,4,12,#B0C4FF"-->
         </VerticalStackLayout>
         
         <VerticalStackLayout
@@ -404,13 +323,13 @@
                Margin="0,0,0,200"
                Style="{StaticResource HilfsFrame}">
                <Label
-                   x:Name="hilfsTexte"
+                   x:Name="Hilfstexte"
                    FontSize="16"
                    FontAttributes="Bold"
                    TextColor="#ec5353"
                    Margin="10,0,0,10"
                    IsVisible="False"
-                   Style="{StaticResource hilfsTexte}">
+                   Style="{StaticResource Hilfstexte}">
                </Label>
            </Frame>
             <HorizontalStackLayout

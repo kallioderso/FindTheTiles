@@ -1,27 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Maui;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Graphics;
-using Microsoft.Maui.Storage;
-
-namespace FindTheTiles;
+﻿namespace FindTheTiles;
 
 public partial class GameView
 {
     private const int GridSize = 7;
-    private const int MinPatternTiles = 10;
-    private const int MaxPatternTiles = 20;
-    private const int MaxTries = 30;
 
-    private static readonly (int dRow, int dCol)[] Directions = { (-1, 0), (1, 0), (0, -1), (0, 1) };
 
     // Private Felder
     private bool[,] _pattern = new bool[GridSize, GridSize];
-    private Button[,] _buttons = new Button[GridSize, GridSize];
-    private Button _lastButton = null;
+    private readonly Button[,] _buttons = new Button[GridSize, GridSize];
     private List<(int row, int col)> _patternCoordinates = new();
     private readonly double[,] _borderReduction =
     {
@@ -33,16 +19,16 @@ public partial class GameView
         { 0.07, 0.03, 0.03, 0.03, 0.03, 0.03, 0.07 },
         { 0.07, 0.07, 0.07, 0.07, 0.07, 0.07, 0.07 },
     };
-    private int _currentScore = 0;
-    private bool _isGameOver = false;
-    private int _foundPatternTiles = 0;
-    private int _totalPatternTiles = 0;
-    private static readonly Random _random = new();
-    private int _tries = 0;
+    private int _currentScore;
+    private bool _isGameOver;
+    private int _foundPatternTiles;
+    private int _totalPatternTiles;
+    private static readonly Random Random = new();
+    private int _tries;
     
     // Multiplikator-Logik
-    private int _completedPatterns = 0;
-    private double _multiplier = 1.0;
+    private int _completedPatterns;
+    private double _multiplier;
 
     public GameView(int score = 0, int completedPatterns = 0, double multiplier = 1.0)
     {
@@ -54,23 +40,18 @@ public partial class GameView
         GenerateTiles();
         UpdateScoreLabel();
         UpdateMultiplierLabel();
-        _tries = _random.Next(2, 5);
+        _tries = Random.Next(2, 5);
         UpdateTryLabel();
     }
     
     protected override void OnSizeAllocated(double width, double height)
     {
         base.OnSizeAllocated(width, height);
-
         string orientation = height > width ? "Portrait" : "Landscape";
-        
         VisualStateManager.GoToState(MainStack, orientation);
     }
 
-    private void ExitButton_Clicked(object sender, EventArgs e)
-    {
-        Navigation.PopAsync();
-    }
+    private void ExitButton_Clicked(object sender, EventArgs e) { Navigation.PopAsync(); }
 
     private void GenerateTiles()
     {
@@ -114,31 +95,22 @@ public partial class GameView
                     bool isStart = (row == startPoints.startrow1 && col == startPoints.startcol1) || (row == startPoints.startrow2 && col == startPoints.startcol2);
                     if (isStart)
                         button.BorderColor = Color.FromArgb("#4CAF50");
-                    button.Clicked += async (sender, e) => await OnPatternTileClicked(button, true);
+                    button.Clicked += async (_, _) => await OnPatternTileClicked(button, true);
                 }
                 else
                 {
-                    button.Clicked += async (sender, e) => await OnPatternTileClicked(button, false);
+                    button.Clicked += async (_, _) => await OnPatternTileClicked(button, false);
                 }
                 TilesGrid.Children.Add(button);
             }
         }
     }
 
-    private void UpdateScoreLabel()
-    {
-        CurrentScoreLabel.Text = _currentScore.ToString();
-    }
+    private void UpdateScoreLabel() { CurrentScoreLabel.Text = _currentScore.ToString(); }
 
-    private void UpdateTryLabel()
-    {
-        CurrentFailsLabel.Text = _tries.ToString();
-    }
+    private void UpdateTryLabel() { CurrentFailsLabel.Text = _tries.ToString(); }
 
-    private void UpdateMultiplierLabel()
-    {
-        MultiplierLabel.Text = $"x{_multiplier:0.0}";
-    }
+    private void UpdateMultiplierLabel() { MultiplierLabel.Text = $"x{_multiplier:0.0}"; }
 
     private void NextPattern()
     {
@@ -163,7 +135,6 @@ public partial class GameView
             return;
         button.IsEnabled = false;
         _buttons[TilesGrid.GetRow(button), TilesGrid.GetColumn(button)] = null!;
-        _lastButton = button;
 
         int buttonrow = TilesGrid.GetRow(button);
         int buttoncolumn = TilesGrid.GetColumn(button);
@@ -217,6 +188,16 @@ public partial class GameView
 
     private async void OnHelpButtonClicked(object? sender, EventArgs e)
     {
-        Application.Current.MainPage.Navigation.PushAsync(new Tutorial(), true);
+        try
+        {
+            if (Application.Current?.MainPage?.Navigation != null)
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new Tutorial(), true);
+            }
+        }
+        catch (Exception)
+        {
+            // ignored
+        }
     }
 }
