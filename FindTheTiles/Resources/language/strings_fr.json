@@ -1,0 +1,21 @@
+{
+    "Coins" : "Monnaies de champ",
+    "Highscore" : "meilleur score",
+    "Score" : "Score actuel",
+    "StartGame" : "Démarrer le jeu",
+    "Progress" : "Progrès",
+    "Multiplyer" : "Multiplicateur",
+    "RemainingAttempts" : "Tentatives restantes",
+    "Tutorial1" : "Cliquez sur le carreau de départ vert",
+    "Tutorial2" : "La couleur bleue indique que ce carreau fait partie du motif.",
+    "Tutorial3" : "L'objectif est de compléter le motif.",
+    "Tutorial4" : "Comme indice, le carreau montre maintenant combien des carreaux jaunes appartiennent au motif.",
+    "Tutorial5" : "Essayez maintenant de trouver les deux carreaux jaunes qui appartiennent au motif.",
+    "Tutorial6" : "Malheureusement, ce n'est pas une partie du motif, essayez encore.",
+    "Tutorial7" : "Bien joué! Vous avez trouvé les deux carreaux.",
+    "Tutorial8" : "Essayez maintenant de compléter le motif.",
+    "Tutorial9" : "Comme petite aide, vous obtenez maintenant une barre de progression qui vous montre combien du motif vous avez déjà trouvé.",
+    "Tutorial10" : "Vous avez trouvé une partie du motif, bien joué.",
+    "Tutorial11" : "Essayez maintenant de trouver le suivant.",
+    "Tutorial12" : "Félicitations! Vous avez terminé le tutoriel. Vous pouvez maintenant jouer au jeu."
+}

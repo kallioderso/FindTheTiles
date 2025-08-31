@@ -6,8 +6,8 @@
 
     <ContentPage.Background>
         <LinearGradientBrush EndPoint="0,1">
-            <GradientStop Color="#F9FBFF" Offset="0.0" />
-            <GradientStop Color="#E6F0FF" Offset="1.0" />
+            <GradientStop Color="#ffffff" Offset="0.0" />
+            <GradientStop Color="#ece1f4" Offset="1.0" />
         </LinearGradientBrush>
     </ContentPage.Background>
     
@@ -163,132 +163,134 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
-            <Style TargetType="Label" x:Key="Hilfstexte">
-                <Setter Property="VisualStateManager.VisualStateGroups">
-                    <VisualStateGroupList>
-                        <VisualStateGroup>
-                            <VisualState x:Name="Landscape">
-                                <VisualState.StateTriggers>
-                                    <OrientationStateTrigger Orientation="Landscape"/>
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Property="WidthRequest" Value="250"/>
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </Setter>
-            </Style>
-            <Style TargetType="Frame" x:Key="HilfsFrame">
-                <Setter Property="VisualStateManager.VisualStateGroups">
-                    <VisualStateGroupList>
-                        <VisualStateGroup>
-                            <VisualState x:Name="Portrait">
-                                <VisualState.StateTriggers>
-                                    <OrientationStateTrigger Orientation="Portrait"/>
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Property="Margin" Value="0,0,0,60"/>
-                                </VisualState.Setters>
-                            </VisualState>
-                            <VisualState x:Name="Landscape">
-                                <VisualState.StateTriggers>
-                                    <OrientationStateTrigger Orientation="Landscape"/>
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Property="Margin" Value="550,0,5,120"/>
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </Setter>
-            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     
     <Grid>
         <VerticalStackLayout x:Name="MainStackLayout" Padding="32,70" Spacing="44" Margin="0,0,0,0" HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource MainStackLayout}">
-            <Label Text="Find the Tiles"
+            <HorizontalStackLayout Spacing="8">
+                <ImageButton
+                    x:Name="LogoButton"
+                    Source="logo.png"
+                    BackgroundColor="#F3F7FF"
+                    CornerRadius="16"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    BorderColor="#E0E8FF"
+                    BorderWidth="2"
+                    VerticalOptions="Center"
+                    Clicked="LogoButton_OnClicked"/>
+                 <Label Text="Find The Tiles"
                    x:Name="Titel"
                    FontAttributes="Bold"
-                   TextColor="#2D5FFF"
+                   TextColor="#a997d7"
                    HorizontalOptions="Center"
-                   FontSize="44"
+                   FontSize="48"
                    Style="{OnPlatform Android={StaticResource Titel}}"/><!-- Shadow="2,2,8,#B0C4FF" -->
+            </HorizontalStackLayout>
 
-            <StackLayout x:Name="StackLayoutOrientation1" Spacing="22" Orientation="Vertical" Style="{OnPlatform Android={StaticResource Slayoutscores}}">
-                <Frame BackgroundColor="#F3F7FF"
+            <StackLayout x:Name="StackLayoutOrientation1" Spacing="11" Orientation="Vertical" Style="{OnPlatform Android={StaticResource Slayoutscores}}">
+                <StackLayout x:Name="StackLayoutOrientation3" Spacing="11" HorizontalOptions="Center" Orientation="Horizontal" Style="{OnPlatform Android={StaticResource Slayoutscores}}">
+                    <Frame BackgroundColor="#FFFFFF"
                        x:Name="TileCoinFrame"
                        CornerRadius="20"
-                       Padding="22,14"
+                       Padding="40,14"
                        HasShadow="True"
-                       BorderColor="#E0E8FF">
-                    <VerticalStackLayout>
-                        <Label Text="Tile-Coins"
-                               x:Name="TileCoinsLabel"
-                               FontSize="16"
-                               TextColor="#7A8FA6"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Start"
-                               Style="{OnPlatform Android={StaticResource LevelText}}"/>
-                        
-                        <HorizontalStackLayout HorizontalOptions="Center">
-                            <Label
-                                x:Name="TileCoinsCountLabel"
-                                Text="0"
-                                TextColor="#7A8FA6"
-                                FontSize="16" 
-                                VerticalOptions="Center"
-                                HorizontalOptions="Center"/>
-                            <Image  
-                                Source="tilecoins.png" 
-                                HeightRequest="44" 
-                                WidthRequest="44"
-                                VerticalOptions="Center"/>
-                        </HorizontalStackLayout>
-                    </VerticalStackLayout>
-                </Frame>
-                <StackLayout x:Name="StackLayoutOrientation2" Spacing="22" HorizontalOptions="Center" Orientation="Horizontal" Style="{OnPlatform Android={StaticResource Slayoutscores}}">
-                    <Frame BackgroundColor="#F3F7FF"
+                       BorderColor="#a997d7">
+                        <VerticalStackLayout>
+                            <Label Text="Tile-Coins"
+                                x:Name="TileCoinsLabel"
+                                FontSize="19"
+                                TextColor="#503a8f"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Start"
+                                Style="{OnPlatform Android={StaticResource LevelText}}"/>
+                            
+                            <HorizontalStackLayout HorizontalOptions="Center">
+                                <Label
+                                    x:Name="TileCoinsCountLabel"
+                                    Text="0"
+                                    TextColor="#a997d7"
+                                    FontSize="17" 
+                                    FontAttributes="Bold"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="Center"/>
+                                <Image  
+                                    Source="tilecoins.png" 
+                                    HeightRequest="44" 
+                                    WidthRequest="44"
+                                    VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                    <Frame BackgroundColor="#FFFFFF"
+                           x:Name="DifficultyFrame"
+                           CornerRadius="20"
+                           Padding="40,14"
+                           HasShadow="True"
+                           BorderColor="#a997d7">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Difficulty"
+                                   x:Name="DifficultyLabelTitel"
+                                   TextColor="#503a8f"
+                                   FontSize="19"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   Style="{OnPlatform Android={StaticResource TextLabel}}"/>
+                            <Label Text="1"
+                                   x:Name="DifficultyLabel"
+                                   FontAttributes="Bold"
+                                   FontSize="17"
+                                   TextColor="#a997d7"
+                                   HorizontalOptions="Center"
+                                   Style="{OnPlatform Android={StaticResource LevelText}}"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </StackLayout>
+                <StackLayout x:Name="StackLayoutOrientation2" Spacing="11" HorizontalOptions="Center" Orientation="Horizontal" Style="{OnPlatform Android={StaticResource Slayoutscores}}">
+                    <Frame BackgroundColor="#FFFFFF"
                            x:Name="HighscoreFrame"
                            CornerRadius="20"
-                           Padding="22,14"
+                           Padding="40,14"
                            HasShadow="True"
-                           BorderColor="#E0E8FF">
+                           BorderColor="#a997d7">
                         <VerticalStackLayout Spacing="2">
                             <Label Text="Highscore"
                                    x:Name="LabelHighScoreTitel"
-                                   TextColor="#7A8FA6"
-                                   FontSize="15"
+                                   TextColor="#503a8f"
+                                   FontSize="19"
+                                   FontAttributes="Bold"
                                    HorizontalOptions="Center"
                                    Style="{OnPlatform Android={StaticResource TextLabel}}"/>
                             <Label Text="0"
                                    x:Name="HighscoreLabel"
                                    FontAttributes="Bold"
-                                   TextColor="#2D5FFF"
-                                   FontSize="18"
+                                   TextColor="#a997d7"
+                                   FontSize="17"
                                    HorizontalOptions="Center"
                                    Style="{OnPlatform Android={StaticResource ScoreLabel}}"/>
                         </VerticalStackLayout>
                     </Frame>
-                    <Frame BackgroundColor="#F3F7FF"
+                    <Frame BackgroundColor="#FFFFFF"
                            x:Name="LastScoreFrame"
                            CornerRadius="20"
-                           Padding="22,14"
+                           Padding="40,14"
                            HasShadow="True"
-                           BorderColor="#E0E8FF">
+                           BorderColor="#a997d7">
                         <VerticalStackLayout Spacing="2">
                             <Label Text="Aktueller Score"
                                    x:Name="LabelCurrentScoreTitel"
-                                   TextColor="#7A8FA6"
-                                   FontSize="15"
+                                   TextColor="#503a8f"
+                                   FontSize="19"
+                                   FontAttributes="Bold"
                                    HorizontalOptions="Center"
                                    Style="{OnPlatform Android={StaticResource TextLabel}}"/>
                             <Label Text="0"
                                    x:Name="CurrentScoreLabel"
                                    FontAttributes="Bold"
-                                   FontSize="18"
-                                   TextColor="#2D5FFF"
+                                   FontSize="17"
+                                   TextColor="#a997d7"
                                    HorizontalOptions="Center"
                                    Style="{OnPlatform Android={StaticResource ScoreLabel}}"/>
                         </VerticalStackLayout>
@@ -298,11 +300,12 @@
             
             <Button Text="Spiel starten"
                     x:Name="StartButton"
-                    FontSize="22"
-                    BackgroundColor="#6EC1E4"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    BackgroundColor="#a997d7"
                     TextColor="#FFFFFF"
                     CornerRadius="18"
-                    BorderColor="#6EC1E4"
+                    BorderColor="#a997d7"
                     Padding="24,12"
                     HorizontalOptions="Center"
                     Clicked="Button_OnClicked" /><!-- Shadow="0,4,12,#B0C4FF"-->
@@ -311,27 +314,8 @@
         <VerticalStackLayout
             HorizontalOptions="Start"
             VerticalOptions="End"
+            Spacing="4"
             Margin="16,0,0,16">
-           <Frame 
-               x:Name="HilfsFrame"
-               BackgroundColor="#F3F7FF"
-               CornerRadius="20"
-               Padding="22,14"
-               HasShadow="True"
-               BorderColor="#E0E8FF"
-               IsVisible="False"
-               Margin="0,0,0,200"
-               Style="{StaticResource HilfsFrame}">
-               <Label
-                   x:Name="Hilfstexte"
-                   FontSize="16"
-                   FontAttributes="Bold"
-                   TextColor="#ec5353"
-                   Margin="10,0,0,10"
-                   IsVisible="False"
-                   Style="{StaticResource Hilfstexte}">
-               </Label>
-           </Frame>
             <HorizontalStackLayout
                 Spacing="2">
                 <ImageButton
@@ -339,8 +323,8 @@
                     Source="helpicon.png"
                     BackgroundColor="#F3F7FF"
                     CornerRadius="16"
-                    WidthRequest="44"
-                    HeightRequest="44"
+                    WidthRequest="60"
+                    HeightRequest="60"
                     BorderColor="#E0E8FF"
                     BorderWidth="2"
                     Clicked="HelpButton_OnClicked"/>
@@ -349,13 +333,22 @@
                     Source="shop.png"
                     BackgroundColor="#F3F7FF"
                     CornerRadius="16"
-                    WidthRequest="44"
-                    HeightRequest="44"
+                    WidthRequest="60"
+                    HeightRequest="60"
                     BorderColor="#E0E8FF"
                     BorderWidth="2"
                     Clicked="ShopButton_OnClicked"/>
+                <ImageButton
+                    x:Name="LanguageButton"
+                    Source="language.png"
+                    BackgroundColor="#F3F7FF"
+                    CornerRadius="16"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    BorderColor="#E0E8FF"
+                    BorderWidth="2"
+                    Clicked="LanguageButton_OnClicked"/>
             </HorizontalStackLayout>
         </VerticalStackLayout>
-        
     </Grid>
 </ContentPage>

@@ -1,0 +1,21 @@
+{
+    "Coins" : "Tile-Coins",
+    "Highscore" : "Highscore",
+    "Score" : "Current Score",
+    "StartGame" : "Start Game",
+    "Progress" : "Progress",
+    "Multiplyer" : "Multiplyer",
+    "RemainingAttempts" : "Remaining Attempts",
+    "Tutorial1" : "Click on the green start tile",
+    "Tutorial2" : "The blue color indicates that this tile is part of the pattern.",
+    "Tutorial3" : "The goal is to complete the pattern.",
+    "Tutorial4" : "As a hint, the tile now shows how many of the yellow tiles belong to the pattern.",
+    "Tutorial5" : "Try to find the two yellow tiles that belong to the pattern.",
+    "Tutorial6" : "Unfortunately, this is not part of the pattern, try again.",
+    "Tutorial7" : "Well done! You found both tiles.",
+    "Tutorial8" : "Now try to complete the pattern.",
+    "Tutorial9" : "As a small help, you now get a progress bar that shows you how much of the pattern you have already found.",
+    "Tutorial10" : "You found a part of the pattern, well done.",
+    "Tutorial11" : "Now try to find the next one.",
+    "Tutorial12" : "Congratulations! You have completed the tutorial. You can now play the game."
+}

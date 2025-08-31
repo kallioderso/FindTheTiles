@@ -1,4 +1,6 @@
-﻿namespace FindTheTiles;
+﻿using System.Diagnostics;
+
+namespace FindTheTiles;
 
 public partial class MainMenu
 {
@@ -17,6 +19,16 @@ public partial class MainMenu
         HighscoreLabel.Text = highscore.ToString();
         CurrentScoreLabel.Text = lastScore.ToString();
         UpdateTileCoins();
+        SetLanguage();
+    }
+
+    private void SetLanguage()
+    {
+        DifficultyLabelTitel.Text = LanguageManager.GetText("Difficulty");
+        TileCoinsLabel.Text = LanguageManager.GetText("Coins");
+        LabelCurrentScoreTitel.Text = LanguageManager.GetText("Score");
+        LabelHighScoreTitel.Text = LanguageManager.GetText("Highscore");
+        StartButton.Text = LanguageManager.GetText("StartGame");
     }
     
     protected override void OnSizeAllocated(double width, double height)
@@ -33,6 +45,8 @@ public partial class MainMenu
         VisualStateManager.GoToState(StackLayoutOrientation2, orientation);
         VisualStateManager.GoToState(Titel, orientation);
         VisualStateManager.GoToState(MainStackLayout, orientation);
+        VisualStateManager.GoToState(DifficultyFrame, orientation);
+
     }
 
 
@@ -86,5 +100,27 @@ public partial class MainMenu
         {
             //inactive
         }
+    }
+
+    private void LanguageButton_OnClicked(object? sender, EventArgs e)
+    {
+        if (Preferences.Get("language", "en") == "en")
+            Preferences.Set("language", "de");
+        else if (Preferences.Get("language", "en") == "de")
+            Preferences.Set("language", "fr");
+        else if (Preferences.Get("language", "en") == "fr")
+            Preferences.Set("language", "en");
+
+        LanguageManager.Update();
+        SetLanguage(); // <-- Texte neu laden!
+    }
+
+    private void LogoButton_OnClicked(object? sender, EventArgs e)
+    {
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = "http://github.com/kallioderso/FindTheTiles",
+            UseShellExecute = true
+        });
     }
 }

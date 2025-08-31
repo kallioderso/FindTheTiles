@@ -1,0 +1,21 @@
+{
+    "Coins" : "Feld-Münzen",
+    "Highscore" : "Höchstpunktzahl",
+    "Score" : "Aktuelle Punktzahl",
+    "StartGame" : "Spiel starten",
+    "Progress" : "Fortschritt",
+    "Multiplyer" : "Multiplikator",
+    "RemainingAttempts" : "Verbleibende Versuche",
+    "Tutorial1" : "Klicke auf das grüne Startfeld",
+    "Tutorial2" : "Die blaue Farbe zeigt an, dass dieses Feld zum Muster gehört.",
+    "Tutorial3" : "Das Ziel ist es, das Muster zu vervollständigen.",
+    "Tutorial4" : "Als hinweis zeigt das Feld nun an, wie viele der Gelben Felder zu dem Muster gehören.",
+    "Tutorial5" : "Versuche nun, die beiden gelben Feldern zu finden, die zum Muster gehören.",
+    "Tutorial6" : "Das ist leider kein teil des Musters, versuche es noch einmal.",
+    "Tutorial7" : "Gut gemacht! Du hast beide Felder gefunden.",
+    "Tutorial8" : "Versuche nun, das Muster zu vervollständigen.",
+    "Tutorial9" : "Als kleine Hilfe bekommst du nun einen Fortschrittsbalken, der dir anzeigt, wie viel des Musters du bereits gefunden hast.",
+    "Tutorial10" : "Du hast ein Teil des Musters gefunden, Gut gemacht.",
+    "Tutorial11" : "Versuche nun noch das nächste zu finden.",
+    "Tutorial12" : "Glückwunsch! Du hast das Tutorial abgeschlossen. Du kannst nun das Spiel spielen."
+}

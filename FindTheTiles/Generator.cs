@@ -33,7 +33,7 @@ public class Generator
                     matches++;
                 try
                 {
-                    if (buttons[nRow, nCol] != null && buttons[nRow, nCol].BackgroundColor.ToArgbHex() == Color.FromArgb("#F3F7FF").ToArgbHex())
+                    if (buttons[nRow, nCol] != null && buttons[nRow, nCol].BackgroundColor.ToArgbHex() == Color.FromArgb("#FFFFFF").ToArgbHex())
                     {
                         buttons[nRow, nCol].BackgroundColor = Color.FromArgb("#FFF8DC");
                         buttons[nRow, nCol].BorderColor = Color.FromArgb("#FAFAAA");

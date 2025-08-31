@@ -29,7 +29,6 @@ public partial class GameView
     // Multiplikator-Logik
     private int _completedPatterns;
     private double _multiplier;
-
     public GameView(int score = 0, int completedPatterns = 0, double multiplier = 1.0)
     {
         InitializeComponent();
@@ -42,8 +41,17 @@ public partial class GameView
         UpdateMultiplierLabel();
         _tries = Random.Next(2, 5);
         UpdateTryLabel();
+        SetLanguage();
     }
-    
+
+    private void SetLanguage()
+    {
+        ProgressLabel.Text = LanguageManager.GetText("Progress");
+        CurrentScoreLabelTitle.Text = LanguageManager.GetText("Score");
+        MultiplierLabelTitle.Text = LanguageManager.GetText("Multiplyer");
+        TriesLabelTitle.Text = LanguageManager.GetText("RemainingAttempts");
+    }
+
     protected override void OnSizeAllocated(double width, double height)
     {
         base.OnSizeAllocated(width, height);
@@ -69,13 +77,13 @@ public partial class GameView
             {
                 var button = new Button
                 {
-                    BackgroundColor = Color.FromArgb("#F3F7FF"),
-                    BorderColor = Color.FromArgb("#E0E8FF"),
+                    BackgroundColor = Color.FromArgb("#FFFFFF"),
+                    BorderColor = Color.FromArgb("#a997d7"),
                     BorderWidth = 2,
                     CornerRadius = 16,
                     Shadow = new Shadow
                     {
-                        Brush = new SolidColorBrush(Color.FromArgb("#B0C4FF")),
+                        Brush = new SolidColorBrush(Color.FromArgb("#674daaff")),
                         Offset = new Point(0, 2),
                         Radius = 6,
                         Opacity = 0.4f
@@ -186,7 +194,7 @@ public partial class GameView
         }
     }
 
-    private async void OnHelpButtonClicked(object? sender, EventArgs e)
+    private async void HelpButton_OnClicked(object? sender, EventArgs e)
     {
         try
         {
@@ -199,5 +207,18 @@ public partial class GameView
         {
             // ignored
         }
+    }
+
+    private void LanguageButton_OnClicked(object? sender, EventArgs e)
+    {
+        if (Preferences.Get("language", "en") == "en")
+            Preferences.Set("language", "de");
+        else if (Preferences.Get("language", "en") == "de")
+            Preferences.Set("language", "fr");
+        else if (Preferences.Get("language", "en") == "fr")
+            Preferences.Set("language", "en");
+
+        LanguageManager.Update();
+        SetLanguage(); // <-- Texte neu laden!
     }
 }

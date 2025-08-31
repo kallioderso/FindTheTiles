@@ -50,7 +50,7 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\icon.png" />
+        <MauiIcon Include="Resources\AppIcon\app.png" />
         
         <!-- Splash Screen -->
         <MauiSplashScreen Include="Resources\Splash\splash.png" Color="#FFFFFF" BaseSize="128,128"/>
@@ -75,6 +75,11 @@
       <Folder Include="images\" />
     </ItemGroup>
 
+    <ItemGroup>
+    <Content Include="Resources\language\strings_*.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    </ItemGroup>
 
 
 </Project>

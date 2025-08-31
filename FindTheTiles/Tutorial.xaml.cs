@@ -15,6 +15,8 @@ public partial class Tutorial
         { false, false, false, true, false, false, false },
     };
 
+    private string lastText = string.Empty;
+
     private int _musterTiles;
     private readonly int[,] _disappearing =
     {
@@ -35,8 +37,15 @@ public partial class Tutorial
 
     protected override async void OnAppearing()
     {
-        base.OnAppearing();
-        await GenerateStartPoint();
+        try
+        {
+            base.OnAppearing();
+            await GenerateStartPoint();
+        }
+        catch (Exception)
+        {
+            // ignored
+        }
     }
 
     private void ExitButton_Clicked(object? sender, EventArgs e)
@@ -52,13 +61,13 @@ public partial class Tutorial
             {
                 var button = new Button
                 {
-                    BackgroundColor = Color.FromArgb("#F3F7FF"),
-                    BorderColor = Color.FromArgb("#E0E8FF"),
+                    BackgroundColor = Color.FromArgb("#FFFFFF"),
+                    BorderColor = Color.FromArgb("#a997d7"),
                     BorderWidth = 2,
                     CornerRadius = 16,
                     Shadow = new Shadow
                     {
-                        Brush = new SolidColorBrush(Color.FromArgb("#B0C4FF")),
+                        Brush = new SolidColorBrush(Color.FromArgb("#674daaff")),
                         Offset = new Point(0, 2),
                         Radius = 6,
                         Opacity = 0.4f
@@ -106,7 +115,7 @@ public partial class Tutorial
         await Task.Delay(500);
         _startbutton.BorderColor = Color.FromArgb("#4CAF50");
         _startbutton.Clicked += StartPoint_Clicked;
-        await AddText("Klicke auf das grüne Startfeld");
+        await AddText(LanguageManager.GetText("Tutorial1")); lastText = "Tutorial1";
         Unfroze();
     }
 
@@ -136,109 +145,130 @@ public partial class Tutorial
 
     private async void StartPoint_Clicked(object? sender, EventArgs e)
     {
-        _startbutton.BackgroundColor = Color.FromArgb("#D0E0FF");
-        _startbutton.BorderColor = Color.FromArgb("#A0B8FF");
-        _startbutton.Shadow.Opacity = 0.2f;
-        _startbutton.Shadow.Brush = new SolidColorBrush(Color.FromArgb("#B0C4FF"));
-        _startbutton.Clicked -= StartPoint_Clicked;
-        await AddText("Die blaue Farbe zeigt an, dass dieses Feld zum Muster gehört.");
-        await Task.Delay(5000);
-        await AddText("Das Ziel ist es, das Muster zu vervollständigen.");
-        for (int row = 0; row < 7; row++)
+        try
         {
-            for (int col = 0; col < 7; col++)
+            _startbutton.BackgroundColor = Color.FromArgb("#D0E0FF");
+            _startbutton.BorderColor = Color.FromArgb("#A0B8FF");
+            _startbutton.Shadow.Opacity = 0.2f;
+            _startbutton.Shadow.Brush = new SolidColorBrush(Color.FromArgb("#B0C4FF"));
+            _startbutton.Clicked -= StartPoint_Clicked;
+            await AddText(LanguageManager.GetText("Tutorial2")); lastText = "Tutorial2";
+            await Task.Delay(5000);
+            await AddText(LanguageManager.GetText("Tutorial3")); lastText = "Tutorial3";
+            for (int row = 0; row < 7; row++)
             {
-                if (_disappearing[row, col] == 2) _buttons[row, col].IsVisible = true;
+                for (int col = 0; col < 7; col++)
+                {
+                    if (_disappearing[row, col] == 2) _buttons[row, col].IsVisible = true;
+                }
             }
+            await Task.Delay(5000);
+            await AddText(LanguageManager.GetText("Tutorial4")); lastText = "Tutorial4";
+            await Task.Delay(1000);
+            _startbutton.Text = Generator.GetNeighborCount(3, 3, _pattern, _buttons).ToString();
+            await Task.Delay(5000);
+            await AddText(LanguageManager.GetText("Tutorial5")); lastText = "Tutorial5";
+            RemoveButtonFromList(_startbutton);
+            _buttons[3, 2].Clicked += MusterClicked;
+            _buttons[2, 3].Clicked += MusterClicked;
+            _buttons[3, 4].Clicked += WrongClicked;
+            _buttons[4, 3].Clicked += WrongClicked;
+            Unfroze();
         }
-        await Task.Delay(5000);
-        await AddText("Als hinweis zeigt das Feld nun an, wie viele der Gelben Felder zu dem Muster gehören.");
-        await Task.Delay(1000);
-        _startbutton.Text = Generator.GetNeighborCount(3, 3, _pattern, _buttons).ToString();
-        await Task.Delay(5000);
-        await AddText("Versuche nun, die beiden gelben Feldern zu finden, die zum Muster gehören.");
-        RemoveButtonFromList(_startbutton);
-        _buttons[3, 2].Clicked += MusterClicked;
-        _buttons[2, 3].Clicked += MusterClicked;
-        _buttons[3, 4].Clicked += WrongClicked;
-        _buttons[4, 3].Clicked += WrongClicked;
-        Unfroze();
+        catch (Exception)
+        {
+            // nothing
+        }
     }
 
     private async void WrongClicked(object? sender, EventArgs e)
     {
-        var button = (Button)sender!;
-        button.BackgroundColor = Color.FromArgb("#FFCDD2");
-        button.BorderColor = Color.FromArgb("#E57373");
-        button.Shadow.Opacity = 0.2f;
-        button.Shadow.Brush = new SolidColorBrush(Color.FromArgb("#FF8A80"));
-        UnEnable(button);
-        button.Clicked -= WrongClicked; 
-        await AddText("Das ist leider kein teil des Musters, versuche es noch einmal.");
-        Unfroze();
+        try
+        {
+            var button = (Button)sender!;
+            button.BackgroundColor = Color.FromArgb("#FFCDD2");
+            button.BorderColor = Color.FromArgb("#E57373");
+            button.Shadow.Opacity = 0.2f;
+            button.Shadow.Brush = new SolidColorBrush(Color.FromArgb("#FF8A80"));
+            UnEnable(button);
+            button.Clicked -= WrongClicked; 
+            await AddText(LanguageManager.GetText("Tutorial6")); lastText = "Tutorial6";
+            Unfroze();
+        }
+        catch (Exception)
+        {
+            //Nothing still
+        }
     }
 
     private async void MusterClicked(object? sender, EventArgs e)
     {
-        var button = (Button)sender!;
-        button.BackgroundColor = Color.FromArgb("#D0E0FF");
-        button.BorderColor = Color.FromArgb("#A0B8FF");
-        button.Shadow.Opacity = 0.2f;
-        button.Shadow.Brush = new SolidColorBrush(Color.FromArgb("#B0C4FF"));
-        UnEnable(button);
-        button.Clicked -= MusterClicked;
-        _musterTiles++;
-        if (_musterTiles == 2)
+        try
         {
+            var button = (Button)sender!;
+            button.BackgroundColor = Color.FromArgb("#D0E0FF");
+            button.BorderColor = Color.FromArgb("#A0B8FF");
+            button.Shadow.Opacity = 0.2f;
+            button.Shadow.Brush = new SolidColorBrush(Color.FromArgb("#B0C4FF"));
+            UnEnable(button);
+            button.Clicked -= MusterClicked;
             _musterTiles++;
-            await AddText("Gut gemacht! Du hast beide Felder Gefunden.");
-            await Task.Delay(5000);
-            await AddText("Versuche nun, das Muster zu vervollständigen.");
-            for (int row = 0; row < 7; row++)
+            if (_musterTiles == 2)
             {
-                for (int col = 0; col < 7; col++)
+                _musterTiles++;
+                await AddText(LanguageManager.GetText("Tutorial7")); lastText = "Tutorial7";
+                await Task.Delay(5000);
+                await AddText(LanguageManager.GetText("Tutorial8")); lastText = "Tutorial8";
+                for (int row = 0; row < 7; row++)
                 {
-                    if (_disappearing[row, col] == 1) _buttons[row, col].IsVisible = true;
+                    for (int col = 0; col < 7; col++)
+                    {
+                        if (_disappearing[row, col] == 1) _buttons[row, col].IsVisible = true;
+                    }
                 }
-            }
-            await Task.Delay(500);
-            for (int row = 0; row < 7; row++)
-            {
-                for (int col = 0; col < 7; col++)
+                await Task.Delay(500);
+                for (int row = 0; row < 7; row++)
                 {
-                    if (_disappearing[row, col] == 0) _buttons[row, col].IsVisible = true;
+                    for (int col = 0; col < 7; col++)
+                    {
+                        if (_disappearing[row, col] == 0) _buttons[row, col].IsVisible = true;
+                    }
                 }
-            }
-            await Task.Delay(500);
-            _buttons[3, 2].Text = Generator.GetNeighborCount(3, 2, _pattern, _buttons).ToString();
-            _buttons[2, 3].Text = Generator.GetNeighborCount(2, 3, _pattern, _buttons).ToString();
-            if (_buttons[3, 4].BackgroundColor.ToArgbHex() == Color.FromArgb("#FFCDD2").ToArgbHex())
-            { 
-                _buttons[3, 4].Text = Generator.GetNeighborCount(3, 4, _pattern, _buttons).ToString();
-                RemoveButtonFromList(_buttons[3, 4]);
-            }
+                await Task.Delay(500);
+                _buttons[3, 2].Text = Generator.GetNeighborCount(3, 2, _pattern, _buttons).ToString();
+                _buttons[2, 3].Text = Generator.GetNeighborCount(2, 3, _pattern, _buttons).ToString();
+                if (_buttons[3, 4].BackgroundColor.ToArgbHex() == Color.FromArgb("#FFCDD2").ToArgbHex())
+                { 
+                    _buttons[3, 4].Text = Generator.GetNeighborCount(3, 4, _pattern, _buttons).ToString();
+                    RemoveButtonFromList(_buttons[3, 4]);
+                }
 
-            if (_buttons[4, 3].BackgroundColor.ToArgbHex() == Color.FromArgb("#FFCDD2").ToArgbHex())
-            {
-                _buttons[4, 3].Text = Generator.GetNeighborCount(4, 3, _pattern, _buttons).ToString();
-                RemoveButtonFromList(_buttons[4, 3]);
+                if (_buttons[4, 3].BackgroundColor.ToArgbHex() == Color.FromArgb("#FFCDD2").ToArgbHex())
+                {
+                    _buttons[4, 3].Text = Generator.GetNeighborCount(4, 3, _pattern, _buttons).ToString();
+                    RemoveButtonFromList(_buttons[4, 3]);
+                }
+                RemoveButtonFromList(_buttons[3, 2]);
+                RemoveButtonFromList(_buttons[2, 3]);
+                await Task.Delay(2000);
+                await AddText(LanguageManager.GetText("Tutorial9")); lastText = "Tutorial9";
+                FortschritsFrame.IsEnabled = true;
+                FortschritsFrame.IsVisible = true;
+                FinishProgress.Progress = (_musterTiles / 16.0);
+                ActivateNormalGame();
             }
-            RemoveButtonFromList(_buttons[3, 2]);
-            RemoveButtonFromList(_buttons[2, 3]);
-            await Task.Delay(2000);
-            await AddText("Als kleine Hilfe bekommst du nun einen Fortschrittsbalken, der dir anzeigt, wie viel des Musters du bereits gefunden hast.");
-            FortschritsFrame.IsEnabled = true;
-            FortschritsFrame.IsVisible = true;
-            FinishProgress.Progress = (_musterTiles / 16.0);
-            ActivateNormalGame();
+            else
+            {
+                await AddText(LanguageManager.GetText("Tutorial10")); lastText = "Tutorial10";
+                await Task.Delay(3000);
+                await AddText(LanguageManager.GetText("Tutorial11")); lastText = "Tutorial11";
+            }
+            Unfroze();
         }
-        else
+        catch (Exception)
         {
-            await AddText("Du hast ein Teil des Musters gefunden, Gut gemacht.");
-            await Task.Delay(3000);
-            await AddText("Versuche nun noch das nächste zu finden.");
+            //And again nothing
         }
-        Unfroze();
     }
 
     private void RemoveButtonFromList(Button button)
@@ -282,7 +312,7 @@ public partial class Tutorial
                     button.IsEnabled = true;
                 }
                 // Andere Buttons wie gehabt
-                else if (button.BackgroundColor.ToArgbHex() == Color.FromArgb("#FF7FF").ToArgbHex() ||
+                else if (button.BackgroundColor.ToArgbHex() == Color.FromArgb("#FFFFFF").ToArgbHex() ||
                          button.BackgroundColor.ToArgbHex() == Color.FromArgb("#FFF8DC").ToArgbHex())
                 {
                     button.IsEnabled = true;
@@ -347,11 +377,31 @@ public partial class Tutorial
 
     private async Task EndTutorial()
     {
-        await AddText("Glückwunsch! Du hast das Tutorial abgeschlossen. Du kannst nun das Spiel spielen.");
+        await AddText(LanguageManager.GetText("Tutorial12")); lastText = "Tutorial12";
         await Task.Delay(2000);
         if (Application.Current != null && Application.Current.MainPage?.Navigation != null)
         {
             await Application.Current.MainPage.Navigation.PopAsync();
+        }
+    }
+
+    private async void LanguageButton_OnClicked(object? sender, EventArgs e)
+    {
+        try
+        {
+            if (Preferences.Get("language", "en") == "en")
+                Preferences.Set("language", "de");
+            else if (Preferences.Get("language", "en") == "de")
+                Preferences.Set("language", "fr");
+            else if (Preferences.Get("language", "en") == "fr")
+                Preferences.Set("language", "en");
+
+            LanguageManager.Update();
+            await AddText(LanguageManager.GetText(lastText));
+        }
+        catch (Exception)
+        {
+            //Again Nothing
         }
     }
 }
