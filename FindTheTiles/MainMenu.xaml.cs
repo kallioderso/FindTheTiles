@@ -53,7 +53,7 @@ public partial class MainMenu
 
     private void UpdateTileCoins()
     {
-        int tileCoins = Preferences.Get("XP", 0);
+        int tileCoins = Preferences.Get("Coins", 0);
         TileCoinsCountLabel.Text = tileCoins.ToString();
     }
     

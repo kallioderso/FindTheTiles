@@ -6,25 +6,159 @@
     >
     <ContentPage.Background>
         <LinearGradientBrush EndPoint="0,1">
-            <GradientStop Color="#F9FBFF" Offset="0.0" />
-            <GradientStop Color="#E6F0FF" Offset="1.0" />
+            <GradientStop Color="#ffffff" Offset="0.0" />
+            <GradientStop Color="#ece1f4" Offset="1.0" />
         </LinearGradientBrush>
     </ContentPage.Background>
+    <Grid>
+        <ImageButton
+            x:Name="ExitButton"
+            Source="exit.png"
+            BackgroundColor="#F3F7FF"
+            CornerRadius="16"
+            WidthRequest="60"
+            HeightRequest="60"
+            BorderColor="#E0E8FF"
+            BorderWidth="2"
+            HorizontalOptions="End"
+            VerticalOptions="Start"
+            Margin="0,16,16,0"
+            Clicked="ExitButton_Clicked"/>
 
-    <Button
-        x:Name="ExitButton"
-        Text="✕"
-        FontSize="16"
-        BackgroundColor="#F3F7FF"
-        TextColor="#2D5FFF"
-        CornerRadius="16"
-        WidthRequest="44"
-        HeightRequest="44"
-        BorderColor="#E0E8FF"
-        BorderWidth="2"
-        HorizontalOptions="End"
-        VerticalOptions="Start"
-        Margin="0,16,16,0"
-        Clicked="ExitButton_Clicked"/>
-
+        <VerticalStackLayout 
+            HorizontalOptions="Center" 
+            VerticalOptions="Center"
+            Spacing="10">
+            <Label Text="Shop"
+                   x:Name="Titel"
+                   FontAttributes="Bold"
+                   TextColor="#a997d7"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Start"
+                   FontSize="48"/>
+            <ScrollView
+                HorizontalScrollBarVisibility="Never"
+                VerticalScrollBarVisibility="Always"
+                MaximumWidthRequest="800"
+                HeightRequest="600">
+                <StackLayout Spacing="16">
+                     <Frame BackgroundColor="#FFFFFF"
+                        CornerRadius="20"
+                        HasShadow="True"
+                        Margin="20,0, 20,0"
+                        BorderColor="#a997d7">
+                        <StackLayout Orientation="Vertical">
+                            <Label Text="Searcher"
+                                    FontSize="19"
+                                    TextColor="#503a8f"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Start"/>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10" Margin="10">
+                                <Image Source="searcher.png" HeightRequest="100" WidthRequest="100" />
+                                <StackLayout Orientation="Vertical" Spacing="10" WidthRequest="550">
+                                    <Label
+                                        Text="With this Item you can uncover a random Pattern Tile, you still get a point in return for the uncovered field"
+                                        TextColor="#a997d7"
+                                        FontSize="17" 
+                                        FontAttributes="Bold"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout Orientation="Vertical" Spacing="10">
+                                <StackLayout Orientation="Horizontal" 
+                                    HorizontalOptions="Center" Spacing="8">
+                                    <Label
+                                        Text="Owning: "
+                                        TextColor="#FFCCBAFA"
+                                        FontSize="17" />
+                                    <Label
+                                        Text=" 0"
+                                        x:Name="SearcherCountLabel"
+                                        TextColor="#ece1f4"
+                                        FontSize="17" 
+                                        FontAttributes="Bold"/>
+                                </StackLayout>
+                                <Button x:Name="BuySearcherButton" Text="Buy Now for 10 Coins" BorderColor="#a997d7" BackgroundColor="#FFFFFF" TextColor="#a997d7" WidthRequest="200" Clicked="Buy_Searcher" FontAttributes="Bold" BorderWidth="2"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                   <Frame BackgroundColor="#FFFFFF"
+                        CornerRadius="20"
+                        HasShadow="True"
+                        Margin="20,0, 20,0"
+                        BorderColor="#a997d7">
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="Bomb"
+                                        FontSize="19"
+                                        TextColor="#503a8f"
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Start"/>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10" Margin="10">
+                                    <StackLayout Orientation="Vertical" Spacing="10" WidthRequest="550">
+                                        <Label
+                                            Text="With this Item you can uncover a 3x3 area, you still get points in return for the uncovered field, at the same time you arent losing any Remaining Tries."
+                                            TextColor="#a997d7"
+                                            FontSize="17" 
+                                            FontAttributes="Bold"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Center"/>
+                                    </StackLayout>
+                                    <Image Source="bomb.png" HeightRequest="100" WidthRequest="100" />
+                                </StackLayout>
+                            <StackLayout Orientation="Vertical"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                Spacing="10">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="8">
+                                    <Label
+                                    Text="Owning: "
+                                    TextColor="#FFCCBAFA"
+                                    FontSize="17"/>
+                                    <Label
+                                        Text=" 0"
+                                        x:Name="BombCountLabel"
+                                        TextColor="#ece1f4"
+                                        FontSize="17" 
+                                        FontAttributes="Bold"/>
+                                </StackLayout>
+                                <Button x:Name="BuyBombButton" Text="Buy Now for 25 Coins" BorderColor="#a997d7" BackgroundColor="#FFFFFF" TextColor="#a997d7" WidthRequest="200" Clicked="Buy_Bomb" FontAttributes="Bold" BorderWidth="2"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </ScrollView>
+        </VerticalStackLayout>
+        <VerticalStackLayout
+            HorizontalOptions="Start"
+            VerticalOptions="End"
+            Spacing="4"
+            Margin="16,0,0,16">
+            <HorizontalStackLayout
+                Spacing="2">
+                <ImageButton
+                    x:Name="HelpButton"
+                    Source="helpicon.png"
+                    BackgroundColor="#F3F7FF"
+                    CornerRadius="16"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    BorderColor="#E0E8FF"
+                    BorderWidth="2"
+                    Clicked="HelpButton_OnClicked"/>
+                <ImageButton
+                    x:Name="LanguageButton"
+                    Source="language.png"
+                    BackgroundColor="#F3F7FF"
+                    CornerRadius="16"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    BorderColor="#E0E8FF"
+                    BorderWidth="2"
+                    Clicked="LanguageButton_OnClicked"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>

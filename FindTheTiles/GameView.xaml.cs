@@ -9,26 +9,29 @@ public partial class GameView
     private bool[,] _pattern = new bool[GridSize, GridSize];
     private readonly Button[,] _buttons = new Button[GridSize, GridSize];
     private List<(int row, int col)> _patternCoordinates = new();
+
     private readonly double[,] _borderReduction =
     {
         { 0.07, 0.07, 0.07, 0.07, 0.07, 0.07, 0.07 },
         { 0.07, 0.03, 0.03, 0.03, 0.03, 0.03, 0.07 },
-        { 0.07, 0.03, 0, 0, 0, 0.03, 0.07},
-        { 0.07, 0.03, 0, 0, 0, 0.03, 0.07},
-        { 0.07, 0.03, 0, 0, 0, 0.03, 0.07},
+        { 0.07, 0.03, 0, 0, 0, 0.03, 0.07 },
+        { 0.07, 0.03, 0, 0, 0, 0.03, 0.07 },
+        { 0.07, 0.03, 0, 0, 0, 0.03, 0.07 },
         { 0.07, 0.03, 0.03, 0.03, 0.03, 0.03, 0.07 },
         { 0.07, 0.07, 0.07, 0.07, 0.07, 0.07, 0.07 },
     };
+
     private int _currentScore;
     private bool _isGameOver;
     private int _foundPatternTiles;
     private int _totalPatternTiles;
     private static readonly Random Random = new();
     private int _tries;
-    
+
     // Multiplikator-Logik
     private int _completedPatterns;
     private double _multiplier;
+
     public GameView(int score = 0, int completedPatterns = 0, double multiplier = 1.0)
     {
         InitializeComponent();
@@ -42,6 +45,7 @@ public partial class GameView
         _tries = Random.Next(2, 5);
         UpdateTryLabel();
         SetLanguage();
+        UpdateItems();
     }
 
     private void SetLanguage()
@@ -59,7 +63,10 @@ public partial class GameView
         VisualStateManager.GoToState(MainStack, orientation);
     }
 
-    private void ExitButton_Clicked(object sender, EventArgs e) { Navigation.PopAsync(); }
+    private void ExitButton_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PopAsync();
+    }
 
     private void GenerateTiles()
     {
@@ -100,7 +107,8 @@ public partial class GameView
                 if (_pattern[row, col])
                 {
                     _totalPatternTiles++;
-                    bool isStart = (row == startPoints.startrow1 && col == startPoints.startcol1) || (row == startPoints.startrow2 && col == startPoints.startcol2);
+                    bool isStart = (row == startPoints.startrow1 && col == startPoints.startcol1) ||
+                                   (row == startPoints.startrow2 && col == startPoints.startcol2);
                     if (isStart)
                         button.BorderColor = Color.FromArgb("#4CAF50");
                     button.Clicked += async (_, _) => await OnPatternTileClicked(button, true);
@@ -109,16 +117,26 @@ public partial class GameView
                 {
                     button.Clicked += async (_, _) => await OnPatternTileClicked(button, false);
                 }
+
                 TilesGrid.Children.Add(button);
             }
         }
     }
 
-    private void UpdateScoreLabel() { CurrentScoreLabel.Text = _currentScore.ToString(); }
+    private void UpdateScoreLabel()
+    {
+        CurrentScoreLabel.Text = _currentScore.ToString();
+    }
 
-    private void UpdateTryLabel() { CurrentFailsLabel.Text = _tries.ToString(); }
+    private void UpdateTryLabel()
+    {
+        CurrentFailsLabel.Text = _tries.ToString();
+    }
 
-    private void UpdateMultiplierLabel() { MultiplierLabel.Text = $"x{_multiplier:0.0}"; }
+    private void UpdateMultiplierLabel()
+    {
+        MultiplierLabel.Text = $"x{_multiplier:0.0}";
+    }
 
     private void NextPattern()
     {
@@ -133,6 +151,7 @@ public partial class GameView
             add += inBlock * (0.1 + 0.1 * i);
             rest -= inBlock;
         }
+
         _multiplier = baseMulti + add;
         UpdateMultiplierLabel();
     }
@@ -184,8 +203,8 @@ public partial class GameView
                 int highscore = Preferences.Get("Highscore", 0);
                 if (_currentScore > highscore)
                     Preferences.Set("Highscore", _currentScore);
-                int newXp = Preferences.Get("XP", 0) + _currentScore;
-                Preferences.Set("XP", newXp);
+                int newCoins = Preferences.Get("Coins", 0) + _currentScore;
+                Preferences.Set("Coins", newCoins);
                 Preferences.Set("LastScore", _currentScore);
 
                 await Task.Delay(2000);
@@ -220,5 +239,72 @@ public partial class GameView
 
         LanguageManager.Update();
         SetLanguage(); // <-- Texte neu laden!
+    }
+
+    private void UpdateItems()
+    {
+        if (Preferences.Get("Bombs", 0) > 0)
+        {
+            BombButton.Source = "bomb.png";
+        }
+        else
+        {
+            BombButton.Source = "nobomb.png";
+        }
+
+        if (Preferences.Get("Searchers", 0) > 0)
+        {
+            SearchButton.Source = "searcher.png";
+        }
+        else
+        {
+            SearchButton.Source = "nosearch.png";
+        }
+    }
+
+    private void Search_OnClicked(object? sender, EventArgs e)
+    {
+        if (Preferences.Get("Searchers", 0) > 0)
+        {
+            Preferences.Set("Searchers", Preferences.Get("Searchers", 0) - 1);
+            Click_Random_Pattern_Tile();
+        }
+        UpdateItems();
+    }
+
+    private void Click_Random_Pattern_Tile() //Rework this because of youse of KI (note for myself)
+    {
+        while(true)
+        {
+            var availablePatternTiles = new List<(int row, int col)>();
+            for (int row = 0; row < GridSize; row++)
+            {
+                for (int col = 0; col < GridSize; col++)
+                {
+                    if (_pattern[row, col] && _buttons[row, col] != null && _buttons[row, col].IsEnabled)
+                    {
+                        availablePatternTiles.Add((row, col));
+                    }
+                }
+            }
+
+            if (availablePatternTiles.Count > 0)
+            {
+                var randomIndex = Random.Next(availablePatternTiles.Count);
+                var randomPatternTile = availablePatternTiles[randomIndex];
+                _buttons[randomPatternTile.row, randomPatternTile.col].BorderColor = Color.FromArgb("#FA026E");
+                break;
+            }
+        }
+        
+    }
+
+    private void Bomb_OnClicked(object? sender, EventArgs e)
+    {
+        // if(Preferences.Get("Bombs", 0) > 0)
+        // {
+        //     Preferences.Set("Bombs", Preferences.Get("Bombs", 0) - 1);
+        // }
+        UpdateItems();
     }
 }

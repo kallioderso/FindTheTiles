@@ -146,6 +146,28 @@
                         </VerticalStackLayout>
                     </Frame>
                 </StackLayout>
+                <HorizontalStackLayout Spacing="8">
+                    <ImageButton
+                    x:Name="SearchButton"
+                    Source="nosearch.png"
+                    BackgroundColor="#F3F7FF"
+                    CornerRadius="16"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    BorderColor="#E0E8FF"
+                    BorderWidth="2"
+                    Clicked="Search_OnClicked"/>
+                    <ImageButton
+                    x:Name="BombButton"
+                    Source="nobomb.png"
+                    BackgroundColor="#F3F7FF"
+                    CornerRadius="16"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    BorderColor="#E0E8FF"
+                    BorderWidth="2"
+                    Clicked="Bomb_OnClicked"/>
+                </HorizontalStackLayout>
             </VerticalStackLayout>
 
             <Grid x:Name="TilesGrid"
