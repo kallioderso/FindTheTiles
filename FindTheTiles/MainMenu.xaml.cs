@@ -18,6 +18,8 @@ public partial class MainMenu
         int lastScore = Preferences.Get("LastScore", 0);
         if (Preferences.Get("Resume", false))
             ResumeButton.IsVisible = true;
+        else
+            ResumeButton.IsVisible = false;
         HighscoreLabel.Text = highscore.ToString();
         CurrentScoreLabel.Text = lastScore.ToString();
         UpdateTileCoins();

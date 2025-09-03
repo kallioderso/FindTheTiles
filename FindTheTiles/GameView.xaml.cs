@@ -78,12 +78,14 @@ public partial class GameView
 
     private void ExitButton_Clicked(object sender, EventArgs e)
     {
-        Preferences.Set("Resume", true);
         Preferences.Set("ResumePattern", SerializePattern(_pattern));
         Preferences.Set("ResumeCordinates", SerializeCordinates(_patternCoordinates));
         Preferences.Set("ResumeCordinatesClicked", SerializeCordinates(_clickedTiles));
         Preferences.Set("ResumeCompletedPatterns", _completedPatterns);
         Preferences.Set("ResumeMultiplier", _multiplier);
+        Preferences.Set("ResumeScore", _currentScore);
+        Preferences.Set("ResumeTries", _tries);
+        Preferences.Set("Resume", true);
         Navigation.PopAsync();
     }
 
@@ -105,6 +107,9 @@ public partial class GameView
                 _pattern = DeserializePattern(Preferences.Get("ResumePattern", ""));
                 _patternCoordinates = DeserializeCordinates(Preferences.Get("ResumeCordinates", ""));
                 _clickedTiles = DeserializeCordinates(Preferences.Get("ResumeCordinatesClicked", ""));
+                _multiplier = Preferences.Get("ResumeMultiplier", 1);
+                _currentScore = Preferences.Get("ResumeScore", 0);
+                _tries = Preferences.Get("ResumeTries", 2);
             }
             var startPoints = Generator.GetStartPoints(_pattern);
 
@@ -138,7 +143,7 @@ public partial class GameView
                     {
                         _totalPatternTiles++;
                         bool isStart = (row == startPoints.startrow1 && col == startPoints.startcol1) ||
-                                       (row == startPoints.startrow2 && col == startPoints.startcol2);
+                                    (row == startPoints.startrow2 && col == startPoints.startcol2);
                         if (isStart)
                             button.BorderColor = Color.FromArgb("#4CAF50");
                         button.Clicked += async (_, _) => await OnPatternTileClicked(button, true);
@@ -151,12 +156,41 @@ public partial class GameView
                     TilesGrid.Children.Add(button);
                 }
             }
-            await ClickResumeTiles();
+            // Hier die neue Methode aufrufen:
+            RestoreClickedTiles();
         }
         catch (Exception)
         {
             //Ignored
         }
+    }
+
+    private void RestoreClickedTiles()
+    {
+        foreach (var clickedTile in _clickedTiles)
+        {
+            var button = _buttons[clickedTile.row, clickedTile.col];
+            if (button != null)
+            {
+                button.IsEnabled = false;
+                button.Text = $"{Generator.GetNeighborCount(clickedTile.row, clickedTile.col, _pattern, _buttons)}";
+                if (_pattern[clickedTile.row, clickedTile.col])
+                {
+                    button.BackgroundColor = Color.FromArgb("#D0E0FF");
+                    button.BorderColor = Color.FromArgb("#A0B8FF");
+                    button.Shadow.Opacity = 0.2f;
+                    button.Shadow.Brush = new SolidColorBrush(Color.FromArgb("#B0C4FF"));
+                }
+                else
+                {
+                    button.BackgroundColor = Color.FromArgb("#FFCDD2");
+                    button.BorderColor = Color.FromArgb("#E57373");
+                    button.Shadow.Opacity = 0.2f;
+                    button.Shadow.Brush = new SolidColorBrush(Color.FromArgb("#FF8A80"));
+                }
+            }
+        }
+        FinishProgress.Progress = ((double)_foundPatternTiles / _totalPatternTiles);
     }
 
     private List<(int row, int col)> DeserializeCordinates(string v)
@@ -219,21 +253,6 @@ public partial class GameView
             }
         }
         return sPstring.TrimEnd('-');   
-    }
-
-    private async Task ClickResumeTiles()
-    {
-        try
-        {
-            foreach (var clickedTile in _clickedTiles)
-            {
-                await OnPatternTileClicked(_buttons[clickedTile.row, clickedTile.col], _pattern[clickedTile.row, clickedTile.col]);
-            }
-        }
-        catch (Exception)
-        {
-            //ignored
-        }
     }
 
     private void UpdateScoreLabel()
