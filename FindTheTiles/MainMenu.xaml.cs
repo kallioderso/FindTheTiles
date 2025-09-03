@@ -16,6 +16,8 @@ public partial class MainMenu
         base.OnAppearing();
         int highscore = Preferences.Get("Highscore", 0);
         int lastScore = Preferences.Get("LastScore", 0);
+        if (Preferences.Get("Resume", false))
+            ResumeButton.IsVisible = true;
         HighscoreLabel.Text = highscore.ToString();
         CurrentScoreLabel.Text = lastScore.ToString();
         UpdateTileCoins();
@@ -57,12 +59,13 @@ public partial class MainMenu
         TileCoinsCountLabel.Text = tileCoins.ToString();
     }
     
-    private async void Button_OnClicked(object? sender, EventArgs e)
+    private async void Start_OnClicked(object? sender, EventArgs e)
     {
         try
         {
             if (Application.Current?.MainPage?.Navigation != null)
             {
+                Preferences.Set("Resume", false);
                 await Application.Current.MainPage.Navigation.PushAsync(new GameView(), true);
             }
         }
@@ -122,5 +125,20 @@ public partial class MainMenu
             FileName = "http://github.com/kallioderso/FindTheTiles",
             UseShellExecute = true
         });
+    }
+
+    private async void Resume_OnClicked(object? sender, EventArgs e)
+    {
+        try
+        {
+            if (Application.Current?.MainPage?.Navigation != null)
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new GameView(), true);
+            }
+        }
+        catch (Exception)
+        {
+            //inactive
+        }
     }
 }

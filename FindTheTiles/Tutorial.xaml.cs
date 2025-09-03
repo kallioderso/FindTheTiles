@@ -307,7 +307,7 @@ public partial class Tutorial
             if (button.IsVisible)
             {
                 // Startbutton immer aktivieren
-                if (button == _startbutton)
+                if (button == _startbutton && button.BorderColor.ToArgbHex() == Color.FromArgb("#4CAF50").ToArgbHex())
                 {
                     button.IsEnabled = true;
                 }

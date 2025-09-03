@@ -308,7 +308,20 @@
                     BorderColor="#a997d7"
                     Padding="24,12"
                     HorizontalOptions="Center"
-                    Clicked="Button_OnClicked" /><!-- Shadow="0,4,12,#B0C4FF"-->
+                    Clicked="Start_OnClicked" /><!-- Shadow="0,4,12,#B0C4FF"-->
+
+                    <Button Text="Spiel fortsetzen"
+                    x:Name="ResumeButton"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    BackgroundColor="#a997d7"
+                    TextColor="#FFFFFF"
+                    CornerRadius="18"
+                    BorderColor="#a997d7"
+                    Padding="24,12"
+                    HorizontalOptions="Center"
+                    IsVisible="false"
+                    Clicked="Resume_OnClicked" /><!-- Shadow="0,4,12,#B0C4FF"-->
         </VerticalStackLayout>
         
         <VerticalStackLayout
