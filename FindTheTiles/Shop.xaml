@@ -48,7 +48,9 @@
                         Margin="20,0, 20,0"
                         BorderColor="#a997d7">
                         <StackLayout Orientation="Vertical">
-                            <Label Text="Searcher"
+                            <Label 
+                                    x:Name="Product1"
+                                    Text="Searcher"
                                     FontSize="19"
                                     TextColor="#503a8f"
                                     FontAttributes="Bold"
@@ -58,6 +60,7 @@
                                 <Image Source="searcher.png" HeightRequest="100" WidthRequest="100" />
                                 <StackLayout Orientation="Vertical" Spacing="10" WidthRequest="550">
                                     <Label
+                                        x:Name="Product1Description"
                                         Text="With this Item you can uncover a random Pattern Tile, you still get a point in return for the uncovered field"
                                         TextColor="#a997d7"
                                         FontSize="17" 
@@ -70,6 +73,7 @@
                                 <StackLayout Orientation="Horizontal" 
                                     HorizontalOptions="Center" Spacing="8">
                                     <Label
+                                        x:Name="Product1Owning"
                                         Text="Owning: "
                                         TextColor="#FFCCBAFA"
                                         FontSize="17" />
@@ -90,7 +94,9 @@
                         Margin="20,0, 20,0"
                         BorderColor="#a997d7">
                             <StackLayout Orientation="Vertical">
-                                <Label Text="Bomb"
+                                <Label 
+                                        x:Name="Product2"
+                                        Text="Bomb"
                                         FontSize="19"
                                         TextColor="#503a8f"
                                         FontAttributes="Bold"
@@ -99,6 +105,7 @@
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10" Margin="10">
                                     <StackLayout Orientation="Vertical" Spacing="10" WidthRequest="550">
                                         <Label
+                                            x:Name="Product2Description"
                                             Text="With this Item you can uncover a 3x3 area, you still get points in return for the uncovered field, at the same time you arent losing any Remaining Tries."
                                             TextColor="#a997d7"
                                             FontSize="17" 
@@ -114,9 +121,10 @@
                                 Spacing="10">
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="8">
                                     <Label
-                                    Text="Owning: "
-                                    TextColor="#FFCCBAFA"
-                                    FontSize="17"/>
+                                        x:Name="Product2Owning"
+                                        Text="Owning: "
+                                        TextColor="#FFCCBAFA"
+                                        FontSize="17"/>
                                     <Label
                                         Text=" 0"
                                         x:Name="BombCountLabel"

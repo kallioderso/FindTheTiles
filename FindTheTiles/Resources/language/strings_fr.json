@@ -3,6 +3,7 @@
     "Highscore" : "meilleur score",
     "Score" : "Score actuel",
     "StartGame" : "Démarrer le jeu",
+    "ResumeGame" : "Reprendre la partie",
     "Progress" : "Progrès",
     "Multiplyer" : "Multiplicateur",
     "RemainingAttempts" : "Tentatives restantes",
@@ -17,5 +18,16 @@
     "Tutorial9" : "Comme petite aide, vous obtenez maintenant une barre de progression qui vous montre combien du motif vous avez déjà trouvé.",
     "Tutorial10" : "Vous avez trouvé une partie du motif, bien joué.",
     "Tutorial11" : "Essayez maintenant de trouver le suivant.",
-    "Tutorial12" : "Félicitations! Vous avez terminé le tutoriel. Vous pouvez maintenant jouer au jeu."
+    "Tutorial12" : "Félicitations! Vous avez terminé le tutoriel. Vous pouvez maintenant jouer au jeu.",
+    "TooltipTutorial" : "Tutoriel",
+    "TooltipShop" : "Ouvrir le magasin",
+    "TooltipLanguage" : "changer la langue en anglais",
+    "Shop" : "Boutique",
+    "Searcher" : "Chercheur",
+    "Bomb" : "Bombe",
+    "SearcherDescription" : "Avec cet objet, vous pouvez révéler une tuile de motif aléatoire. Vous gagnez tout de même un point pour la case révélée.",
+    "SearcherPrice" : "Achetez maintenant pour 10 pièces",
+    "BombDescription" : "Avec cet objet, vous pouvez révéler une zone de 3x3. Vous gagnez des points pour chaque case révélée, sans perdre de tentatives restantes.",
+    "BombPrice" : "Achetez maintenant pour 25 pièces",
+    "Owning" : "En possession : "
 }

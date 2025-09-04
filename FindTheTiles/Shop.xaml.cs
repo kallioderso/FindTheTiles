@@ -9,6 +9,21 @@ public partial class Shop
         NavigationPage.SetHasBackButton(this, false);
         _coins = Preferences.Get("Coins", 0);
         UpdateArticle();
+        UpdateLanguage();
+    }
+
+    private void UpdateLanguage()
+    {
+        Titel.Text = LanguageManager.GetText("Shop");
+        Product1.Text = LanguageManager.GetText("Searcher");
+        Product1Description.Text = LanguageManager.GetText("SearcherDescription");
+        Product1Owning.Text = LanguageManager.GetText("Owning");
+        BuySearcherButton.Text = LanguageManager.GetText("SearcherPrice");
+        Product2.Text = LanguageManager.GetText("Searcher");
+        Product2Description.Text = LanguageManager.GetText("SearcherDescription");
+        Product2Owning.Text = LanguageManager.GetText("Owning");
+        BuyBombButton.Text = LanguageManager.GetText("BombPrice");
+        ToolTipProperties.SetText(LanguageButton, LanguageManager.GetText("TooltipLanguage"));
     }
 
     [Obsolete]
@@ -71,5 +86,6 @@ public partial class Shop
             Preferences.Set("language", "en");
 
         LanguageManager.Update();
+        UpdateLanguage();
     }
 }

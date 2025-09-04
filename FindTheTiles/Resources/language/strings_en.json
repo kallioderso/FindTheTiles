@@ -3,6 +3,7 @@
     "Highscore" : "Highscore",
     "Score" : "Current Score",
     "StartGame" : "Start Game",
+    "ResumeGame" : "Resume Game",
     "Progress" : "Progress",
     "Multiplyer" : "Multiplyer",
     "RemainingAttempts" : "Remaining Attempts",
@@ -17,5 +18,16 @@
     "Tutorial9" : "As a small help, you now get a progress bar that shows you how much of the pattern you have already found.",
     "Tutorial10" : "You found a part of the pattern, well done.",
     "Tutorial11" : "Now try to find the next one.",
-    "Tutorial12" : "Congratulations! You have completed the tutorial. You can now play the game."
+    "Tutorial12" : "Congratulations! You have completed the tutorial. You can now play the game.",
+    "TooltipTutorial" : "Tutorial",
+    "TooltipShop" : "open Shop",
+    "TooltipLanguage" : "change to German",
+    "Shop" : "Shop",
+    "Searcher" : "Searcher",
+    "Bomb" : "Bomb",
+    "SearcherDescription" : "With this Item you can uncover a random Pattern Tile, you still get a point in return for the uncovered field",
+    "SearcherPrice" : "Buy Now for 10 Coins",
+    "BombDescription" : "With this Item you can uncover a 3x3 area, you still get points in return for the uncovered field, at the same time you arent losing any Remaining Tries.",
+    "BombPrice" : "Buy Now for 25 Coins",
+    "Owning" : "Owning: "
 }

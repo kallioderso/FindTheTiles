@@ -340,7 +340,8 @@
                     HeightRequest="60"
                     BorderColor="#E0E8FF"
                     BorderWidth="2"
-                    Clicked="HelpButton_OnClicked"/>
+                    Clicked="HelpButton_OnClicked"
+                    ToolTipProperties.Text="Tutorial"/>
                 <ImageButton
                     x:Name="ShopButton"
                     Source="shop.png"
@@ -350,7 +351,8 @@
                     HeightRequest="60"
                     BorderColor="#E0E8FF"
                     BorderWidth="2"
-                    Clicked="ShopButton_OnClicked"/>
+                    Clicked="ShopButton_OnClicked"
+                    ToolTipProperties.Text="open Shop"/>
                 <ImageButton
                     x:Name="LanguageButton"
                     Source="language.png"
@@ -360,7 +362,8 @@
                     HeightRequest="60"
                     BorderColor="#E0E8FF"
                     BorderWidth="2"
-                    Clicked="LanguageButton_OnClicked"/>
+                    Clicked="LanguageButton_OnClicked"
+                    ToolTipProperties.Text="change Language"/>
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </Grid>

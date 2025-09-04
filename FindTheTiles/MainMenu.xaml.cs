@@ -33,6 +33,10 @@ public partial class MainMenu
         LabelCurrentScoreTitel.Text = LanguageManager.GetText("Score");
         LabelHighScoreTitel.Text = LanguageManager.GetText("Highscore");
         StartButton.Text = LanguageManager.GetText("StartGame");
+        ResumeButton.Text = LanguageManager.GetText("ResumeGame");
+        ToolTipProperties.SetText(HelpButton, LanguageManager.GetText("TooltipTutorial"));
+        ToolTipProperties.SetText(ShopButton, LanguageManager.GetText("TooltipShop"));
+        ToolTipProperties.SetText(LanguageButton, LanguageManager.GetText("TooltipLanguage"));
     }
     
     protected override void OnSizeAllocated(double width, double height)
