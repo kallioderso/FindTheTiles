@@ -214,7 +214,7 @@
                     Clicked="HelpButton_OnClicked"/>
                 <ImageButton
                     x:Name="LanguageButton"
-                    Source="language.png"
+                    Source="german.png"
                     BackgroundColor="#F3F7FF"
                     CornerRadius="16"
                     WidthRequest="60"

@@ -2,6 +2,7 @@
     "Coins" : "Tile-Coins",
     "Highscore" : "Highscore",
     "Score" : "Current Score",
+    "Difficulty" : "Difficulty",
     "StartGame" : "Start Game",
     "ResumeGame" : "Resume Game",
     "Progress" : "Progress",

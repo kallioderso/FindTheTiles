@@ -2,6 +2,7 @@
     "Coins" : "Monnaies de champ",
     "Highscore" : "meilleur score",
     "Score" : "Score actuel",
+    "Difficulty" : "difficulté",
     "StartGame" : "Démarrer le jeu",
     "ResumeGame" : "Reprendre la partie",
     "Progress" : "Progrès",
@@ -29,5 +30,5 @@
     "SearcherPrice" : "Achetez maintenant pour 10 pièces",
     "BombDescription" : "Avec cet objet, vous pouvez révéler une zone de 3x3. Vous gagnez des points pour chaque case révélée, sans perdre de tentatives restantes.",
     "BombPrice" : "Achetez maintenant pour 25 pièces",
-    "Owning" : "En possession : "
+    "Owning" : "En possession: "
 }

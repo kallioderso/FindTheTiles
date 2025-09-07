@@ -28,11 +28,16 @@ public partial class Tutorial
         { 0, 1, 1, 1, 1, 1, 0 },
         { 0, 0, 0, 0, 0, 0, 0 }
     };
+
+    private Thread thread;
+
+    private CancellationTokenSource RemoveThread = new CancellationTokenSource();
     public Tutorial()
     {
         InitializeComponent();
         GenerateTiles();
         Preferences.Set("FirstStart", false);
+        UpdateLanguage();
     }
 
     protected override async void OnAppearing()
@@ -48,6 +53,15 @@ public partial class Tutorial
         }
     }
 
+    private void UpdateLanguage()
+    {
+        if (Preferences.Get("language", "en") == "en")
+            LanguageButton.Source = "english.png";
+        else if (Preferences.Get("language", "en") == "de")
+            LanguageButton.Source = "german.png";
+        else if (Preferences.Get("language", "en") == "fr")
+            LanguageButton.Source = "frensh.png";
+    }
     private void ExitButton_Clicked(object? sender, EventArgs e)
     {
         Navigation.PopAsync();
@@ -115,8 +129,15 @@ public partial class Tutorial
         await Task.Delay(500);
         _startbutton.BorderColor = Color.FromArgb("#4CAF50");
         _startbutton.Clicked += StartPoint_Clicked;
-        await AddText(LanguageManager.GetText("Tutorial1")); lastText = "Tutorial1";
+        thread.Start(AddTextCooldown("Tutorial1", 0));
         Unfroze();
+    }
+
+    private async Task AddTextCooldown(string Text, int cooldown)
+    {
+        lastText = Text;
+        await AddText(LanguageManager.GetText(Text));
+        await Task.Delay(cooldown);
     }
 
     private async Task RemoveText()
@@ -152,9 +173,8 @@ public partial class Tutorial
             _startbutton.Shadow.Opacity = 0.2f;
             _startbutton.Shadow.Brush = new SolidColorBrush(Color.FromArgb("#B0C4FF"));
             _startbutton.Clicked -= StartPoint_Clicked;
-            await AddText(LanguageManager.GetText("Tutorial2")); lastText = "Tutorial2";
-            await Task.Delay(5000);
-            await AddText(LanguageManager.GetText("Tutorial3")); lastText = "Tutorial3";
+            thread.Start(AddTextCooldown("Tutorial2", 5000));
+            thread.Start(AddTextCooldown("Tutorial3", 0));
             for (int row = 0; row < 7; row++)
             {
                 for (int col = 0; col < 7; col++)
@@ -162,12 +182,11 @@ public partial class Tutorial
                     if (_disappearing[row, col] == 2) _buttons[row, col].IsVisible = true;
                 }
             }
-            await Task.Delay(5000);
-            await AddText(LanguageManager.GetText("Tutorial4")); lastText = "Tutorial4";
-            await Task.Delay(1000);
+            thread.Start(Task.Delay(5000));
+            thread.Start(AddTextCooldown("Tutorial4", 1000));
             _startbutton.Text = Generator.GetNeighborCount(3, 3, _pattern, _buttons).ToString();
-            await Task.Delay(5000);
-            await AddText(LanguageManager.GetText("Tutorial5")); lastText = "Tutorial5";
+            thread.Start(Task.Delay(5000));
+            thread.Start(AddTextCooldown("Tutorial5", 0));
             RemoveButtonFromList(_startbutton);
             _buttons[3, 2].Clicked += MusterClicked;
             _buttons[2, 3].Clicked += MusterClicked;
@@ -192,7 +211,7 @@ public partial class Tutorial
             button.Shadow.Brush = new SolidColorBrush(Color.FromArgb("#FF8A80"));
             UnEnable(button);
             button.Clicked -= WrongClicked; 
-            await AddText(LanguageManager.GetText("Tutorial6")); lastText = "Tutorial6";
+            thread.Start(AddTextCooldown("Tutorial6", 0));
             Unfroze();
         }
         catch (Exception)
@@ -216,9 +235,8 @@ public partial class Tutorial
             if (_musterTiles == 2)
             {
                 _musterTiles++;
-                await AddText(LanguageManager.GetText("Tutorial7")); lastText = "Tutorial7";
-                await Task.Delay(5000);
-                await AddText(LanguageManager.GetText("Tutorial8")); lastText = "Tutorial8";
+                thread.Start(AddTextCooldown("Tutorial7", 5000));
+                thread.Start(AddTextCooldown("Tutorial8", 0));
                 for (int row = 0; row < 7; row++)
                 {
                     for (int col = 0; col < 7; col++)
@@ -250,8 +268,8 @@ public partial class Tutorial
                 }
                 RemoveButtonFromList(_buttons[3, 2]);
                 RemoveButtonFromList(_buttons[2, 3]);
-                await Task.Delay(2000);
-                await AddText(LanguageManager.GetText("Tutorial9")); lastText = "Tutorial9";
+                thread.Start(Task.Delay(2000));
+                thread.Start(AddTextCooldown("Tutorial9", 0));
                 FortschritsFrame.IsEnabled = true;
                 FortschritsFrame.IsVisible = true;
                 FinishProgress.Progress = (_musterTiles / 16.0);
@@ -259,9 +277,8 @@ public partial class Tutorial
             }
             else
             {
-                await AddText(LanguageManager.GetText("Tutorial10")); lastText = "Tutorial10";
-                await Task.Delay(3000);
-                await AddText(LanguageManager.GetText("Tutorial11")); lastText = "Tutorial11";
+                thread.Start(AddTextCooldown("Tutorial10", 3000));
+                thread.Start(AddTextCooldown("Tutorial11", 0));
             }
             Unfroze();
         }
@@ -377,8 +394,7 @@ public partial class Tutorial
 
     private async Task EndTutorial()
     {
-        await AddText(LanguageManager.GetText("Tutorial12")); lastText = "Tutorial12";
-        await Task.Delay(2000);
+        thread.Start(AddTextCooldown("Tutorial12", 2000));
         if (Application.Current != null && Application.Current.MainPage?.Navigation != null)
         {
             await Application.Current.MainPage.Navigation.PopAsync();
@@ -390,18 +406,30 @@ public partial class Tutorial
         try
         {
             if (Preferences.Get("language", "en") == "en")
+            {
                 Preferences.Set("language", "de");
+            }
             else if (Preferences.Get("language", "en") == "de")
+            {
                 Preferences.Set("language", "fr");
+            }
             else if (Preferences.Get("language", "en") == "fr")
+            {
                 Preferences.Set("language", "en");
+            }
 
             LanguageManager.Update();
-            await AddText(LanguageManager.GetText(lastText));
+            UpdateLanguage();
         }
         catch (Exception)
         {
             //Again Nothing
         }
+    }
+
+    private void SkipText (object? sender, EventArgs eventArgs)
+    {
+        RemoveThread.Cancel();
+        TutorialLabel.Text = LanguageManager.GetText(lastText);
     }
 }

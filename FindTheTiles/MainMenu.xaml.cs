@@ -37,6 +37,12 @@ public partial class MainMenu
         ToolTipProperties.SetText(HelpButton, LanguageManager.GetText("TooltipTutorial"));
         ToolTipProperties.SetText(ShopButton, LanguageManager.GetText("TooltipShop"));
         ToolTipProperties.SetText(LanguageButton, LanguageManager.GetText("TooltipLanguage"));
+        if (Preferences.Get("language", "en") == "en")
+            LanguageButton.Source = "english.png";
+        else if (Preferences.Get("language", "en") == "de")
+            LanguageButton.Source = "german.png";
+        else if (Preferences.Get("language", "en") == "fr")
+            LanguageButton.Source = "frensh.png";
     }
     
     protected override void OnSizeAllocated(double width, double height)
@@ -114,11 +120,17 @@ public partial class MainMenu
     private void LanguageButton_OnClicked(object? sender, EventArgs e)
     {
         if (Preferences.Get("language", "en") == "en")
+        {
             Preferences.Set("language", "de");
+        }
         else if (Preferences.Get("language", "en") == "de")
+        {
             Preferences.Set("language", "fr");
+        }
         else if (Preferences.Get("language", "en") == "fr")
+        {
             Preferences.Set("language", "en");
+        }
 
         LanguageManager.Update();
         SetLanguage(); // <-- Texte neu laden!

@@ -24,6 +24,12 @@ public partial class Shop
         Product2Owning.Text = LanguageManager.GetText("Owning");
         BuyBombButton.Text = LanguageManager.GetText("BombPrice");
         ToolTipProperties.SetText(LanguageButton, LanguageManager.GetText("TooltipLanguage"));
+        if (Preferences.Get("language", "en") == "en")
+            LanguageButton.Source = "english.png";
+        else if (Preferences.Get("language", "en") == "de")
+            LanguageButton.Source = "german.png";
+        else if (Preferences.Get("language", "en") == "fr")
+            LanguageButton.Source = "frensh.png";
     }
 
     [Obsolete]
@@ -32,8 +38,8 @@ public partial class Shop
         BombCountLabel.Text = Preferences.Get("Bombs", 0).ToString();
         SearcherCountLabel.Text = Preferences.Get("Searchers", 0).ToString();
 
-        BuyBombButton.BackgroundColor = _coins >= 25 ? Color.FromHex("#FFFFFF") : Color.FromHex("#CCCCCC");
-        BuySearcherButton.BackgroundColor = _coins >= 10 ? Color.FromHex("#FFFFFF") : Color.FromHex("#CCCCCC");
+        BuyBombButton.BackgroundColor = _coins >= 25 ? Color.FromHex("#FFFFFF") : Color.FromHex("#ff3d6d8c");
+        BuySearcherButton.BackgroundColor = _coins >= 10 ? Color.FromHex("#FFFFFF") : Color.FromHex("#ff3d6d8c");
     }
     private void ExitButton_Clicked(object? sender, EventArgs e) { Navigation.PopAsync(); }
 
@@ -79,13 +85,19 @@ public partial class Shop
     private void LanguageButton_OnClicked(object? sender, EventArgs e)
     {
         if (Preferences.Get("language", "en") == "en")
+        {
             Preferences.Set("language", "de");
+        }
         else if (Preferences.Get("language", "en") == "de")
+        {
             Preferences.Set("language", "fr");
+        }
         else if (Preferences.Get("language", "en") == "fr")
+        {
             Preferences.Set("language", "en");
+        }
 
         LanguageManager.Update();
-        UpdateLanguage();
+        UpdateLanguage(); // <-- Texte neu laden!
     }
 }

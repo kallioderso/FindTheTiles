@@ -42,13 +42,14 @@
                     BorderColor="#a997d7"
                     HorizontalOptions="Center"
                     VerticalOptions="Center">
-                    <Label x:Name="TutorialLabel"
+                    <Button x:Name="TutorialLabel"
                            FontAttributes="Bold"
                            TextColor="#503a8f"
                            HorizontalOptions="Center"
-                           FontSize="20"><!-- Shadow="2,2,8,#B0C4FF" -->
-                        Find the Tiles - Tutorial
-                    </Label>
+                           FontSize="20"
+                           BackgroundColor="Transparent"
+                           Text="Find the Tiles - Tutorial"
+                           Clicked="SkipText"/><!-- Shadow="2,2,8,#B0C4FF" -->
                 </Frame>
                 <StackLayout>
                     <VerticalStackLayout>
@@ -107,7 +108,7 @@
                     Spacing="2">
                     <ImageButton
                         x:Name="LanguageButton"
-                        Source="language.png"
+                        Source="german.png"
                         BackgroundColor="#F3F7FF"
                         CornerRadius="16"
                         WidthRequest="60"

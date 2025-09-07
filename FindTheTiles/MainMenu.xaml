@@ -168,7 +168,7 @@
     
     <Grid>
         <VerticalStackLayout x:Name="MainStackLayout" Padding="32,70" Spacing="44" Margin="0,0,0,0" HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource MainStackLayout}">
-            <HorizontalStackLayout Spacing="8">
+            <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
                 <ImageButton
                     x:Name="LogoButton"
                     Source="logo.png"
@@ -218,8 +218,8 @@
                                     HorizontalOptions="Center"/>
                                 <Image  
                                     Source="tilecoins.png" 
-                                    HeightRequest="44" 
-                                    WidthRequest="44"
+                                    HeightRequest="35" 
+                                    WidthRequest="35"
                                     VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
@@ -355,7 +355,7 @@
                     ToolTipProperties.Text="open Shop"/>
                 <ImageButton
                     x:Name="LanguageButton"
-                    Source="language.png"
+                    Source="german.png"
                     BackgroundColor="#F3F7FF"
                     CornerRadius="16"
                     WidthRequest="60"
