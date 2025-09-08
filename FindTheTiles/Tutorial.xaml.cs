@@ -29,9 +29,8 @@ public partial class Tutorial
         { 0, 0, 0, 0, 0, 0, 0 }
     };
 
-    private Thread thread;
+    private CancellationTokenSource _textAnimationCts = new CancellationTokenSource();
 
-    private CancellationTokenSource RemoveThread = new CancellationTokenSource();
     public Tutorial()
     {
         InitializeComponent();
@@ -129,37 +128,47 @@ public partial class Tutorial
         await Task.Delay(500);
         _startbutton.BorderColor = Color.FromArgb("#4CAF50");
         _startbutton.Clicked += StartPoint_Clicked;
-        thread.Start(AddTextCooldown("Tutorial1", 0));
+        await AddTextCooldown("Tutorial1", 0);
         Unfroze();
     }
 
     private async Task AddTextCooldown(string Text, int cooldown)
     {
         lastText = Text;
-        await AddText(LanguageManager.GetText(Text));
-        await Task.Delay(cooldown);
+        _textAnimationCts = new CancellationTokenSource();
+        try
+        {
+            await AddText(LanguageManager.GetText(Text), _textAnimationCts.Token);
+            await Task.Delay(cooldown, _textAnimationCts.Token);
+        }
+        catch (OperationCanceledException)
+        {
+            TutorialLabel.Text = LanguageManager.GetText(Text);
+        }
     }
 
-    private async Task RemoveText()
+    private async Task RemoveText(CancellationToken token)
     {
         var letters = TutorialLabel.Text.Length;
         for (int i = 0; i < letters; i++)
         {
-            await Task.Delay(10);
+            token.ThrowIfCancellationRequested();
+            await Task.Delay(10, token);
             TutorialLabel.Text = TutorialLabel.Text.Remove(TutorialLabel.Text.Length-1, 1);
         }
         TutorialLabel.Text = "";
     }
     
-    private async Task AddText(string text)
+    private async Task AddText(string text, CancellationToken token)
     {
         Froze();
-        await RemoveText();
-        await Task.Delay(200);
+        await RemoveText(token);
+        await Task.Delay(200, token);
         TutorialLabel.Text = "";
         foreach (var letter in text)
         {
-            await Task.Delay(20);
+            token.ThrowIfCancellationRequested();
+            await Task.Delay(20, token);
             TutorialLabel.Text += letter;
         }
     }
@@ -173,8 +182,8 @@ public partial class Tutorial
             _startbutton.Shadow.Opacity = 0.2f;
             _startbutton.Shadow.Brush = new SolidColorBrush(Color.FromArgb("#B0C4FF"));
             _startbutton.Clicked -= StartPoint_Clicked;
-            thread.Start(AddTextCooldown("Tutorial2", 5000));
-            thread.Start(AddTextCooldown("Tutorial3", 0));
+            await AddTextCooldown("Tutorial2", 5000);
+            await AddTextCooldown("Tutorial3", 0);
             for (int row = 0; row < 7; row++)
             {
                 for (int col = 0; col < 7; col++)
@@ -182,11 +191,11 @@ public partial class Tutorial
                     if (_disappearing[row, col] == 2) _buttons[row, col].IsVisible = true;
                 }
             }
-            thread.Start(Task.Delay(5000));
-            thread.Start(AddTextCooldown("Tutorial4", 1000));
+            await Task.Delay(5000);
+            await AddTextCooldown("Tutorial4", 1000);
             _startbutton.Text = Generator.GetNeighborCount(3, 3, _pattern, _buttons).ToString();
-            thread.Start(Task.Delay(5000));
-            thread.Start(AddTextCooldown("Tutorial5", 0));
+            await Task.Delay(5000);
+            await AddTextCooldown("Tutorial5", 0);
             RemoveButtonFromList(_startbutton);
             _buttons[3, 2].Clicked += MusterClicked;
             _buttons[2, 3].Clicked += MusterClicked;
@@ -211,7 +220,7 @@ public partial class Tutorial
             button.Shadow.Brush = new SolidColorBrush(Color.FromArgb("#FF8A80"));
             UnEnable(button);
             button.Clicked -= WrongClicked; 
-            thread.Start(AddTextCooldown("Tutorial6", 0));
+            await AddTextCooldown("Tutorial6", 0);
             Unfroze();
         }
         catch (Exception)
@@ -235,8 +244,8 @@ public partial class Tutorial
             if (_musterTiles == 2)
             {
                 _musterTiles++;
-                thread.Start(AddTextCooldown("Tutorial7", 5000));
-                thread.Start(AddTextCooldown("Tutorial8", 0));
+                await AddTextCooldown("Tutorial7", 5000);
+                await AddTextCooldown("Tutorial8", 0);
                 for (int row = 0; row < 7; row++)
                 {
                     for (int col = 0; col < 7; col++)
@@ -268,8 +277,8 @@ public partial class Tutorial
                 }
                 RemoveButtonFromList(_buttons[3, 2]);
                 RemoveButtonFromList(_buttons[2, 3]);
-                thread.Start(Task.Delay(2000));
-                thread.Start(AddTextCooldown("Tutorial9", 0));
+                await Task.Delay(2000);
+                await AddTextCooldown("Tutorial9", 0);
                 FortschritsFrame.IsEnabled = true;
                 FortschritsFrame.IsVisible = true;
                 FinishProgress.Progress = (_musterTiles / 16.0);
@@ -277,8 +286,8 @@ public partial class Tutorial
             }
             else
             {
-                thread.Start(AddTextCooldown("Tutorial10", 3000));
-                thread.Start(AddTextCooldown("Tutorial11", 0));
+                await AddTextCooldown("Tutorial10", 3000);
+                await AddTextCooldown("Tutorial11", 0);
             }
             Unfroze();
         }
@@ -394,7 +403,7 @@ public partial class Tutorial
 
     private async Task EndTutorial()
     {
-        thread.Start(AddTextCooldown("Tutorial12", 2000));
+        await AddTextCooldown("Tutorial12", 2000);
         if (Application.Current != null && Application.Current.MainPage?.Navigation != null)
         {
             await Application.Current.MainPage.Navigation.PopAsync();
@@ -429,7 +438,7 @@ public partial class Tutorial
 
     private void SkipText (object? sender, EventArgs eventArgs)
     {
-        RemoveThread.Cancel();
+        _textAnimationCts.Cancel();
         TutorialLabel.Text = LanguageManager.GetText(lastText);
     }
 }
