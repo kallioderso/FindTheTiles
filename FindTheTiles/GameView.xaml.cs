@@ -67,6 +67,15 @@ public partial class GameView
         CurrentScoreLabelTitle.Text = LanguageManager.GetText("Score");
         MultiplierLabelTitle.Text = LanguageManager.GetText("Multiplyer");
         TriesLabelTitle.Text = LanguageManager.GetText("RemainingAttempts");
+        ToolTipProperties.SetText(ExitButton, LanguageManager.GetText("TooltipExit"));
+        ToolTipProperties.SetText(FortschritsFrame, $"{LanguageManager.GetText("Progress")}: {_foundPatternTiles} / {_totalPatternTiles}");
+        ToolTipProperties.SetText(ScoreFrame, $"{LanguageManager.GetText("Score")}: {_currentScore}");
+        ToolTipProperties.SetText(MultiplierFrame, $"{LanguageManager.GetText("Multiplyer")}: x{_multiplier}");
+        ToolTipProperties.SetText(FailureFrame, $"{LanguageManager.GetText("RemainingAttempts")}: {_tries}");
+        ToolTipProperties.SetText(HelpButton, $"{LanguageManager.GetText("TooltipTutorial")}");
+        ToolTipProperties.SetText(LanguageButton, LanguageManager.GetText("TooltipLanguage"));
+        ToolTipProperties.SetText(SearchButton, $"{LanguageManager.GetText("TooltipSearcher")}");
+        ToolTipProperties.SetText(BombButton, $"{LanguageManager.GetText("TooltipBomb")}");
         if (Preferences.Get("language", "en") == "en")
             LanguageButton.Source = "english.png";
         else if (Preferences.Get("language", "en") == "de")
@@ -153,10 +162,12 @@ public partial class GameView
                         if (isStart)
                             button.BorderColor = Color.FromArgb("#4CAF50");
                         button.Clicked += async (_, _) => await OnPatternTileClicked(button, true);
+                        ToolTipProperties.SetText(button, $"{LanguageManager.GetText("TooltipStartField")}");
                     }
                     else
                     {
                         button.Clicked += async (_, _) => await OnPatternTileClicked(button, false);
+                        ToolTipProperties.SetText(button, "?");
                     }
 
                     TilesGrid.Children.Add(button);
@@ -255,16 +266,19 @@ public partial class GameView
     private void UpdateScoreLabel()
     {
         CurrentScoreLabel.Text = _currentScore.ToString();
+        ToolTipProperties.SetText(ScoreFrame, $"{LanguageManager.GetText("Score")}: {_currentScore}");
     }
 
     private void UpdateTryLabel()
     {
         CurrentFailsLabel.Text = _tries.ToString();
+        ToolTipProperties.SetText(FailureFrame, $"{LanguageManager.GetText("RemainingAttempts")}: {_tries}");
     }
 
     private void UpdateMultiplierLabel()
     {
         MultiplierLabel.Text = $"x{_multiplier:0.0}";
+        ToolTipProperties.SetText(MultiplierFrame, $"{LanguageManager.GetText("Multiplyer")}: x{_multiplier}");
     }
 
     private void NextPattern()
@@ -305,9 +319,11 @@ public partial class GameView
             button.BorderColor = Color.FromArgb("#A0B8FF");
             button.Shadow.Opacity = 0.2f;
             button.Shadow.Brush = new SolidColorBrush(Color.FromArgb("#B0C4FF"));
+            ToolTipProperties.SetText(button, $"{LanguageManager.GetText("PatternTile")}");
             _currentScore += (int)Math.Round(1 * _multiplier);
             _foundPatternTiles++;
             FinishProgress.Progress = ((double)_foundPatternTiles / _totalPatternTiles);
+            ToolTipProperties.SetText(FortschritsFrame, $"{LanguageManager.GetText("Progress")}: {_foundPatternTiles} / {_totalPatternTiles}");
             UpdateScoreLabel();
 
             if (_foundPatternTiles == _totalPatternTiles)
@@ -326,6 +342,7 @@ public partial class GameView
             button.BorderColor = Color.FromArgb("#E57373");
             button.Shadow.Opacity = 0.2f;
             button.Shadow.Brush = new SolidColorBrush(Color.FromArgb("#FF8A80"));
+            ToolTipProperties.SetText(button, $"{LanguageManager.GetText("NotPatternTile")}");
 
             if (_tries == 0)
             {

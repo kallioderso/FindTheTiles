@@ -60,6 +60,8 @@ public partial class Tutorial
             LanguageButton.Source = "german.png";
         else if (Preferences.Get("language", "en") == "fr")
             LanguageButton.Source = "frensh.png";
+        ToolTipProperties.SetText(LanguageButton, $"{LanguageManager.GetText("TooltipLanguage")}");
+        ToolTipProperties.SetText(ExitButton, LanguageManager.GetText("TooltipExit"));
     }
     private void ExitButton_Clicked(object? sender, EventArgs e)
     {

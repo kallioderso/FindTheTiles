@@ -20,9 +20,15 @@
     "Tutorial10" : "Du hast ein Teil des Musters gefunden, Gut gemacht.",
     "Tutorial11" : "Versuche nun noch das nächste zu finden.",
     "Tutorial12" : "Glückwunsch! Du hast das Tutorial abgeschlossen. Du kannst nun das Spiel spielen.",
+    "TooltipExit" : "Verlassen",
     "TooltipTutorial" : "Tutorial",
     "TooltipShop" : "Laden öffnen",
     "TooltipLanguage" : "ändere Sprache zu Französisch",
+    "TooltipSearcher" : "Aktiviere ein Sucher Gegenstand",
+    "TooltipBomb" : "Aktiviere ein Bomben Gegenstand",
+    "TooltipStartField" : "Startfeld",
+    "TooltipSearcherBuy" : "Kaufe Sucher",
+    "TooltipBombBuy" : "Kaufe Bombe",
     "Shop" : "Laden",
     "Searcher" : "Sucher",
     "Bomb" : "Bombe",
@@ -30,5 +36,7 @@
     "SearcherPrice" : "Kaufe jetzt für 10 Münzen",
     "BombDescription" : "Mit diesem gegenstand kannst du einen 3x3 Bereich deiner Wahl aufdecken, hierbei verlierst du keine Versuche für falsche Felder.",
     "BombPrice" : "Kaufe jetzt für 25 Münzen",
-    "Owning" : "Im besitz: "
+    "Owning" : "Im besitz: ",
+    "PatternTile" : "Muster-Feld",
+    "NotPatternTile" : "Nicht-Muster-Feld"
 }

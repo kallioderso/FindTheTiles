@@ -26,7 +26,8 @@
                 HorizontalOptions="End"
                 VerticalOptions="Start"
                 Margin="0,16,16,0"
-                Clicked="ExitButton_Clicked"/>
+                Clicked="ExitButton_Clicked"
+                ToolTipProperties.Text="Exit"/>
             
             <StackLayout 
                 Orientation="Vertical" 
@@ -115,7 +116,8 @@
                         HeightRequest="60"
                         BorderColor="#E0E8FF"
                         BorderWidth="2"
-                        Clicked="LanguageButton_OnClicked"/>
+                        Clicked="LanguageButton_OnClicked"
+                        ToolTipProperties.Text="Ändere Sprache zu Französisch"/>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
         </Grid>

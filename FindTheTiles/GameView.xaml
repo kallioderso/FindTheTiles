@@ -55,7 +55,8 @@
                 HorizontalOptions="End"
                 VerticalOptions="Start"
                 Margin="0,16,16,0"
-                Clicked="ExitButton_Clicked"/>
+                Clicked="ExitButton_Clicked"
+                ToolTipProperties.Text="Exit"/>
         
         <StackLayout x:Name="MainStack" Padding="32,40" Spacing="30" HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource MainStack}">
             <VerticalStackLayout Spacing="{OnPlatform 22, Android=18, iOS=18}">
@@ -65,7 +66,8 @@
                    CornerRadius="20"
                    Padding="22,14"
                    HasShadow="True"
-                   BorderColor="#a997d7">
+                   BorderColor="#a997d7"
+                   ToolTipProperties.Text="Progress: 0/0">
                     <VerticalStackLayout Spacing="4">
                         <Label Text="Fortschritt"
                                x:Name="ProgressLabel"
@@ -84,7 +86,8 @@
                             CornerRadius="20"
                             Padding="22,14"
                             HasShadow="True"
-                            BorderColor="#a997d7">
+                            BorderColor="#a997d7"
+                            ToolTipProperties.Text="Multiplyer: 1">
                             <VerticalStackLayout Spacing="2">
                                 <Label Text="Multiplikator"
                                         x:Name="MultiplierLabelTitle"
@@ -106,7 +109,8 @@
                             CornerRadius="20"
                             Padding="22,14"
                             HasShadow="True"
-                            BorderColor="#a997d7">
+                            BorderColor="#a997d7"
+                            ToolTipProperties.Text="Current Score: 0">
                             <VerticalStackLayout Spacing="2">
                                 <Label Text="Aktueller Score"
                                        x:Name="CurrentScoreLabelTitle"
@@ -129,7 +133,8 @@
                         CornerRadius="20"
                         Padding="22,14"
                         HasShadow="True"
-                        BorderColor="#a997d7">
+                        BorderColor="#a997d7"
+                        ToolTipProperties.Text="Remaining tries: 0">
                         <VerticalStackLayout Spacing="2">
                             <Label Text="Verbleibende Versuche"
                                    x:Name="TriesLabelTitle"
@@ -156,7 +161,8 @@
                     HeightRequest="60"
                     BorderColor="#E0E8FF"
                     BorderWidth="2"
-                    Clicked="Search_OnClicked"/>
+                    Clicked="Search_OnClicked"
+                    ToolTipProperties.Text="Activate Search item"/>
                     <ImageButton
                     x:Name="BombButton"
                     Source="nobomb.png"
@@ -166,7 +172,8 @@
                     HeightRequest="60"
                     BorderColor="#E0E8FF"
                     BorderWidth="2"
-                    Clicked="Bomb_OnClicked"/>
+                    Clicked="Bomb_OnClicked"
+                    ToolTipProperties.Text="Activate Bomb item"/>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
 
@@ -211,7 +218,8 @@
                     HeightRequest="60"
                     BorderColor="#E0E8FF"
                     BorderWidth="2"
-                    Clicked="HelpButton_OnClicked"/>
+                    Clicked="HelpButton_OnClicked"
+                    ToolTipProperties.Text="open Tutorial"/>
                 <ImageButton
                     x:Name="LanguageButton"
                     Source="german.png"
@@ -221,7 +229,8 @@
                     HeightRequest="60"
                     BorderColor="#E0E8FF"
                     BorderWidth="2"
-                    Clicked="LanguageButton_OnClicked"/>
+                    Clicked="LanguageButton_OnClicked"
+                    ToolTipProperties.Text="ändere sprache zu französisch"/>
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </Grid>

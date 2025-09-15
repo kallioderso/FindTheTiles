@@ -23,7 +23,11 @@ public partial class Shop
         Product2Description.Text = LanguageManager.GetText("SearcherDescription");
         Product2Owning.Text = LanguageManager.GetText("Owning");
         BuyBombButton.Text = LanguageManager.GetText("BombPrice");
+        ToolTipProperties.SetText(HelpButton, LanguageManager.GetText("TooltipTutorial"));
         ToolTipProperties.SetText(LanguageButton, LanguageManager.GetText("TooltipLanguage"));
+        ToolTipProperties.SetText(BuySearcherButton, LanguageManager.GetText("TooltipSearcherBuy"));
+        ToolTipProperties.SetText(BuyBombButton , LanguageManager.GetText("TooltipBombBuy"));
+        ToolTipProperties.SetText(ExitButton, LanguageManager.GetText("TooltipExit"));
         if (Preferences.Get("language", "en") == "en")
             LanguageButton.Source = "english.png";
         else if (Preferences.Get("language", "en") == "de")

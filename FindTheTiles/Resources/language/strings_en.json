@@ -20,9 +20,15 @@
     "Tutorial10" : "You found a part of the pattern, well done.",
     "Tutorial11" : "Now try to find the next one.",
     "Tutorial12" : "Congratulations! You have completed the tutorial. You can now play the game.",
+    "TooltipExit" : "Exit",
     "TooltipTutorial" : "Tutorial",
     "TooltipShop" : "open Shop",
     "TooltipLanguage" : "change to German",
+    "TooltipSearcher" : "Activate a searcher item",
+    "TooltipBomb" : "Activate a bomb item",
+    "TooltipStartField" : "Start-Tile",
+    "TooltipSearcherBuy" : "Buy Searcher",
+    "TooltipBombBuy" : "Buy Bomb",
     "Shop" : "Shop",
     "Searcher" : "Searcher",
     "Bomb" : "Bomb",
@@ -30,5 +36,7 @@
     "SearcherPrice" : "Buy Now for 10 Coins",
     "BombDescription" : "With this Item you can uncover a 3x3 area, you still get points in return for the uncovered field, at the same time you arent losing any Remaining Tries.",
     "BombPrice" : "Buy Now for 25 Coins",
-    "Owning" : "Owning: "
+    "Owning" : "Owning: ",
+    "PatternTile" : "Pattern-Tile",
+    "NotPatternTile" : "Not-Pattern-Tile"
 }

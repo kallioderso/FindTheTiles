@@ -20,9 +20,15 @@
     "Tutorial10" : "Vous avez trouvé une partie du motif, bien joué.",
     "Tutorial11" : "Essayez maintenant de trouver le suivant.",
     "Tutorial12" : "Félicitations! Vous avez terminé le tutoriel. Vous pouvez maintenant jouer au jeu.",
+    "TooltipExit" : "laisser",
     "TooltipTutorial" : "Tutoriel",
     "TooltipShop" : "Ouvrir le magasin",
     "TooltipLanguage" : "changer la langue en anglais",
+    "TooltipSearcher" : "Active un objet de cherche",
+    "TooltipBomb" : "Active un objet de bombe",
+    "TooltipStartField" : "champ de départ",
+    "TooltipSearcherBuy" : "Achetez Chercheur",
+    "TooltipBombBuy" : "Achetez Bombe",
     "Shop" : "Boutique",
     "Searcher" : "Chercheur",
     "Bomb" : "Bombe",
@@ -30,5 +36,7 @@
     "SearcherPrice" : "Achetez maintenant pour 10 pièces",
     "BombDescription" : "Avec cet objet, vous pouvez révéler une zone de 3x3. Vous gagnez des points pour chaque case révélée, sans perdre de tentatives restantes.",
     "BombPrice" : "Achetez maintenant pour 25 pièces",
-    "Owning" : "En possession: "
+    "Owning" : "En possession: ",
+    "PatternTile" : "Champ de motif",
+    "NotPatternTile" : "pas Champ de motif"
 }

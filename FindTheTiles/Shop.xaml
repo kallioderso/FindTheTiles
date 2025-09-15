@@ -84,7 +84,7 @@
                                         FontSize="17" 
                                         FontAttributes="Bold"/>
                                 </StackLayout>
-                                <Button x:Name="BuySearcherButton" Text="Buy Now for 10 Coins" BorderColor="#a997d7" BackgroundColor="#FFFFFF" TextColor="#a997d7" Clicked="Buy_Searcher" FontAttributes="Bold" BorderWidth="2"/>
+                                <Button x:Name="BuySearcherButton" Text="Buy Now for 10 Coins" BorderColor="#a997d7" BackgroundColor="#FFFFFF" TextColor="#a997d7" Clicked="Buy_Searcher" FontAttributes="Bold" BorderWidth="2" ToolTipProperties.Text="Buy Searcher"/>
                             </StackLayout>
                         </StackLayout>
                     </Frame>
@@ -132,7 +132,7 @@
                                         FontSize="17" 
                                         FontAttributes="Bold"/>
                                 </StackLayout>
-                                <Button x:Name="BuyBombButton" Text="Buy Now for 25 Coins" BorderColor="#a997d7" BackgroundColor="#FFFFFF" TextColor="#a997d7" Clicked="Buy_Bomb" FontAttributes="Bold" BorderWidth="2"/>
+                                <Button x:Name="BuyBombButton" Text="Buy Now for 25 Coins" BorderColor="#a997d7" BackgroundColor="#FFFFFF" TextColor="#a997d7" Clicked="Buy_Bomb" FontAttributes="Bold" BorderWidth="2" ToolTipProperties.Text="Buy Bomb"/>
                             </StackLayout>
                         </StackLayout>
                     </Frame>
@@ -155,7 +155,8 @@
                     HeightRequest="60"
                     BorderColor="#E0E8FF"
                     BorderWidth="2"
-                    Clicked="HelpButton_OnClicked"/>
+                    Clicked="HelpButton_OnClicked"
+                    ToolTipProperties.Text="open Tutorial"/>
                 <ImageButton
                     x:Name="LanguageButton"
                     Source="german.png"
@@ -165,7 +166,8 @@
                     HeightRequest="60"
                     BorderColor="#E0E8FF"
                     BorderWidth="2"
-                    Clicked="LanguageButton_OnClicked"/>
+                    Clicked="LanguageButton_OnClicked"
+                    ToolTipProperties.Text="Ändere Sprache zu Französisch"/>
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </Grid>
