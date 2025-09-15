@@ -42,6 +42,24 @@
                 MaximumWidthRequest="800"
                 HeightRequest="600">
                 <StackLayout Spacing="16">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                        <ImageButton
+                            Source="shop.png"
+                            BackgroundColor="#F3F7FF"
+                            CornerRadius="16"
+                            WidthRequest="60"
+                            HeightRequest="60"
+                            BorderColor="#E0E8FF"
+                            BorderWidth="2"/>
+                        <Label
+                            x:Name="TileCoinsCountLabel"
+                            Text="0"
+                            TextColor="#a997d7"
+                            FontSize="17" 
+                            FontAttributes="Bold"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"/>
+                    </StackLayout>
                      <Frame BackgroundColor="#FFFFFF"
                         CornerRadius="20"
                         HasShadow="True"

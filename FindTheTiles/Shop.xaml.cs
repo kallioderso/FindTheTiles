@@ -36,9 +36,10 @@ public partial class Shop
             LanguageButton.Source = "frensh.png";
     }
 
-    [Obsolete]
+    [Obsolete] //its so freaking borring sometimes because this freaking workloads are taking so much freaking time :skull:
     private void UpdateArticle()
     {
+        TileCoinsCountLabel.Text = $"{_coins}";
         BombCountLabel.Text = Preferences.Get("Bombs", 0).ToString();
         SearcherCountLabel.Text = Preferences.Get("Searchers", 0).ToString();
 

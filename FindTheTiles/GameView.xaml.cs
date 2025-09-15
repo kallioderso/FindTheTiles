@@ -1,4 +1,7 @@
-﻿namespace FindTheTiles;
+﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Handlers;
+using Microsoft.Maui.Platform;
+namespace FindTheTiles;
 
 public partial class GameView
 {
@@ -111,7 +114,7 @@ public partial class GameView
             TilesGrid.Children.Clear();
             _totalPatternTiles = 0;
             _foundPatternTiles = 0;
-            if(!Preferences.Get("Resume", false))
+            if (!Preferences.Get("Resume", false))
             {
                 var randomPattern = Generator.GenerateRandomPattern(_pattern, _patternCoordinates, _borderReduction);
                 _pattern = randomPattern._pattern;
@@ -154,20 +157,22 @@ public partial class GameView
                     button.SetValue(Grid.ColumnProperty, col);
 
                     _buttons[row, col] = button;
+                    ToolTipProperties.SetText(button, "?");
                     if (_pattern[row, col])
                     {
                         _totalPatternTiles++;
                         bool isStart = (row == startPoints.startrow1 && col == startPoints.startcol1) ||
                                     (row == startPoints.startrow2 && col == startPoints.startcol2);
                         if (isStart)
+                        {
                             button.BorderColor = Color.FromArgb("#4CAF50");
+                            ToolTipProperties.SetText(button, $"{LanguageManager.GetText("TooltipStartField")}");
+                        }
                         button.Clicked += async (_, _) => await OnPatternTileClicked(button, true);
-                        ToolTipProperties.SetText(button, $"{LanguageManager.GetText("TooltipStartField")}");
                     }
                     else
                     {
                         button.Clicked += async (_, _) => await OnPatternTileClicked(button, false);
-                        ToolTipProperties.SetText(button, "?");
                     }
 
                     TilesGrid.Children.Add(button);
@@ -243,11 +248,11 @@ public partial class GameView
             for (int col = 0; col < GridSize; col++)
             {
                 int index = row * GridSize + col;
-                if (index < values.Length){dPattern[row, col] = values[index] == "1";}
+                if (index < values.Length) { dPattern[row, col] = values[index] == "1"; }
             }
         }
         return dPattern;
-    }  
+    }
 
     private string? SerializePattern(bool[,] pattern)
     {
@@ -256,11 +261,11 @@ public partial class GameView
         {
             for (int col = 0; col < GridSize; col++)
             {
-                if (pattern[row, col]){sPstring += "1-";}
-                else{sPstring += "0-";}
+                if (pattern[row, col]) { sPstring += "1-"; }
+                else { sPstring += "0-"; }
             }
         }
-        return sPstring.TrimEnd('-');   
+        return sPstring.TrimEnd('-');
     }
 
     private void UpdateScoreLabel()
@@ -382,7 +387,7 @@ public partial class GameView
         if (Preferences.Get("language", "en") == "en")
         {
             Preferences.Set("language", "de");
-            
+
         }
         else if (Preferences.Get("language", "en") == "de")
         {
@@ -430,7 +435,7 @@ public partial class GameView
 
     private void Click_Random_Pattern_Tile() //Rework this because of youse of KI (note for myself)
     {
-        while(true)
+        while (true)
         {
             var availablePatternTiles = new List<(int row, int col)>();
             for (int row = 0; row < GridSize; row++)
@@ -452,15 +457,112 @@ public partial class GameView
                 break;
             }
         }
-        
+
     }
 
     private void Bomb_OnClicked(object? sender, EventArgs e)
     {
-        // if(Preferences.Get("Bombs", 0) > 0)
-        // {
-        //     Preferences.Set("Bombs", Preferences.Get("Bombs", 0) - 1);
-        // }
+        if (Preferences.Get("Bombs", 0) > 0)
+        {
+            Preferences.Set("Bombs", Preferences.Get("Bombs", 0) - 1);
+        }
         UpdateItems();
+    }
+
+    private void Activate_Bomb_Placing()
+    {
+        for (int row = 0; row < GridSize; row++)
+        {
+            for (int col = 0; col < GridSize; col++)
+            {
+                var button = _buttons[row, col];
+                button.BorderColor = Color.FromArgb("#474954");
+                button.Clicked += (_, _) => Place_Bomb(button);
+#if WINDOWS
+                if (button.Handler is ButtonHandler handler)
+                {
+                    ButtonHoverHandler.AttachHover(handler, button.backgroundcolor);
+                }
+#endif
+            }
+        }
+    }
+
+
+    private async void Place_Bomb(Button button)
+    {
+        // Get the row and column of the clicked button
+        int row = (int)button.GetValue(Grid.RowProperty);
+        int col = (int)button.GetValue(Grid.ColumnProperty);
+
+        // List of directions: center, up, down, left, right
+        int[,] directions = { { 0, 0 }, { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+
+        for (int i = 0; i < directions.GetLength(0); i++)
+        {
+            int r = row + directions[i, 0];
+            int c = col + directions[i, 1];
+
+            // Check bounds
+            if (r >= 0 && r < GridSize && c >= 0 && c < GridSize)
+            {
+                var targetButton = _buttons[r, c];
+                if (targetButton != null && targetButton.IsEnabled)
+                {
+                    await OnPatternTileClicked(targetButton, _pattern[r, c]);
+                }
+            }
+        }
+
+        Deactivate_Bomb_Placing();
+    }
+
+    private void Deactivate_Bomb_Placing()
+    {
+        for (int row = 0; row < GridSize; row++)
+        {
+            for (int col = 0; col < GridSize; col++)
+            {
+                var button = _buttons[row, col];
+                if (button.BackgroundColor == Color.FromArgb("#FFCDD2"))
+                    button.BorderColor = Color.FromArgb("#E57373");
+                else if (button.BackgroundColor == Color.FromArgb("#D0E0FF"))
+                    button.BorderColor = Color.FromArgb("#A0B8FF");
+                else if (button.BackgroundColor == Color.FromArgb("#FFF8DC"))
+                    button.BackgroundColor = Color.FromArgb("#FAFAAA");
+                button.Clicked -= (_, _) => Place_Bomb(button);
+                foreach (var cordinate in _clickedTiles)
+                {
+                    if (cordinate != (row, col))
+                    {
+                        if (_pattern[row, col])
+                            button.Clicked += async (_, _) => await OnPatternTileClicked(button, true);
+                        else
+                            button.Clicked += async (_, _) => await OnPatternTileClicked(button, false);
+                    }
+                }
+                    
+            }
+        }
+    }
+}
+
+public static class ButtonHoverHandler
+{
+    public static void AttachHover(ButtonHandler handler, Color background)
+    {
+    #if WINDOWS
+        if (handler.PlatformView is Windows.UI.Xaml.Controls.Button nativeButton)
+        {
+            nativeButton.PointerEntered += (s, e) =>
+            {
+                nativeButton.BackgroundColor = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Gold);
+            };
+            nativeButton.PointerExited += (s, e) =>
+            {
+                nativeButton.BackgroundColor = background;
+            };
+        }
+    #endif
     }
 }
