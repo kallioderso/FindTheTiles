@@ -142,7 +142,7 @@ Skip steps by clicking text boxes if you already know how to play.
 # 🖼️ Banner & Screenshots
 
 <p align="center">
-  <img src="images/Find The Tiles.png" alt="Find The Tiles Banner" style="width: 80%; border-radius: 8px;">
+  <img src="images/FindtheTiles.png" alt="Find The Tiles Banner" style="width: 80%; border-radius: 8px;">
 </p>
 
 ---
