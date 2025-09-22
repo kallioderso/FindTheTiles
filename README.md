@@ -1,84 +1,173 @@
-# Find the Tiles
+<p align="center">
+  <a href="https://github.com/kallioderso/FindTheTiles/releases">
+    <img src="images/FindtheTiles.png" alt="Find The Tiles Banner" style="width: 100%; border-radius: 8px;">
+  </a>
+</p>
 
-Find the Tiles is a short little Game where you have to uncover a hidden pattern inside a 7 x 7 Grid, to get a easy start you have 2 start tiles which are 100% inside the pattern, later you can improve this start tiles by collecting Tile-Coins and using them inside the Shop area. while playing there are some specifix rules you should look at such as limited fails before loosing a game session. for more informations click here
+<p align="center">
+  <img src="https://img.shields.io/github/created-at/kallioderso/FindTheTiles" alt="GitHub Created At">
+  <a href="https://github.com/kallioderso/FindTheTiles?tab=GPL-3.0-1-ov-file">
+    <img src="https://img.shields.io/github/license/kallioderso/FindTheTiles?" alt="GitHub License">
+  </a>
+  <a href="https://github.com/kallioderso/FindTheTiles/releases">
+    <img src="https://img.shields.io/github/downloads/kallioderso/FindTheTiles/total?" alt="GitHub Downloads">
+  </a>
+  <a href="https://github.com/kallioderso/FindTheTiles/releases">
+    <img src="https://img.shields.io/github/v/release/kallioderso/FindTheTiles?include_prereleases&" alt="GitHub Release">
+  </a>
+  <a href="https://github.com/kallioderso/FindTheTiles/releases">
+    <img src="https://img.shields.io/github/release-date/kallioderso/FindTheTiles?&" alt="GitHub Release Date">
+  </a>
+  <img src="https://img.shields.io/github/commit-activity/w/kallioderso/FindTheTiles" alt="GitHub Commit Activity">
+  <a href="https://github.com/kallioderso/FindTheTiles/commits/master/">
+    <img src="https://img.shields.io/github/last-commit/kallioderso/FindTheTiles?" alt="GitHub Last Commit">
+  </a>
+  <a href="https://github.com/kallioderso/FindTheTiles/commits/master/">
+    <img src="https://img.shields.io/github/commits-since/kallioderso/FindTheTiles/latest" alt="GitHub Commits Since Latest Release">
+  </a>
+  <a href="https://github.com/kallioderso/FindTheTiles/issues">
+    <img src="https://img.shields.io/github/issues/kallioderso/FindTheTiles" alt="GitHub Issues">
+  </a>
+  <img src="https://img.shields.io/github/watchers/kallioderso/FindTheTiles" alt="GitHub Watchers">
+  <img src="https://img.shields.io/github/stars/kallioderso/FindTheTiles" alt="GitHub Stars">
+</p>
+
 ---
-## Multiple Languages
-Using the language change button it is possible to chose beetwheen 3 different languages (currently)
-- English
+
+# 🧩 About Find The Tiles
+
+**Find The Tiles** is a short, memory-based puzzle game. Your goal: uncover a hidden pattern inside a 7x7 grid!  
+You start with 2 guaranteed pattern tiles, and must use logic, memory, and the help of upgrades and hints to reveal the rest.  
+Every session is different thanks to clever pattern generation.
+
+---
+
+## 🌐 Multiple Languages
+
+Use the language change button to select between 3 languages:
+- English (default)
 - German
-- Frensh
-
-On basic the chosen language would be English according to the fact that most people understand English
+- French
 
 ---
-## Main-menu
 
-the main menu is where your experience will start (after the tutorial), here you have much different options and informations.
-- the first thing that is relevant for you is the menu-bar where you can find the tutorial, the shop and language setting (***1***)
-- next we have your most favorite button, the start button, with it you can start your sessions of pure enjoyment (***2***)
-- the next important button would be the continue game button. any unfinished sessions? just click on it and you can continue them (***3***)
-- but not only buttons are here, you can as well see your general and last progress as well as your earned shop coins. and the difficulty (what will it be???) (***4***)
-![Main-Menu](images/mainmenu.png)
+# 🏠 Main Menu
+
+Your journey begins at the main menu (after the tutorial):
+
+- **Menu Bar:** Access the tutorial, shop, and language settings.
+- **Start Button:** Begin a new game session.
+- **Continue Game:** Resume any unfinished session.
+- **Stats & Progress:** See your overall and last game progress, shop coins, and difficulty level.
+
+![Main Menu Preview](images/mainmenu.png)
 
 ---
-## Game-sessions
 
-- start with 2 green bordered Tiles which refers to the hidden pattern
-- get hints where the next pattern tiles could be by clicking on tiles and scan the attached 4 tiles (left, up, right, down) for tiles beeing part of the pattern (all scaned tiles are marked in a yellow color). the amount of scaned tiles which are part of pattern is shown inside the clicked tile with a blakc number.
-- by uncovering the pattern you will automaticly increase a progressbar to see how much of the Pattern is stil missing.
-- if you click to much times on non Pattern tiles your failure count will reach zero and you instantly loose the current game session.
-- you have a main 7x7 tile-grid (***1***)
-- theres a spcial menu-bar on the left bottom, containing tutorial-button and language-button (***2***) 
-- you can use special items obtained in the Tile-Coins Shop (***3***)
-- in the left middle of the screen you have a generall Information Field with much information about the current game session, such as the points multiplier, score, progress and more (***4***)
-- to leave the current game session you can just click on the exit button (***5***)
+# 🎮 Game Sessions
+
+- Start with 2 green-bordered tiles guaranteed to be part of the hidden pattern.
+- Click tiles to get hints: the 4 adjacent tiles are scanned and marked if they are part of the pattern.
+- Progress bar shows your uncovering progress.
+- Too many wrong guesses = you lose the session!
+- Use special shop items for help.
+- Info field shows score, progress, multiplier, and more.
+- Exit the session any time.
+
 ![Game Preview](images/gamescreen.png)
 
 ---
 
-## 🧬 Pattern Generation
+# 🧬 Pattern Generation
 
-The game uses a custom algorithm to create interesting and challenging patterns:
+Find The Tiles uses a custom algorithm for interesting, challenging grid patterns:
 
-- A random **starting point** is selected — with a higher chance of being near the center.
-- Adjacent tiles are added based on a **base 25% chance**, reduced by:
-  - Nearby existing pattern tiles (1 = **-0%**, 2 = **-5%**, 3 = **-10%**, 4 = **-15%**)
-  - Proximity to the grid’s outer edges (same as the starting point uses)
+- **Random starting point** (favoring the center)
+- **Adjacency logic:** Next pattern tile is added with a base 25% chance, reduced based on nearby pattern tiles and edge proximity.
+- The result: fun, unpredictable, and fair patterns!
 
-This results in clean, well-spread patterns that are fun to uncover and hard to guess.
-
-in the future there will be more difficult Generating methods such as by neural networks or special trained ai (but currently i need to continue learning such methods because i want to keep everything in c#)
+Future plans: neural networks or AI-powered generation for more difficulty.
 
 ---
 
-## 🛍️ Tile-Coins Shop
+# 🛍️ Tile-Coins Shop
 
-Instead of a leveling system, players earn **tile-coins** through scoring.  
-These coins will be used to buy upgrades like:
+Instead of XP or levels, you earn **tile-coins** by scoring. Spend coins to buy:
+
 - Extra missclick chances
 - Increased difficulty
 - Rogue-like modifiers for replayability
-- special items (non reusable)
+- Special one-use items
 
-the shop laterly will have a option to buy more different types of level and designs to customise the user experiences
----
-
-## 🎓 Interactive Tutorial
-
-New players can learn the basic mechanics through our interactiv and self explaining **Tutorial**, which can be skipped if already known by clicking on the text boxes, they still need to be improved in therms of user friendly explanations and more as well as less time beetwheen the different text boxes, another cool thing would be some sort of mascotchen to explain everything
+The shop will soon include new levels and design customization!
 
 ---
 
-## 🚀 Try It Out
+# 🎓 Interactive Tutorial
 
-- [Download the demo](https://github.com/kallioderso/FindTheTiles/releases/tag/demo)
+New players get a guided, interactive tutorial explaining mechanics.  
+Skip steps by clicking text boxes if you already know how to play.
+
+---
+
+# 🚀 Try It Out
+
+- [Download the latest release](https://github.com/kallioderso/FindTheTiles/releases/latest)
 - [View the source code](https://github.com/kallioderso/FindTheTiles)
 
 ---
 
-## 🤖 About This Project
+# 📝 Releases
 
-This is my first complexer .NET MAUI application, and I’ve learned a lot along the way.  
-The devlogs were written with the help of AI, because my English isn’t perfect yet — but I’m passionate about creating quality content and sharing my work beyond language barriers.
+## [v1.2](https://github.com/kallioderso/FindTheTiles/releases/tag/v1.2)
+- Major bug fixes, new features, improved tutorial, and expanded shop system. Resume your game, enjoy new mechanics, and a refreshed design!
 
-Thanks for checking out *Find the Tiles* — more updates coming soon!
+## [v1.1](https://github.com/kallioderso/FindTheTiles/releases/tag/v1.1)
+- Improved gameplay, bug fixes, and extra fun tweaks based on community feedback.
+
+## [v1.0](https://github.com/kallioderso/FindTheTiles/releases/tag/v1.0)
+- Initial release! Core gameplay, upgrades, multi-language support, and basic tutorial.
+
+---
+
+# ⌨️ Shortcuts & Controls
+
+- **Click** on tiles to guess and reveal.
+- **Use menu bar** for tutorial, shop, or language.
+- **Shop**: Spend coins for upgrades and items.
+- **Continue/Resume**: Jump back into unfinished sessions.
+
+---
+
+# 🖼️ Banner & Screenshots
+
+<p align="center">
+  <img src="images/Find The Tiles.png" alt="Find The Tiles Banner" style="width: 80%; border-radius: 8px;">
+</p>
+
+---
+
+# 🤖 About This Project
+
+This is my first complex .NET MAUI application.  
+Devlogs are AI-assisted (my English isn’t perfect yet) — but I’m passionate about creating a fun, high-quality game and sharing it with everyone.
+
+Thanks for checking out **Find The Tiles** — more updates coming soon!
+
+---
+
+# 🌐 Community & Support
+
+- **YouTube:** Coming soon!
+- **Discord:** WIP
+- **Issues & Feedback:** [GitHub Issues](https://github.com/kallioderso/FindTheTiles/issues)
+
+---
+
+# 📜 License
+
+This project is licensed under the [GPL-3.0 License](LICENSE).
+
+---
+
+> Enjoy playing Find The Tiles and help us improve with your feedback!
