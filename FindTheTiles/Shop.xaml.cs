@@ -36,19 +36,17 @@ public partial class Shop
             LanguageButton.Source = "frensh.png";
     }
 
-    [Obsolete] //its so freaking borring sometimes because this freaking workloads are taking so much freaking time :skull:
     private void UpdateArticle()
     {
         TileCoinsCountLabel.Text = $"{_coins}";
         BombCountLabel.Text = Preferences.Get("Bombs", 0).ToString();
         SearcherCountLabel.Text = Preferences.Get("Searchers", 0).ToString();
 
-        BuyBombButton.BackgroundColor = _coins >= 25 ? Color.FromHex("#FFFFFF") : Color.FromHex("#ff3d6d8c");
-        BuySearcherButton.BackgroundColor = _coins >= 10 ? Color.FromHex("#FFFFFF") : Color.FromHex("#ff3d6d8c");
+        BuyBombButton.BackgroundColor = _coins >= 25 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
+        BuySearcherButton.BackgroundColor = _coins >= 10 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
     }
     private void ExitButton_Clicked(object? sender, EventArgs e) { Navigation.PopAsync(); }
 
-    [Obsolete]
     private void Buy_Searcher(object? sender, EventArgs e)
     {
         if (_coins >= 10)
@@ -60,7 +58,6 @@ public partial class Shop
         UpdateArticle();
     }
 
-    [Obsolete]
     private void Buy_Bomb(object? sender, EventArgs e)
     {
         if (_coins >= 25)

@@ -412,7 +412,7 @@ public partial class Tutorial
         }
     }
 
-    private async void LanguageButton_OnClicked(object? sender, EventArgs e)
+    private void LanguageButton_OnClicked(object? sender, EventArgs e)
     {
         try
         {

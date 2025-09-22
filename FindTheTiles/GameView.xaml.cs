@@ -1,6 +1,5 @@
-﻿using Microsoft.Maui.Controls;
-using Microsoft.Maui.Handlers;
-using Microsoft.Maui.Platform;
+﻿using System;
+
 namespace FindTheTiles;
 
 public partial class GameView
@@ -107,7 +106,7 @@ public partial class GameView
         Navigation.PopAsync();
     }
 
-    private async void GenerateTiles()
+    private void GenerateTiles()
     {
         try
         {
@@ -128,6 +127,8 @@ public partial class GameView
                 _multiplier = Preferences.Get("ResumeMultiplier", 1);
                 _currentScore = Preferences.Get("ResumeScore", 0);
                 _tries = Preferences.Get("ResumeTries", 2);
+                _foundPatternTiles = _clickedTiles.Count;
+                FinishProgress.Progress = ((double)_foundPatternTiles / _totalPatternTiles);
             }
             var startPoints = Generator.GetStartPoints(_pattern);
 
@@ -465,6 +466,7 @@ public partial class GameView
         if (Preferences.Get("Bombs", 0) > 0)
         {
             Preferences.Set("Bombs", Preferences.Get("Bombs", 0) - 1);
+            Activate_Bomb_Placing();
         }
         UpdateItems();
     }
@@ -477,26 +479,19 @@ public partial class GameView
             {
                 var button = _buttons[row, col];
                 button.BorderColor = Color.FromArgb("#474954");
-                button.Clicked += (_, _) => Place_Bomb(button);
-#if WINDOWS
-                if (button.Handler is ButtonHandler handler)
-                {
-                    ButtonHoverHandler.AttachHover(handler, button.backgroundcolor);
-                }
-#endif
             }
         }
     }
 
 
-    private async void Place_Bomb(Button button)
+    private void Place_Bomb(Button button)
     {
         // Get the row and column of the clicked button
         int row = (int)button.GetValue(Grid.RowProperty);
         int col = (int)button.GetValue(Grid.ColumnProperty);
 
         // List of directions: center, up, down, left, right
-        int[,] directions = { { 0, 0 }, { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+        int[,] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
 
         for (int i = 0; i < directions.GetLength(0); i++)
         {
@@ -509,7 +504,13 @@ public partial class GameView
                 var targetButton = _buttons[r, c];
                 if (targetButton != null && targetButton.IsEnabled)
                 {
-                    await OnPatternTileClicked(targetButton, _pattern[r, c]);
+                    try
+                    {
+                        OnPatternTileClicked(targetButton, _pattern[r, c]);
+                    }
+                    catch (Exception e)
+                    {
+                    }
                 }
             }
         }
@@ -544,25 +545,5 @@ public partial class GameView
                     
             }
         }
-    }
-}
-
-public static class ButtonHoverHandler
-{
-    public static void AttachHover(ButtonHandler handler, Color background)
-    {
-    #if WINDOWS
-        if (handler.PlatformView is Windows.UI.Xaml.Controls.Button nativeButton)
-        {
-            nativeButton.PointerEntered += (s, e) =>
-            {
-                nativeButton.BackgroundColor = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Gold);
-            };
-            nativeButton.PointerExited += (s, e) =>
-            {
-                nativeButton.BackgroundColor = background;
-            };
-        }
-    #endif
     }
 }

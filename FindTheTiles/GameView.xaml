@@ -78,7 +78,7 @@
                         <ProgressBar x:Name="FinishProgress" ProgressColor="#a997d7" BackgroundColor="#E0E8FF" Progress="0.001" HeightRequest="{OnPlatform WinUI=20}" />
                     </VerticalStackLayout>
                 </Frame>
-                <StackLayout x:Name="MobileStacker" Spacing="{OnPlatform 22, Android=18, iOS=18}" HorizontalOptions="Center" Orientation="{OnPlatform Horizontal, Android=Vertical, iOS=Vertical}" >
+                <StackLayout Spacing="{OnPlatform 22, Android=18, iOS=18}" HorizontalOptions="Center" Orientation="{OnPlatform Horizontal, Android=Vertical, iOS=Vertical}" >
                     <HorizontalStackLayout Spacing="{OnPlatform 22, Android=18, iOS=18}">
                         <Frame 
                             x:Name="MultiplierFrame"
