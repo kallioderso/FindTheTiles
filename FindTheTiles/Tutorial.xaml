@@ -50,7 +50,7 @@
                            FontSize="20"
                            BackgroundColor="Transparent"
                            Text="Find the Tiles - Tutorial"
-                           Clicked="SkipText"/><!-- Shadow="2,2,8,#B0C4FF" -->
+                           Clicked="ClickText"/><!-- Shadow="2,2,8,#B0C4FF" -->
                 </Frame>
                 <StackLayout>
                     <VerticalStackLayout>
