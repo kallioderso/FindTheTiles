@@ -52,7 +52,7 @@ public partial class GameView
             _currentScore = score;
             _completedPatterns = completedPatterns;
             _multiplier = multiplier;
-            _tries = Random.Next(2, 5);
+            _tries = Preferences.Get("Tries", 1);
         }
 
         GenerateTiles();
@@ -126,7 +126,7 @@ public partial class GameView
                 _clickedTiles = DeserializeCordinates(Preferences.Get("ResumeCordinatesClicked", ""));
                 _multiplier = Preferences.Get("ResumeMultiplier", 1);
                 _currentScore = Preferences.Get("ResumeScore", 0);
-                _tries = Preferences.Get("ResumeTries", 2);
+                _tries = Preferences.Get("ResumeTries", Preferences.Get("Tries", 1));
                 _foundPatternTiles = _clickedTiles.Count;
                 FinishProgress.Progress = ((double)_foundPatternTiles / _totalPatternTiles);
             }

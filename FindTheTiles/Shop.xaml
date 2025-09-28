@@ -11,14 +11,14 @@
         </LinearGradientBrush>
     </ContentPage.Background>
     <Grid>
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Start" Spacing="8">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Start">
             <ImageButton
                 Source="tilecoins.png"
-                BackgroundColor="#F3F7FF"
+                BackgroundColor="Transparent"
                 CornerRadius="16"
                 WidthRequest="60"
                 HeightRequest="60"
-                BorderColor="#E0E8FF"
+                BorderColor="Transparent"
                 BorderWidth="2"/>
             <Label
                 x:Name="TileCoinsCountLabel"
@@ -59,7 +59,7 @@
                 VerticalScrollBarVisibility="Always"
                 MaximumWidthRequest="800"
                 HeightRequest="600">
-                <StackLayout Spacing="16">
+                <StackLayout Spacing="24">
                      <Frame BackgroundColor="#FFFFFF"
                         CornerRadius="20"
                         HasShadow="True"
@@ -102,7 +102,7 @@
                                         FontSize="17" 
                                         FontAttributes="Bold"/>
                                 </StackLayout>
-                                <Button x:Name="BuySearcherButton" Text="Buy Now for 10 Coins" BorderColor="#a997d7" BackgroundColor="#FFFFFF" TextColor="#a997d7" Clicked="Buy_Searcher" FontAttributes="Bold" BorderWidth="2" ToolTipProperties.Text="Buy Searcher"/>
+                                <Button x:Name="BuySearcherButton" Text="Buy Now for 10 Coins" BorderColor="#a997d7" BackgroundColor="#FFFFFF" TextColor="#a997d7" Clicked="Buy_Searcher" FontAttributes="Bold" BorderWidth="2" ToolTipProperties.Text="Buy Searcher" WidthRequest="400"/>
                             </StackLayout>
                         </StackLayout>
                     </Frame>
@@ -150,7 +150,53 @@
                                         FontSize="17" 
                                         FontAttributes="Bold"/>
                                 </StackLayout>
-                                <Button x:Name="BuyBombButton" Text="Buy Now for 25 Coins" BorderColor="#a997d7" BackgroundColor="#FFFFFF" TextColor="#a997d7" Clicked="Buy_Bomb" FontAttributes="Bold" BorderWidth="2" ToolTipProperties.Text="Buy Bomb"/>
+                                <Button x:Name="BuyBombButton" Text="Buy Now for 25 Coins" BorderColor="#a997d7" BackgroundColor="#FFFFFF" TextColor="#a997d7" Clicked="Buy_Bomb" FontAttributes="Bold" BorderWidth="2" ToolTipProperties.Text="Buy Bomb" WidthRequest="400"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                    <Frame BackgroundColor="#FFFFFF"
+                        CornerRadius="20"
+                        HasShadow="True"
+                        Margin="20,0, 20,0"
+                        BorderColor="#a997d7">
+                        <StackLayout Orientation="Vertical">
+                            <Label 
+                                    x:Name="Product3"
+                                    Text="Fails"
+                                    FontSize="19"
+                                    TextColor="#503a8f"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Start"/>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10" Margin="10">
+                                <Image Source="searcher.png" HeightRequest="100" WidthRequest="100" />
+                                <StackLayout Orientation="Vertical" Spacing="10" WidthRequest="550">
+                                    <Label
+                                        x:Name="Product3Description"
+                                        Text="By buying higher versions of this stat you increase your total acceptable fails per game session or better sayed you get more allowed fails before failing"
+                                        TextColor="#a997d7"
+                                        FontSize="17" 
+                                        FontAttributes="Bold"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout Orientation="Vertical" Spacing="10">
+                                <StackLayout Orientation="Horizontal" 
+                                    HorizontalOptions="Center" Spacing="8">
+                                    <Label
+                                        x:Name="Product3Owning"
+                                        Text="Owning: "
+                                        TextColor="#FFCCBAFA"
+                                        FontSize="17" />
+                                    <Label
+                                        Text=" 0"
+                                        x:Name="FailCountLabel"
+                                        TextColor="#ece1f4"
+                                        FontSize="17" 
+                                        FontAttributes="Bold"/>
+                                </StackLayout>
+                                <Button x:Name="BuyFailButton" Text="Buy Now for 50 Coins" BorderColor="#a997d7" BackgroundColor="#FFFFFF" TextColor="#a997d7" Clicked="Buy_Fails" FontAttributes="Bold" BorderWidth="2" ToolTipProperties.Text="Buy Fails" WidthRequest="400"/>
                             </StackLayout>
                         </StackLayout>
                     </Frame>
