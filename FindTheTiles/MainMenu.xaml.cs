@@ -81,10 +81,7 @@ public partial class MainMenu
                 await Application.Current.MainPage.Navigation.PushAsync(new GameView(), true);
             }
         }
-        catch (Exception)
-        {
-            //inactive
-        }
+        catch (Exception){/*inactive*/}
     }
 
     private async void HelpButton_OnClicked(object? sender, EventArgs e)
@@ -92,14 +89,9 @@ public partial class MainMenu
         try
         {
             if (Application.Current?.MainPage?.Navigation != null)
-            {
                 await Application.Current.MainPage.Navigation.PushAsync(new Tutorial(), true);
-            }
         }
-        catch (Exception)
-        {
-            //inactive
-        }
+        catch (Exception){/*inactive*/}
     }
 
     private async void ShopButton_OnClicked(object? sender, EventArgs e)
@@ -107,30 +99,19 @@ public partial class MainMenu
         try
         {
             if (Application.Current?.MainPage?.Navigation != null)
-            {
                 await Application.Current.MainPage.Navigation.PushAsync(new Shop(), true);
-            }
         }
-        catch (Exception)
-        {
-            //inactive
-        }
+        catch (Exception){/*inactive*/}
     }
 
     private void LanguageButton_OnClicked(object? sender, EventArgs e)
     {
         if (Preferences.Get("language", "en") == "en")
-        {
             Preferences.Set("language", "de");
-        }
         else if (Preferences.Get("language", "en") == "de")
-        {
             Preferences.Set("language", "fr");
-        }
         else if (Preferences.Get("language", "en") == "fr")
-        {
             Preferences.Set("language", "en");
-        }
 
         LanguageManager.Update();
         SetLanguage(); // <-- Texte neu laden!
@@ -150,13 +131,8 @@ public partial class MainMenu
         try
         {
             if (Application.Current?.MainPage?.Navigation != null)
-            {
                 await Application.Current.MainPage.Navigation.PushAsync(new GameView(), true);
-            }
         }
-        catch (Exception)
-        {
-            //inactive
-        }
+        catch (Exception){/*inactive*/}
     }
 }

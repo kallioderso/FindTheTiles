@@ -200,6 +200,54 @@
                             </StackLayout>
                         </StackLayout>
                     </Frame>
+                    <Frame BackgroundColor="#FFFFFF"
+                        CornerRadius="20"
+                        HasShadow="True"
+                        Margin="20,0, 20,0"
+                        BorderColor="#a997d7">
+                            <StackLayout Orientation="Vertical">
+                                <Label 
+                                        x:Name="Product4"
+                                        Text="Multiplyer"
+                                        FontSize="19"
+                                        TextColor="#503a8f"
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Start"/>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10" Margin="10">
+                                    <StackLayout Orientation="Vertical" Spacing="10" WidthRequest="550">
+                                        <Label
+                                            x:Name="Product4Description"
+                                            Text="By Buying higher versions of this you can increase the multiplyer you get at the start of every game session"
+                                            TextColor="#a997d7"
+                                            FontSize="17" 
+                                            FontAttributes="Bold"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Center"/>
+                                    </StackLayout>
+                                    <Image Source="multiplyer.png" HeightRequest="100" WidthRequest="100" />
+                                </StackLayout>
+                            <StackLayout Orientation="Vertical"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                Spacing="10">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="8">
+                                    <Label
+                                        x:Name="Product4Owning"
+                                        Text="Owning: "
+                                        TextColor="#FFCCBAFA"
+                                        FontSize="17"/>
+                                    <Label
+                                        Text=" 0"
+                                        x:Name="MultiplyerLabelCountLabel"
+                                        TextColor="#ece1f4"
+                                        FontSize="17" 
+                                        FontAttributes="Bold"/>
+                                </StackLayout>
+                                <Button x:Name="BuyMultiplyerButton" Text="Buy Now for 25 Coins" BorderColor="#a997d7" BackgroundColor="#FFFFFF" TextColor="#a997d7" Clicked="Buy_Multiplyer" FontAttributes="Bold" BorderWidth="2" ToolTipProperties.Text="Buy Bomb" WidthRequest="400"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
                 </StackLayout>
             </ScrollView>
         </VerticalStackLayout>

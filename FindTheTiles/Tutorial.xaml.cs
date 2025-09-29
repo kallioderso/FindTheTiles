@@ -57,11 +57,7 @@ public partial class Tutorial : IDisposable
             base.OnAppearing();
             await GenerateStartPoint();
         }
-        catch (Exception ex)
-        {
-            // Log exception properly in production
-            System.Diagnostics.Debug.WriteLine($"Error in OnAppearing: {ex.Message}");
-        }
+        catch (Exception ex){System.Diagnostics.Debug.WriteLine($"Error in OnAppearing: {ex.Message}");}
     }
 
     private void UpdateLanguage()
@@ -79,10 +75,7 @@ public partial class Tutorial : IDisposable
         ToolTipProperties.SetText(ExitButton, LanguageManager.GetText("TooltipExit"));
     }
 
-    private async void ExitButton_Clicked(object? sender, EventArgs e)
-    {
-        await Navigation.PopAsync();
-    }
+    private async void ExitButton_Clicked(object? sender, EventArgs e){await Navigation.PopAsync();}
     
     ////////////////////////////////////
     ///////Tutorial Text Methods////////
@@ -140,9 +133,7 @@ public partial class Tutorial : IDisposable
         TextCreating = true;
         
         try
-        {
-            await AddText(LanguageManager.GetText(textKey), _textAnimationCts.Token);
-        }
+        {await AddText(LanguageManager.GetText(textKey), _textAnimationCts.Token);}
         catch (Exception ex)
         {
             System.Diagnostics.Debug.WriteLine($"Error in AddTextes: {ex.Message}");
@@ -272,10 +263,7 @@ public partial class Tutorial : IDisposable
                 Unfroze();
             }
         }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Error in StartPoint_Clicked: {ex.Message}");
-        }
+        catch (Exception ex){System.Diagnostics.Debug.WriteLine($"Error in StartPoint_Clicked: {ex.Message}");}
     }
 
     private void AddSingleEventHandler(Button button, EventHandler handler)
@@ -303,10 +291,7 @@ public partial class Tutorial : IDisposable
             TutorialPart--;
             Unfroze();
         }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Error in WrongClicked: {ex.Message}");
-        }
+        catch (Exception ex){System.Diagnostics.Debug.WriteLine($"Error in WrongClicked: {ex.Message}");}
     }
 
     private async void MusterClicked(object? sender, EventArgs e)
@@ -339,10 +324,8 @@ public partial class Tutorial : IDisposable
                     for (int row = 0; row < _gridSize; row++)
                     {
                         for (int col = 0; col < _gridSize; col++)
-                        {
                             if (_disappearing[row, col] == 1) 
                                 _buttons[row, col].IsVisible = true;
-                        }
                     }
                     await Task.Delay(500);
                     
@@ -350,10 +333,8 @@ public partial class Tutorial : IDisposable
                     for (int row = 0; row < _gridSize; row++)
                     {
                         for (int col = 0; col < _gridSize; col++)
-                        {
                             if (_disappearing[row, col] == 0) 
                                 _buttons[row, col].IsVisible = true;
-                        }
                     }
                     await Task.Delay(500);
                     
@@ -396,10 +377,7 @@ public partial class Tutorial : IDisposable
             }
             Unfroze();
         }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Error in MusterClicked: {ex.Message}");
-        }
+        catch (Exception ex){System.Diagnostics.Debug.WriteLine($"Error in MusterClicked: {ex.Message}");}
     }
 
     private void RemoveButtonFromList(Button button)
@@ -408,21 +386,15 @@ public partial class Tutorial : IDisposable
         var col = TilesGrid.GetColumn(button);
         
         if (row >= 0 && row < _gridSize && col >= 0 && col < _gridSize)
-        {
             _buttons[row, col].IsEnabled = false;
-        }
     }
     
     private void Froze()
     {
         for (int row = 0; row < _gridSize; row++)
-        {
             for (int col = 0; col < _gridSize; col++)
-            {
                 if (_buttons[row, col].IsVisible)
                     UnEnable(_buttons[row, col]);
-            }
-        }
     }
 
     private void UnEnable(Button button)
@@ -445,15 +417,11 @@ public partial class Tutorial : IDisposable
                 {
                     // Startbutton immer aktivieren
                     if (button == _startbutton && button.BorderColor.ToArgbHex() == Color.FromArgb("#4CAF50").ToArgbHex())
-                    {
                         button.IsEnabled = true;
-                    }
                     // Andere Buttons wie gehabt
                     else if (button.BackgroundColor.ToArgbHex() == Color.FromArgb("#FFFFFF").ToArgbHex() ||
                              button.BackgroundColor.ToArgbHex() == Color.FromArgb("#FFF8DC").ToArgbHex())
-                    {
                         button.IsEnabled = true;
-                    }
                 }
             }
         }
@@ -517,9 +485,7 @@ public partial class Tutorial : IDisposable
     {
         await AddTextes("Tutorial12");
         if (Application.Current?.MainPage?.Navigation != null)
-        {
             await Application.Current.MainPage.Navigation.PopAsync();
-        }
     }
 
     private void LanguageButton_OnClicked(object? sender, EventArgs e)
@@ -539,10 +505,7 @@ public partial class Tutorial : IDisposable
             LanguageManager.Update();
             UpdateLanguage();
         }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine($"Error in LanguageButton_OnClicked: {ex.Message}");
-        }
+        catch (Exception ex){System.Diagnostics.Debug.WriteLine($"Error in LanguageButton_OnClicked: {ex.Message}");}
     }
 
     private void ClickText(object? sender, EventArgs eventArgs)
@@ -581,8 +544,5 @@ public partial class Tutorial : IDisposable
         }
     }
 
-    ~Tutorial()
-    {
-        Dispose(false);
-    }
+    ~Tutorial(){Dispose(false);}
 }

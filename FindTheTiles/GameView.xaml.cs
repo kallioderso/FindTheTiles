@@ -6,7 +6,6 @@ public partial class GameView
 {
     private const int GridSize = 7;
 
-
     // Private Felder
     private bool[,] _pattern = new bool[GridSize, GridSize];
     private readonly Button[,] _buttons = new Button[GridSize, GridSize];
@@ -40,7 +39,7 @@ public partial class GameView
     private bool _bombProcessing;
     private (int startrow1, int startcol1, int startrow2, int startcol2) _startPoints;
 
-    public GameView(int score = 0, int completedPatterns = 0, double multiplier = 1.0)
+    public GameView(int score = 0, int completedPatterns = 0, double multiplier = 1.0, int tries = 1)
     {
         InitializeComponent();
         NavigationPage.SetHasBackButton(this, false);
@@ -56,7 +55,7 @@ public partial class GameView
         {
             _currentScore = score;
             _completedPatterns = completedPatterns;
-            _multiplier = multiplier;
+            _multiplier = multiplier >= Preferences.Get("Multiplyer", 1.0) ? multiplier : Preferences.Get("Multiplyer", 1.0);
             _tries = Preferences.Get("Tries", 1);
         }
 
@@ -177,20 +176,14 @@ public partial class GameView
                         button.Clicked += async (_, _) => await OnPatternTileClicked(button, true);
                     }
                     else
-                    {
                         button.Clicked += async (_, _) => await OnPatternTileClicked(button, false);
-                    }
-
                     TilesGrid.Children.Add(button);
                 }
             }
             // Hier die neue Methode aufrufen:
             RestoreClickedTiles();
         }
-        catch (Exception)
-        {
-            //Ignored
-        }
+        catch (Exception){/*Ignored*/}
     }
 
     private void RestoreClickedTiles()
@@ -239,9 +232,7 @@ public partial class GameView
     {
         string sCstring = "";
         foreach (var (row, col) in patternCoordinates)
-        {
             sCstring += $"{row}*{col}-";
-        }
         return sCstring;
     }
 
@@ -346,7 +337,8 @@ public partial class GameView
             {
                 NextPattern();
                 await Task.Delay(500);
-                await Navigation.PushAsync(new GameView(_currentScore, _completedPatterns, _multiplier));
+                _tries++;
+                await Navigation.PushAsync(new GameView(_currentScore, _completedPatterns, _multiplier, _tries));
                 Navigation.RemovePage(this);
             }
         }
@@ -384,31 +376,19 @@ public partial class GameView
         try
         {
             if (Application.Current?.MainPage?.Navigation != null)
-            {
                 await Application.Current.MainPage.Navigation.PushAsync(new Tutorial(), true);
-            }
         }
-        catch (Exception)
-        {
-            // ignored
-        }
+        catch (Exception){/* ignored*/}
     }
 
     private void LanguageButton_OnClicked(object? sender, EventArgs e)
     {
         if (Preferences.Get("language", "en") == "en")
-        {
             Preferences.Set("language", "de");
-
-        }
         else if (Preferences.Get("language", "en") == "de")
-        {
             Preferences.Set("language", "fr");
-        }
         else if (Preferences.Get("language", "en") == "fr")
-        {
             Preferences.Set("language", "en");
-        }
 
         LanguageManager.Update();
         SetLanguage(); // <-- Texte neu laden!
@@ -417,22 +397,14 @@ public partial class GameView
     private void UpdateItems()
     {
         if (Preferences.Get("Bombs", 0) > 0)
-        {
             BombButton.Source = "bomb.png";
-        }
         else
-        {
             BombButton.Source = "nobomb.png";
-        }
 
         if (Preferences.Get("Searchers", 0) > 0)
-        {
             SearchButton.Source = "searcher.png";
-        }
         else
-        {
             SearchButton.Source = "nosearch.png";
-        }
     }
 
     private void Search_OnClicked(object? sender, EventArgs e)
@@ -451,15 +423,9 @@ public partial class GameView
         {
             var availablePatternTiles = new List<(int row, int col)>();
             for (int row = 0; row < GridSize; row++)
-            {
                 for (int col = 0; col < GridSize; col++)
-                {
                     if (_pattern[row, col] && _buttons[row, col] != null && _buttons[row, col].IsEnabled)
-                    {
                         availablePatternTiles.Add((row, col));
-                    }
-                }
-            }
 
             if (availablePatternTiles.Count > 0)
             {

@@ -4,10 +4,7 @@ static class LanguageManager
 {
     private static Dictionary<string, string>? texts;
 
-    public static void Update()
-    {
-        LoadLanguage();
-    }
+    public static void Update(){LoadLanguage();}
 
     private static void LoadLanguage()
     {

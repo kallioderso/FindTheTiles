@@ -11,10 +11,8 @@ public class Generator
         };
         int matches = 0;
         foreach (var (nRow, nCol) in neighbors)
-        {
             if (nRow >= 0 && nRow < 7 && nCol >= 0 && nCol < 7 && _pattern[nRow, nCol])
                 matches++;
-        }
         return matches;
     }
 
@@ -39,8 +37,7 @@ public class Generator
                         buttons[nRow, nCol].BorderColor = Color.FromArgb("#FAFAAA");
                     }
                 }
-                catch (Exception e)
-                { Console.WriteLine(e); }
+                catch (Exception e){ Console.WriteLine(e); }
             }
         }
         return matches;
