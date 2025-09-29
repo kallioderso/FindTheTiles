@@ -1,0 +1,6 @@
+{
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "github.copilot.chat.terminalChatLocation": "chatView",
+    "chat.disableAIFeatures": false,
+    "workbench.settings.showAISearchToggle": true
+}

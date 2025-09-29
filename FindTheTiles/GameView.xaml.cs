@@ -35,6 +35,11 @@ public partial class GameView
     private int _completedPatterns;
     private double _multiplier;
 
+    // Neuer Zustand für Bombenmodus
+    private bool _bombMode;
+    private bool _bombProcessing;
+    private (int startrow1, int startcol1, int startrow2, int startcol2) _startPoints;
+
     public GameView(int score = 0, int completedPatterns = 0, double multiplier = 1.0)
     {
         InitializeComponent();
@@ -131,7 +136,7 @@ public partial class GameView
                 FinishProgress.Progress = ((double)_foundPatternTiles / _totalPatternTiles);
             }
             var startPoints = Generator.GetStartPoints(_pattern);
-
+            _startPoints = startPoints;
             for (int row = 0; row < GridSize; row++)
             {
                 for (int col = 0; col < GridSize; col++)
@@ -307,8 +312,13 @@ public partial class GameView
 
     private async Task OnPatternTileClicked(Button button, bool isPattern)
     {
-        if (_isGameOver)
+        if (_isGameOver)return;
+        if (_bombMode)
+        {
+            if (_bombProcessing) return;
+            Place_Bomb(button);
             return;
+        }
         button.IsEnabled = false;
         _buttons[TilesGrid.GetRow(button), TilesGrid.GetColumn(button)] = null!;
         _clickedTiles.Add((TilesGrid.GetRow(button), TilesGrid.GetColumn(button)));
@@ -342,7 +352,8 @@ public partial class GameView
         }
         else
         {
-            _tries--;
+            if(!_bombProcessing)
+                _tries--;
             UpdateTryLabel();
             button.BackgroundColor = Color.FromArgb("#FFCDD2");
             button.BorderColor = Color.FromArgb("#E57373");
@@ -463,6 +474,7 @@ public partial class GameView
 
     private void Bomb_OnClicked(object? sender, EventArgs e)
     {
+        if (_bombMode) return;
         if (Preferences.Get("Bombs", 0) > 0)
         {
             Preferences.Set("Bombs", Preferences.Get("Bombs", 0) - 1);
@@ -473,11 +485,13 @@ public partial class GameView
 
     private void Activate_Bomb_Placing()
     {
+        _bombMode = true;
         for (int row = 0; row < GridSize; row++)
         {
             for (int col = 0; col < GridSize; col++)
             {
                 var button = _buttons[row, col];
+                if (button == null || !button.IsEnabled) continue;
                 button.BorderColor = Color.FromArgb("#474954");
             }
         }
@@ -486,19 +500,18 @@ public partial class GameView
 
     private void Place_Bomb(Button button)
     {
-        // Get the row and column of the clicked button
+        _bombMode = false;
+        _bombProcessing = true;
         int row = (int)button.GetValue(Grid.RowProperty);
         int col = (int)button.GetValue(Grid.ColumnProperty);
 
-        // List of directions: center, up, down, left, right
-        int[,] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+        // Zentrum jetzt enthalten + vier Nachbarn
+        int[,] directions = { { 0, 0 }, { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
 
         for (int i = 0; i < directions.GetLength(0); i++)
         {
             int r = row + directions[i, 0];
             int c = col + directions[i, 1];
-
-            // Check bounds
             if (r >= 0 && r < GridSize && c >= 0 && c < GridSize)
             {
                 var targetButton = _buttons[r, c];
@@ -506,11 +519,9 @@ public partial class GameView
                 {
                     try
                     {
-                        OnPatternTileClicked(targetButton, _pattern[r, c]);
+                        OnPatternTileClicked(targetButton, _pattern[r, c]); // bewusst ohne await belassen (minimalinvasiv)
                     }
-                    catch (Exception e)
-                    {
-                    }
+                    catch { /* ignored */ }
                 }
             }
         }
@@ -520,29 +531,22 @@ public partial class GameView
 
     private void Deactivate_Bomb_Placing()
     {
+        _bombProcessing = false;
+        _bombMode = false;
         for (int row = 0; row < GridSize; row++)
         {
             for (int col = 0; col < GridSize; col++)
             {
                 var button = _buttons[row, col];
+                if (button == null) continue; // Fix: Absturz verhindern
                 if (button.BackgroundColor == Color.FromArgb("#FFCDD2"))
                     button.BorderColor = Color.FromArgb("#E57373");
                 else if (button.BackgroundColor == Color.FromArgb("#D0E0FF"))
                     button.BorderColor = Color.FromArgb("#A0B8FF");
                 else if (button.BackgroundColor == Color.FromArgb("#FFF8DC"))
-                    button.BackgroundColor = Color.FromArgb("#FAFAAA");
-                button.Clicked -= (_, _) => Place_Bomb(button);
-                foreach (var cordinate in _clickedTiles)
-                {
-                    if (cordinate != (row, col))
-                    {
-                        if (_pattern[row, col])
-                            button.Clicked += async (_, _) => await OnPatternTileClicked(button, true);
-                        else
-                            button.Clicked += async (_, _) => await OnPatternTileClicked(button, false);
-                    }
-                }
-                    
+                    button.BorderColor = Color.FromArgb("#FAFAAA");
+                else
+                    button.BorderColor = Color.FromArgb("#a997d7");
             }
         }
     }
