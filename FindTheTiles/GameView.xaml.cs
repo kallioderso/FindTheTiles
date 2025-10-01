@@ -287,7 +287,7 @@ public partial class GameView
     {
         _completedPatterns++;
         int block = _completedPatterns / 10;
-        double baseMulti = 1.0;
+        double baseMulti = Preferences.Get("Multiplyer", 1.0);
         double add = 0.0;
         int rest = _completedPatterns;
         for (int i = 0; i <= block; i++)
@@ -327,7 +327,7 @@ public partial class GameView
             button.Shadow.Opacity = 0.2f;
             button.Shadow.Brush = new SolidColorBrush(Color.FromArgb("#B0C4FF"));
             ToolTipProperties.SetText(button, $"{LanguageManager.GetText("PatternTile")}");
-            _currentScore += (int)Math.Round(1 * _multiplier);
+            _currentScore += 1;
             _foundPatternTiles++;
             FinishProgress.Progress = ((double)_foundPatternTiles / _totalPatternTiles);
             ToolTipProperties.SetText(FortschritsFrame, $"{LanguageManager.GetText("Progress")}: {_foundPatternTiles} / {_totalPatternTiles}");
@@ -359,7 +359,7 @@ public partial class GameView
                 int highscore = Preferences.Get("Highscore", 0);
                 if (_currentScore > highscore)
                     Preferences.Set("Highscore", _currentScore);
-                int newCoins = Preferences.Get("Coins", 0) + _currentScore;
+                int newCoins = Preferences.Get("Coins", 0) + (int)(_currentScore*_multiplier);
 
                 Preferences.Set("Coins", newCoins);
                 Preferences.Set("LastScore", _currentScore);

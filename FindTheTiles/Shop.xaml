@@ -60,6 +60,63 @@
                 MaximumWidthRequest="800"
                 HeightRequest="600">
                 <StackLayout Spacing="24">
+                    <Frame BackgroundColor="#FFFFFF"
+                        CornerRadius="20"
+                        HasShadow="True"
+                        Margin="0"
+                        BorderColor="#a997d7">
+                        <StackLayout Orientation="Horizontal">
+                            <Image Source="siegel.png" HeightRequest="100" WidthRequest="100"/>
+                            <StackLayout Orientation="Vertical">
+                                <Label x:Name="Product"
+                                    Text="siegel"
+                                    FontSize="19"
+                                    TextColor="#503a8f"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Start"
+                                />
+                                <Label
+                                    x:Name="ProductDescription"
+                                    Text="Used to Sail Chosen Fields"
+                                    TextColor="#a997d7"
+                                    FontSize="17" 
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"/>
+                                <HorizontalStackLayout Spacing="16">
+                                    <StackLayout Orientation="Horizontal" 
+                                    HorizontalOptions="Center" Spacing="8">
+                                    <Label
+                                        x:Name="ProductCost"
+                                        Text="Price: "
+                                        TextColor="#FFCCBAFA"
+                                        FontSize="17"
+                                        FontAttributes="Bold"/>
+                                    <Label
+                                        Text=" 0 Tile-Coins"
+                                        x:Name="siegelCostLabel"
+                                        TextColor="#ece1f4"
+                                        FontSize="17" 
+                                        FontAttributes="Bold"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" 
+                                    HorizontalOptions="Center" Spacing="8">
+                                    <Label
+                                        x:Name="ProductOwning"
+                                        Text="Owning: "
+                                        TextColor="#FFCCBAFA"
+                                        FontSize="17"
+                                        FontAttributes="Bold"/>
+                                    <Label
+                                        Text=" 0"
+                                        x:Name="siegelCountLabel"
+                                        TextColor="#ece1f4"
+                                        FontSize="17" 
+                                        FontAttributes="Bold"/>
+                                </StackLayout>
+                                </HorizontalStackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
                      <Frame BackgroundColor="#FFFFFF"
                         CornerRadius="20"
                         HasShadow="True"
