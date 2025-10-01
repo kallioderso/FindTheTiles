@@ -3,6 +3,14 @@ namespace FindTheTiles;
 public partial class Shop
 {
     private int _coins;
+    private TapGestureRecognizer _recoSeal = new TapGestureRecognizer();
+    private TapGestureRecognizer _recoSearch = new TapGestureRecognizer();
+    private TapGestureRecognizer _recoBomb = new TapGestureRecognizer();
+    private TapGestureRecognizer _recoTrie = new TapGestureRecognizer();
+    private TapGestureRecognizer _recoMulti = new TapGestureRecognizer();
+
+    private readonly int[] _triePrices = { 50, 100, 200, 350, 500 };
+    private readonly int[] _multiPrices = { 30, 50, 100, 150, 250, 350, 450, 600, 750, 900 };
     public Shop()
     {
         InitializeComponent();
@@ -10,33 +18,49 @@ public partial class Shop
         _coins = Preferences.Get("Coins", 0);
         UpdateArticle();
         UpdateLanguage();
+        CreateRecognizers();
+        Temporary(null, null);
     }
 
+
+    private void CreateRecognizers()
+    {
+        _recoSeal.Tapped += (s, e) => Buy_Seal(s, e);
+        SealFrame.GestureRecognizers.Add(_recoSeal);
+        _recoSearch.Tapped += (s, e) => Buy_Searcher(s, e);
+        SearcherFrame.GestureRecognizers.Add(_recoSearch);
+        _recoBomb.Tapped += (s, e) => Buy_Bomb(s, e);
+        BombFrame.GestureRecognizers.Add(_recoBomb);
+        _recoTrie.Tapped += (s, e) => Buy_Fails(s, e);
+        TriesFrame.GestureRecognizers.Add(_recoTrie);
+        _recoMulti.Tapped += (s, e) => Buy_Multiplyer(s, e);
+        multiplyerFrame.GestureRecognizers.Add(_recoMulti);
+    }
     private void UpdateLanguage()
     {
         Titel.Text = LanguageManager.GetText("Shop");
+        seal.Text = LanguageManager.GetText("Seal");
+        sealDescription.Text = LanguageManager.GetText("SealDescription");
+        sealCost.Text = LanguageManager.GetText("Price");
+        sealOwning.Text = LanguageManager.GetText("Owning");
         Product1.Text = LanguageManager.GetText("Searcher");
         Product1Description.Text = LanguageManager.GetText("SearcherDescription");
         Product1Owning.Text = LanguageManager.GetText("Owning");
-        BuySearcherButton.Text = LanguageManager.GetText("SearcherPrice");
+        BuySearcherPrice.Text = LanguageManager.GetText("Price");
         Product2.Text = LanguageManager.GetText("Bomb");
         Product2Description.Text = LanguageManager.GetText("SearcherDescription");
         Product2Owning.Text = LanguageManager.GetText("Owning");
-        BuyBombButton.Text = LanguageManager.GetText("BombPrice");
+        BuyBombPrice.Text = LanguageManager.GetText("Price");
         Product3.Text = LanguageManager.GetText("Fails");
         Product3Description.Text = LanguageManager.GetText("FailDescription");
         Product3Owning.Text = LanguageManager.GetText("Owning");
+        BuyFailPrice.Text = LanguageManager.GetText("Price");
+        BuyMultiplyerPrice.Text = LanguageManager.GetText("Price");
         Product4.Text = LanguageManager.GetText("Multi");
         Product4Description.Text = LanguageManager.GetText("MultiDescription");
         Product4Owning.Text = LanguageManager.GetText("Owning");
-        BuyFailButton.Text = LanguageManager.GetText($"FailPrice{Preferences.Get("Tries", 1)}");
-        BuyMultiplyerButton.Text = LanguageManager.GetText($"MultiPrice{Preferences.Get("MultiplyerBuys", 1)}");
         ToolTipProperties.SetText(HelpButton, LanguageManager.GetText("TooltipTutorial"));
         ToolTipProperties.SetText(LanguageButton, LanguageManager.GetText("TooltipLanguage"));
-        ToolTipProperties.SetText(BuySearcherButton, LanguageManager.GetText("TooltipSearcherBuy"));
-        ToolTipProperties.SetText(BuyBombButton , LanguageManager.GetText("TooltipBombBuy"));
-        ToolTipProperties.SetText(BuyFailButton, LanguageManager.GetText("TooltipFailBuy"));
-        ToolTipProperties.SetText(BuyMultiplyerButton, LanguageManager.GetText("TooltipMultiBuy"));
         ToolTipProperties.SetText(ExitButton, LanguageManager.GetText("TooltipExit"));
         if (Preferences.Get("language", "en") == "en")
             LanguageButton.Source = "english.png";
@@ -50,51 +74,72 @@ public partial class Shop
     {
         UpdateLanguage();
         TileCoinsCountLabel.Text = $"{_coins}";
+        sealCountLabel.Text = Preferences.Get("Seals", 0).ToString();
         BombCountLabel.Text = Preferences.Get("Bombs", 0).ToString();
         SearcherCountLabel.Text = Preferences.Get("Searchers", 0).ToString();
         FailCountLabel.Text = Preferences.Get("Tries", 1).ToString();
         MultiplyerLabelCountLabel.Text = Preferences.Get("Multiplyer", 1.0).ToString();
 
-        BuyBombButton.BackgroundColor = _coins >= 25 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
-        BuySearcherButton.BackgroundColor = _coins >= 10 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
-        if(Preferences.Get("Tries", 1) == 1)
-            BuyFailButton.BackgroundColor = _coins >= 50 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
-        else if(Preferences.Get("Tries", 1) == 2)
-            BuyFailButton.BackgroundColor = _coins >= 100 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
-        else if(Preferences.Get("Tries", 1) == 3)
-            BuyFailButton.BackgroundColor = _coins >= 200 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
-        else if(Preferences.Get("Tries", 1) == 4)
-            BuyFailButton.BackgroundColor = _coins >= 350 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
-        else if(Preferences.Get("Tries", 1) == 5)
-            BuyFailButton.BackgroundColor = _coins >= 500 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
-        else
-            BuyFailButton.BackgroundColor = Color.FromArgb("#e2c9f2ff");
+        sealCostLabel.Text = 2.ToString();
+        BuySearcherCosts.Text = 10.ToString();
+        BuyBombCosts.Text = 25.ToString();
+        BuyFailCosts.Text = _triePrices[Preferences.Get("Tries", 1) - 1].ToString();
+        BuyMultiplyerCosts.Text = _multiPrices[Preferences.Get("MultiplyerBuys", 1) - 1].ToString();
 
-        if(Preferences.Get("MultiplyerBuys", 1) == 1)
-            BuyMultiplyerButton.BackgroundColor = _coins >= 30 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
-        else if(Preferences.Get("MultiplyerBuys", 1) == 2)
-            BuyMultiplyerButton.BackgroundColor = _coins >= 50 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
-        else if(Preferences.Get("MultiplyerBuys", 1) == 3)
-            BuyMultiplyerButton.BackgroundColor = _coins >= 100 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
-        else if(Preferences.Get("MultiplyerBuys", 1) == 4)
-            BuyMultiplyerButton.BackgroundColor = _coins >= 150 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
-        else if(Preferences.Get("MultiplyerBuys", 1) == 5)
-            BuyMultiplyerButton.BackgroundColor = _coins >= 250 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
-        else if(Preferences.Get("MultiplyerBuys", 1) == 6)
-            BuyMultiplyerButton.BackgroundColor = _coins >= 350 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
-        else if(Preferences.Get("MultiplyerBuys", 1) == 7)
-            BuyMultiplyerButton.BackgroundColor = _coins >= 450 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
-        else if(Preferences.Get("MultiplyerBuys", 1) == 8)
-            BuyMultiplyerButton.BackgroundColor = _coins >= 600 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
-        else if(Preferences.Get("MultiplyerBuys", 1) == 9)
-            BuyMultiplyerButton.BackgroundColor = _coins >= 750 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
-        else if(Preferences.Get("MultiplyerBuys", 1) == 10)
-            BuyMultiplyerButton.BackgroundColor = _coins >= 900 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
+        SealFrame.BackgroundColor = _coins >= 2 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
+
+        SearcherFrame.BackgroundColor = _coins >= 10 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
+
+        BombFrame.BackgroundColor = _coins >= 25 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
+
+        if (Preferences.Get("Tries", 1) < _triePrices.Length)
+            TriesFrame.BackgroundColor = _coins >= _triePrices[Preferences.Get("Tries", 1) - 1] ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
         else
-            BuyMultiplyerButton.BackgroundColor = Color.FromArgb("#e2c9f2ff");
+            TriesFrame.BackgroundColor = Color.FromArgb("#e2c9f2ff");
+        
+        if (Preferences.Get("MultiplyerBuys", 1) < _multiPrices.Length)
+            multiplyerFrame.BackgroundColor = _coins >= _multiPrices[Preferences.Get("MultiplyerBuys", 1) - 1] ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
+        else
+            multiplyerFrame.BackgroundColor = Color.FromArgb("#e2c9f2ff");
     }
     private void ExitButton_Clicked(object? sender, EventArgs e) { Navigation.PopAsync(); }
 
+    //Switch beetwheen the Different Shop Sectors
+    private void Temporary(object? sender, EventArgs e)
+    {
+        SealFrame.IsVisible = true;
+        SearcherFrame.IsVisible = true;
+        BombFrame.IsVisible = true;
+        TriesFrame.IsVisible = false;
+        multiplyerFrame.IsVisible = false;
+    }
+    private void Permanently(object? sender, EventArgs e)
+    {
+        SealFrame.IsVisible = false;
+        SearcherFrame.IsVisible = false;
+        BombFrame.IsVisible = false;
+        TriesFrame.IsVisible = true;
+        multiplyerFrame.IsVisible = true;
+    }
+    private void Visualy(object? sender, EventArgs e)
+    {
+        SealFrame.IsVisible = false;
+        SearcherFrame.IsVisible = false;
+        BombFrame.IsVisible = false;
+        TriesFrame.IsVisible = false;
+        multiplyerFrame.IsVisible = false;
+    }
+
+    private void Buy_Seal(object? sender, EventArgs e)
+    {
+        if (_coins >= 2)
+        {
+            _coins -= 2;
+            Preferences.Set("Coins", _coins);
+            Preferences.Set("Seals", Preferences.Get("Seals", 0) + 1);
+        }
+        UpdateArticle();
+    }
     private void Buy_Searcher(object? sender, EventArgs e)
     {
         if (_coins >= 10)
@@ -119,48 +164,11 @@ public partial class Shop
 
     private void Buy_Fails(object? sender, EventArgs e)
     {
-        switch(Preferences.Get("Tries", 1))
+        if (_coins >= _triePrices[Preferences.Get("Tries", 1) - 1])
         {
-            case 1:
-                if(_coins >= 50)
-                {
-                    _coins -= 50;
-                    Preferences.Set("Coins", _coins);
-                    Preferences.Set("Tries", 2);
-                }
-                break;
-            case 2:
-                if(_coins >= 100)
-                {
-                    _coins -= 100;
-                    Preferences.Set("Coins", _coins);
-                    Preferences.Set("Tries", 3);
-                }
-                break;
-            case 3:
-                if(_coins >= 200)
-                {
-                    _coins -= 200;
-                    Preferences.Set("Coins", _coins);
-                    Preferences.Set("Tries", 4);
-                }
-                break;
-            case 4:
-                if(_coins >= 350)
-                {
-                    _coins -= 350;
-                    Preferences.Set("Coins", _coins);
-                    Preferences.Set("Tries", 5);
-                }
-                break;
-            case 5:
-                if(_coins >= 500)
-                {
-                    _coins -= 500;
-                    Preferences.Set("Coins", _coins);
-                    Preferences.Set("Tries", 6);
-                }
-                break;
+            _coins -= _triePrices[Preferences.Get("Tries", 1) - 1];
+            Preferences.Set("Coins", _coins);
+            Preferences.Set("Tries", Preferences.Get("Tries", 1)+1);
         }
         UpdateArticle();
     }
@@ -270,7 +278,7 @@ public partial class Shop
             if (Application.Current?.MainPage?.Navigation != null)
                 await Application.Current.MainPage.Navigation.PushAsync(new Tutorial(), true);
         }
-        catch (Exception){/*inactive*/}
+        catch (Exception) {/*inactive*/}
     }
 
     private void LanguageButton_OnClicked(object? sender, EventArgs e)

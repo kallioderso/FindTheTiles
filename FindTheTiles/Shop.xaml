@@ -10,6 +10,61 @@
             <GradientStop Color="#ece1f4" Offset="1.0" />
         </LinearGradientBrush>
     </ContentPage.Background>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Frame" x:Key="ItemFrame">
+                <Setter Property="BackgroundColor" Value="#FFFFFF"/>
+                <Setter Property="CornerRadius" Value="20"/>
+                <Setter Property="HasShadow" Value="True"/>
+                <Setter Property="Margin" Value="20,0,20,0"/>
+                <Setter Property="BorderColor" Value="#a997d7"/>
+            </Style>
+            <Style TargetType="StackLayout" x:Key="ItemStack1">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="Spacing" Value="20"/>
+            </Style>
+            <Style TargetType="StackLayout" x:Key="ItemStack2">
+                <Setter Property="Orientation" Value="Vertical"/>
+                <Setter Property="Spacing" Value="8"/>
+            </Style>
+            <Style TargetType="StackLayout" x:Key="ItemStack3">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="Spacing" Value="16"/>
+            </Style>
+            <Style TargetType="StackLayout" x:Key="ItemStack4">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="Spacing" Value="8"/>
+            </Style>
+            <Style TargetType="Image" x:Key="ItemImage">
+                <Setter Property="HeightRequest" Value="100"/>
+                <Setter Property="WidthRequest" Value="100"/>
+            </Style>
+            <Style TargetType="Label" x:Key="Product">
+                <Setter Property="FontSize" Value="19"/>
+                <Setter Property="TextColor" Value="#503a8f"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="HorizontalOptions" Value="Start"/>
+            </Style>
+            <Style TargetType="Label" x:Key="Description">
+                <Setter Property="FontSize" Value="17"/>
+                <Setter Property="TextColor" Value="#a997d7"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="HorizontalOptions" Value="Start"/>
+            </Style>
+            <Style TargetType="Label" x:Key="ItemInfoLabel">
+                <Setter Property="FontSize" Value="17"/>
+                <Setter Property="TextColor" Value="#FFCCBAFA"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style TargetType="Label" x:Key="ItemStatLabel">
+                <Setter Property="FontSize" Value="17"/>
+                <Setter Property="TextColor" Value="#ece1f4"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <Grid>
         <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Start">
             <ImageButton
@@ -54,254 +109,209 @@
                    HorizontalOptions="Center"
                    VerticalOptions="Start"
                    FontSize="48"/>
+            <StackLayout Orientation="Horizontal" Spacing="8" HorizontalOptions="Center">
+                <Button 
+                    Text="Temporary"
+                    FontAttributes="Bold"
+                    BackgroundColor="#a997d7"
+                    TextColor="#FFFFFF"
+                    CornerRadius="18"
+                    BorderColor="#a997d7"
+                    Padding="24,12"
+                    Clicked="Temporary">
+
+                </Button>
+                <Button 
+                    Text="Permanently"
+                    FontAttributes="Bold"
+                    BackgroundColor="#a997d7"
+                    TextColor="#FFFFFF"
+                    CornerRadius="18"
+                    BorderColor="#a997d7"
+                    Padding="24,12"
+                    Clicked="Permanently">
+                    
+                </Button>
+                <Button 
+                    Text="Visualy"
+                    FontAttributes="Bold"
+                    BackgroundColor="#a997d7"
+                    TextColor="#FFFFFF"
+                    CornerRadius="18"
+                    BorderColor="#a997d7"
+                    Padding="24,12"
+                    Clicked="Visualy">
+                    
+                </Button>
+            </StackLayout>
             <ScrollView
                 HorizontalScrollBarVisibility="Never"
                 VerticalScrollBarVisibility="Always"
-                MaximumWidthRequest="800"
+                MaximumWidthRequest="600"
                 HeightRequest="600">
                 <StackLayout Spacing="24">
-                    <Frame BackgroundColor="#FFFFFF"
-                        CornerRadius="20"
-                        HasShadow="True"
-                        Margin="0"
-                        BorderColor="#a997d7">
-                        <StackLayout Orientation="Horizontal">
-                            <Image Source="siegel.png" HeightRequest="100" WidthRequest="100"/>
-                            <StackLayout Orientation="Vertical">
-                                <Label x:Name="Product"
+                    <Frame Style="{StaticResource ItemFrame}"
+                        x:Name="SealFrame">
+                        <StackLayout Style="{StaticResource ItemStack1}">
+                            <Image Source="siegel.png" Style="{StaticResource ItemImage}"/>
+                            <StackLayout Style="{StaticResource ItemStack2}">
+                                <Label x:Name="seal"
                                     Text="siegel"
-                                    FontSize="19"
-                                    TextColor="#503a8f"
-                                    FontAttributes="Bold"
-                                    HorizontalOptions="Start"
-                                />
+                                    Style="{StaticResource Product}"/>
                                 <Label
-                                    x:Name="ProductDescription"
+                                    x:Name="sealDescription"
                                     Text="Used to Sail Chosen Fields"
-                                    TextColor="#a997d7"
-                                    FontSize="17" 
-                                    FontAttributes="Bold"
-                                    HorizontalOptions="Center"/>
-                                <HorizontalStackLayout Spacing="16">
-                                    <StackLayout Orientation="Horizontal" 
-                                    HorizontalOptions="Center" Spacing="8">
-                                    <Label
-                                        x:Name="ProductCost"
-                                        Text="Price: "
-                                        TextColor="#FFCCBAFA"
-                                        FontSize="17"
-                                        FontAttributes="Bold"/>
-                                    <Label
-                                        Text=" 0 Tile-Coins"
-                                        x:Name="siegelCostLabel"
-                                        TextColor="#ece1f4"
-                                        FontSize="17" 
-                                        FontAttributes="Bold"/>
+                                    Style="{StaticResource Description}"/>
+                                <StackLayout Style="{StaticResource ItemStack3}">
+                                    <StackLayout Style="{StaticResource ItemStack4}">
+                                        <Label
+                                            x:Name="sealCost"
+                                            Text="Price: "
+                                            Style="{StaticResource ItemInfoLabel}"/>
+                                        <Label
+                                            Text=" 0"
+                                            x:Name="sealCostLabel"
+                                            Style="{StaticResource ItemStatLabel}"/>
                                     </StackLayout>
-                                    <StackLayout Orientation="Horizontal" 
-                                    HorizontalOptions="Center" Spacing="8">
-                                    <Label
-                                        x:Name="ProductOwning"
-                                        Text="Owning: "
-                                        TextColor="#FFCCBAFA"
-                                        FontSize="17"
-                                        FontAttributes="Bold"/>
-                                    <Label
-                                        Text=" 0"
-                                        x:Name="siegelCountLabel"
-                                        TextColor="#ece1f4"
-                                        FontSize="17" 
-                                        FontAttributes="Bold"/>
+                                    <StackLayout Style="{StaticResource ItemStack4}">
+                                        <Label
+                                            x:Name="sealOwning"
+                                            Text="Owning: "
+                                            Style="{StaticResource ItemInfoLabel}"/>
+                                        <Label
+                                            Text=" 0"
+                                            x:Name="sealCountLabel"
+                                            Style="{StaticResource ItemStatLabel}"/>
+                                    </StackLayout>
                                 </StackLayout>
-                                </HorizontalStackLayout>
                             </StackLayout>
                         </StackLayout>
                     </Frame>
-                     <Frame BackgroundColor="#FFFFFF"
-                        CornerRadius="20"
-                        HasShadow="True"
-                        Margin="20,0, 20,0"
-                        BorderColor="#a997d7">
-                        <StackLayout Orientation="Vertical">
-                            <Label 
-                                    x:Name="Product1"
+                    <Frame Style="{StaticResource ItemFrame}"
+                        x:Name="SearcherFrame">
+                        <StackLayout Style="{StaticResource ItemStack1}">
+                            <Image Source="searcher.png" Style="{StaticResource ItemImage}"/>
+                            <StackLayout Style="{StaticResource ItemStack2}">
+                                <Label x:Name="Product1"
                                     Text="Searcher"
-                                    FontSize="19"
-                                    TextColor="#503a8f"
-                                    FontAttributes="Bold"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="Start"/>
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10" Margin="10">
-                                <Image Source="searcher.png" HeightRequest="100" WidthRequest="100" />
-                                <StackLayout Orientation="Vertical" Spacing="10" WidthRequest="550">
-                                    <Label
-                                        x:Name="Product1Description"
-                                        Text="With this Item you can uncover a random Pattern Tile, you still get a point in return for the uncovered field"
-                                        TextColor="#a997d7"
-                                        FontSize="17" 
-                                        FontAttributes="Bold"
-                                        VerticalOptions="Center"
-                                        HorizontalOptions="Center"/>
-                                </StackLayout>
-                            </StackLayout>
-                            <StackLayout Orientation="Vertical" Spacing="10">
-                                <StackLayout Orientation="Horizontal" 
-                                    HorizontalOptions="Center" Spacing="8">
-                                    <Label
-                                        x:Name="Product1Owning"
-                                        Text="Owning: "
-                                        TextColor="#FFCCBAFA"
-                                        FontSize="17" />
-                                    <Label
-                                        Text=" 0"
-                                        x:Name="SearcherCountLabel"
-                                        TextColor="#ece1f4"
-                                        FontSize="17" 
-                                        FontAttributes="Bold"/>
-                                </StackLayout>
-                                <Button x:Name="BuySearcherButton" Text="Buy Now for 10 Coins" BorderColor="#a997d7" BackgroundColor="#FFFFFF" TextColor="#a997d7" Clicked="Buy_Searcher" FontAttributes="Bold" BorderWidth="2" ToolTipProperties.Text="Buy Searcher" WidthRequest="400"/>
-                            </StackLayout>
-                        </StackLayout>
-                    </Frame>
-                   <Frame BackgroundColor="#FFFFFF"
-                        CornerRadius="20"
-                        HasShadow="True"
-                        Margin="20,0, 20,0"
-                        BorderColor="#a997d7">
-                            <StackLayout Orientation="Vertical">
-                                <Label 
-                                        x:Name="Product2"
-                                        Text="Bomb"
-                                        FontSize="19"
-                                        TextColor="#503a8f"
-                                        FontAttributes="Bold"
-                                        HorizontalOptions="Center"
-                                        VerticalOptions="Start"/>
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10" Margin="10">
-                                    <StackLayout Orientation="Vertical" Spacing="10" WidthRequest="550">
-                                        <Label
-                                            x:Name="Product2Description"
-                                            Text="With this Item you can uncover a 3x3 area, you still get points in return for the uncovered field, at the same time you arent losing any Remaining Tries."
-                                            TextColor="#a997d7"
-                                            FontSize="17" 
-                                            FontAttributes="Bold"
-                                            VerticalOptions="Center"
-                                            HorizontalOptions="Center"/>
+                                    Style="{StaticResource Product}"/>
+                                <Label x:Name="Product1Description"
+                                    Text="With this Item you can uncover a random Pattern Tile, you still get a point in return for the uncovered field"
+                                    Style="{StaticResource Description}"/>
+                                <StackLayout Style="{StaticResource ItemStack3}">
+                                    <StackLayout Style="{StaticResource ItemStack4}">
+                                        <Label x:Name="BuySearcherPrice"
+                                            Text="Price: "
+                                            Style="{StaticResource ItemInfoLabel}"/>
+                                        <Label x:Name="BuySearcherCosts"
+                                            Text=" 0"
+                                            Style="{StaticResource ItemStatLabel}"/>
                                     </StackLayout>
-                                    <Image Source="bomb.png" HeightRequest="100" WidthRequest="100" />
+                                    <StackLayout Style="{StaticResource ItemStack4}">
+                                        <Label x:Name="Product1Owning"
+                                            Text="Owning:"
+                                            Style="{StaticResource ItemInfoLabel}"/>
+                                        <Label x:Name="SearcherCountLabel"
+                                            Text=" 0"
+                                            Style="{StaticResource ItemStatLabel}"/>
+                                    </StackLayout>
                                 </StackLayout>
-                            <StackLayout Orientation="Vertical"
-                                VerticalOptions="Center"
-                                HorizontalOptions="Center"
-                                Spacing="10">
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="8">
-                                    <Label
-                                        x:Name="Product2Owning"
-                                        Text="Owning: "
-                                        TextColor="#FFCCBAFA"
-                                        FontSize="17"/>
-                                    <Label
-                                        Text=" 0"
-                                        x:Name="BombCountLabel"
-                                        TextColor="#ece1f4"
-                                        FontSize="17" 
-                                        FontAttributes="Bold"/>
-                                </StackLayout>
-                                <Button x:Name="BuyBombButton" Text="Buy Now for 25 Coins" BorderColor="#a997d7" BackgroundColor="#FFFFFF" TextColor="#a997d7" Clicked="Buy_Bomb" FontAttributes="Bold" BorderWidth="2" ToolTipProperties.Text="Buy Bomb" WidthRequest="400"/>
                             </StackLayout>
                         </StackLayout>
                     </Frame>
-                    <Frame BackgroundColor="#FFFFFF"
-                        CornerRadius="20"
-                        HasShadow="True"
-                        Margin="20,0, 20,0"
-                        BorderColor="#a997d7">
-                        <StackLayout Orientation="Vertical">
-                            <Label 
-                                    x:Name="Product3"
+                    <Frame Style="{StaticResource ItemFrame}"
+                        x:Name="BombFrame">
+                        <StackLayout Style="{StaticResource ItemStack1}">
+                            <Image Source="bomb.png" Style="{StaticResource ItemImage}"/>
+                            <StackLayout Style="{StaticResource ItemStack2}">
+                                <Label x:Name="Product2"
+                                    Text="Bomb"
+                                    Style="{StaticResource Product}"/>
+                                <Label x:Name="Product2Description"
+                                    Text="With this Item you can uncover a 3x3 area, you still get points in return for the uncovered field, at the same time you arent losing any Remaining Tries."
+                                    Style="{StaticResource Description}"/>
+                                <StackLayout Style="{StaticResource ItemStack3}">
+                                    <StackLayout Style="{StaticResource ItemStack4}">
+                                        <Label x:Name="BuyBombPrice"
+                                            Text="Price: "
+                                            Style="{StaticResource ItemInfoLabel}"/>
+                                        <Label x:Name="BuyBombCosts"
+                                            Text=" 0"
+                                            Style="{StaticResource ItemStatLabel}"/>
+                                    </StackLayout>
+                                    <StackLayout Style="{StaticResource ItemStack4}">
+                                        <Label x:Name="Product2Owning"
+                                            Text="Owning:"
+                                            Style="{StaticResource ItemInfoLabel}"/>
+                                        <Label x:Name="BombCountLabel"
+                                            Text=" 0"
+                                            Style="{StaticResource ItemStatLabel}"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                    <Frame Style="{StaticResource ItemFrame}"
+                        x:Name="TriesFrame">
+                        <StackLayout Style="{StaticResource ItemStack1}">
+                            <Image Source="tries.png" Style="{StaticResource ItemImage}"/>
+                            <StackLayout Style="{StaticResource ItemStack2}">
+                                <Label x:Name="Product3"
                                     Text="Fails"
-                                    FontSize="19"
-                                    TextColor="#503a8f"
-                                    FontAttributes="Bold"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="Start"/>
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10" Margin="10">
-                                <Image Source="tries.png" HeightRequest="100" WidthRequest="100" />
-                                <StackLayout Orientation="Vertical" Spacing="10" WidthRequest="550">
-                                    <Label
-                                        x:Name="Product3Description"
-                                        Text="By buying higher versions of this stat you increase your total acceptable fails per game session or better sayed you get more allowed fails before failing"
-                                        TextColor="#a997d7"
-                                        FontSize="17" 
-                                        FontAttributes="Bold"
-                                        VerticalOptions="Center"
-                                        HorizontalOptions="Center"/>
+                                    Style="{StaticResource Product}"/>
+                                <Label x:Name="Product3Description"
+                                    Text="By buying higher versions of this stat you increase your total acceptable fails per game session or better sayed you get more allowed fails before failing"
+                                    Style="{StaticResource Description}"/>
+                                <StackLayout Style="{StaticResource ItemStack3}">
+                                    <StackLayout Style="{StaticResource ItemStack4}">
+                                        <Label x:Name="BuyFailPrice"
+                                            Text="Price: "
+                                            Style="{StaticResource ItemInfoLabel}"/>
+                                        <Label x:Name="BuyFailCosts"
+                                            Text=" 0"
+                                            Style="{StaticResource ItemStatLabel}"/>
+                                    </StackLayout>
+                                    <StackLayout Style="{StaticResource ItemStack4}">
+                                        <Label x:Name="Product3Owning"
+                                            Text="Owning:"
+                                            Style="{StaticResource ItemInfoLabel}"/>
+                                        <Label x:Name="FailCountLabel"
+                                            Text=" 0"
+                                            Style="{StaticResource ItemStatLabel}"/>
+                                    </StackLayout>
                                 </StackLayout>
-                            </StackLayout>
-                            <StackLayout Orientation="Vertical" Spacing="10">
-                                <StackLayout Orientation="Horizontal" 
-                                    HorizontalOptions="Center" Spacing="8">
-                                    <Label
-                                        x:Name="Product3Owning"
-                                        Text="Owning: "
-                                        TextColor="#FFCCBAFA"
-                                        FontSize="17" />
-                                    <Label
-                                        Text=" 0"
-                                        x:Name="FailCountLabel"
-                                        TextColor="#ece1f4"
-                                        FontSize="17" 
-                                        FontAttributes="Bold"/>
-                                </StackLayout>
-                                <Button x:Name="BuyFailButton" Text="Buy Now for 50 Coins" BorderColor="#a997d7" BackgroundColor="#FFFFFF" TextColor="#a997d7" Clicked="Buy_Fails" FontAttributes="Bold" BorderWidth="2" ToolTipProperties.Text="Buy Fails" WidthRequest="400"/>
                             </StackLayout>
                         </StackLayout>
                     </Frame>
-                    <Frame BackgroundColor="#FFFFFF"
-                        CornerRadius="20"
-                        HasShadow="True"
-                        Margin="20,0, 20,0"
-                        BorderColor="#a997d7">
-                            <StackLayout Orientation="Vertical">
-                                <Label 
-                                        x:Name="Product4"
-                                        Text="Multiplyer"
-                                        FontSize="19"
-                                        TextColor="#503a8f"
-                                        FontAttributes="Bold"
-                                        HorizontalOptions="Center"
-                                        VerticalOptions="Start"/>
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10" Margin="10">
-                                    <StackLayout Orientation="Vertical" Spacing="10" WidthRequest="550">
-                                        <Label
-                                            x:Name="Product4Description"
-                                            Text="By Buying higher versions of this you can increase the multiplyer you get at the start of every game session"
-                                            TextColor="#a997d7"
-                                            FontSize="17" 
-                                            FontAttributes="Bold"
-                                            VerticalOptions="Center"
-                                            HorizontalOptions="Center"/>
+                    <Frame Style="{StaticResource ItemFrame}"
+                        x:Name="multiplyerFrame">
+                        <StackLayout Style="{StaticResource ItemStack1}">
+                            <Image Source="multiplyer.png" Style="{StaticResource ItemImage}"/>
+                            <StackLayout Style="{StaticResource ItemStack2}">
+                                <Label x:Name="Product4"
+                                    Text="Multiplyer"
+                                    Style="{StaticResource Product}"/>
+                                <Label x:Name="Product4Description"
+                                    Text="By Buying higher versions of this you can increase the multiplyer you get at the start of every game session"
+                                    Style="{StaticResource Description}"/>
+                                <StackLayout Style="{StaticResource ItemStack3}">
+                                    <StackLayout Style="{StaticResource ItemStack4}">
+                                        <Label x:Name="BuyMultiplyerPrice"
+                                            Text="Price: "
+                                            Style="{StaticResource ItemInfoLabel}"/>
+                                        <Label x:Name="BuyMultiplyerCosts"
+                                            Text=" 0"
+                                            Style="{StaticResource ItemStatLabel}"/>
                                     </StackLayout>
-                                    <Image Source="multiplyer.png" HeightRequest="100" WidthRequest="100" />
+                                    <StackLayout Style="{StaticResource ItemStack4}">
+                                        <Label x:Name="Product4Owning"
+                                            Text="Owning:"
+                                            Style="{StaticResource ItemInfoLabel}"/>
+                                        <Label x:Name="MultiplyerLabelCountLabel"
+                                            Text=" 0"
+                                            Style="{StaticResource ItemStatLabel}"/>
+                                    </StackLayout>
                                 </StackLayout>
-                            <StackLayout Orientation="Vertical"
-                                VerticalOptions="Center"
-                                HorizontalOptions="Center"
-                                Spacing="10">
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="8">
-                                    <Label
-                                        x:Name="Product4Owning"
-                                        Text="Owning: "
-                                        TextColor="#FFCCBAFA"
-                                        FontSize="17"/>
-                                    <Label
-                                        Text=" 0"
-                                        x:Name="MultiplyerLabelCountLabel"
-                                        TextColor="#ece1f4"
-                                        FontSize="17" 
-                                        FontAttributes="Bold"/>
-                                </StackLayout>
-                                <Button x:Name="BuyMultiplyerButton" Text="Buy Now for 25 Coins" BorderColor="#a997d7" BackgroundColor="#FFFFFF" TextColor="#a997d7" Clicked="Buy_Multiplyer" FontAttributes="Bold" BorderWidth="2" ToolTipProperties.Text="Buy Bomb" WidthRequest="400"/>
                             </StackLayout>
                         </StackLayout>
                     </Frame>
