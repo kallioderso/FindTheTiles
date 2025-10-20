@@ -66,23 +66,43 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid>
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Start">
-            <ImageButton
-                Source="tilecoins.png"
-                BackgroundColor="Transparent"
-                CornerRadius="16"
-                WidthRequest="60"
-                HeightRequest="60"
-                BorderColor="Transparent"
-                BorderWidth="2"/>
-            <Label
-                x:Name="TileCoinsCountLabel"
-                Text="0"
-                TextColor="#a997d7"
-                FontSize="17" 
-                FontAttributes="Bold"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"/>
+        <StackLayout Orientation="Vertical" HorizontalOptions="Start" VerticalOptions="Start" Spacing="4">
+            <StackLayout Orientation="Horizontal">
+                <ImageButton
+                    Source="tilecoins.png"
+                    BackgroundColor="Transparent"
+                    CornerRadius="16"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    BorderColor="Transparent"
+                    BorderWidth="2"/>
+                <Label
+                    x:Name="TileCoinsCountLabel"
+                    Text="0"
+                    TextColor="#a997d7"
+                    FontSize="17" 
+                    FontAttributes="Bold"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <ImageButton
+                    Source="star.png"
+                    BackgroundColor="Transparent"
+                    CornerRadius="16"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    BorderColor="Transparent"
+                    BorderWidth="2"/>
+                <Label
+                    x:Name="StarCountLabel"
+                    Text="0"
+                    TextColor="#a997d7"
+                    FontSize="17" 
+                    FontAttributes="Bold"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"/>
+            </StackLayout>
         </StackLayout>
         <ImageButton
             x:Name="ExitButton"

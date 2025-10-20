@@ -1,7 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FindTheTiles.GameView"
+             x:Class="FindTheTiles.View.Level1View"
+             xmlns:local="using:FindTheTiles.ViewModel"
              BackgroundColor="#F9FBFF">
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False" IsEnabled="False" />
@@ -12,6 +13,10 @@
             <GradientStop Color="#ece1f4" Offset="1.0" />
         </LinearGradientBrush>
     </ContentPage.Background>
+
+    <ContentPage.BindingContext>
+        <local:Level1ViewModel/>
+    </ContentPage.BindingContext>
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -44,7 +49,6 @@
     <Grid>
         <!-- Exit-Button oben rechts -->
         <ImageButton
-                x:Name="ExitButton"
                 Source="exit.png"
                 BackgroundColor="#F3F7FF"
                 CornerRadius="16"
@@ -55,48 +59,44 @@
                 HorizontalOptions="End"
                 VerticalOptions="Start"
                 Margin="0,16,16,0"
-                Clicked="ExitButton_Clicked"
-                ToolTipProperties.Text="Exit"/>
-        
-        <StackLayout x:Name="MainStack" Padding="32,40" Spacing="30" HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource MainStack}">
+                Command="{Binding _exitCommand}"
+                ToolTipProperties.Text="{Binding _staticTextExitTT}"/>
+
+        <StackLayout Padding="32,40" Spacing="30" HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource MainStack}">
             <VerticalStackLayout Spacing="{OnPlatform 22, Android=18, iOS=18}">
                 <Frame 
-                    x:Name="FortschritsFrame"
                     BackgroundColor="#FFFFFF"
-                   CornerRadius="20"
-                   Padding="22,14"
-                   HasShadow="True"
-                   BorderColor="#a997d7"
-                   ToolTipProperties.Text="Progress: 0/0">
+                    CornerRadius="20"
+                    Padding="22,14"
+                    HasShadow="True"
+                    BorderColor="#a997d7"
+                    ToolTipProperties.Text="{Binding _progressText}">
                     <VerticalStackLayout Spacing="4">
-                        <Label Text="Fortschritt"
-                               x:Name="ProgressLabel"
+                        <Label Text="{Binding _staticTextProgress}"
                                FontSize="{OnPlatform 19, Android=14, iOS=14}"
                                TextColor="#503a8f"
                                FontAttributes="Bold"
                                HorizontalOptions="Center"/>
-                        <ProgressBar x:Name="FinishProgress" ProgressColor="#a997d7" BackgroundColor="#E0E8FF" Progress="0.001" HeightRequest="{OnPlatform WinUI=20}" />
+                        <ProgressBar ProgressColor="#a997d7" BackgroundColor="#E0E8FF"
+                                     Progress="{Binding _progress}" HeightRequest="{OnPlatform WinUI=20}" />
                     </VerticalStackLayout>
                 </Frame>
                 <StackLayout Spacing="{OnPlatform 22, Android=18, iOS=18}" HorizontalOptions="Center" Orientation="{OnPlatform Horizontal, Android=Vertical, iOS=Vertical}" >
                     <HorizontalStackLayout Spacing="{OnPlatform 22, Android=18, iOS=18}">
                         <Frame 
-                            x:Name="MultiplierFrame"
                             BackgroundColor="#FFFFFF"
                             CornerRadius="20"
                             Padding="22,14"
                             HasShadow="True"
                             BorderColor="#a997d7"
-                            ToolTipProperties.Text="Multiplyer: 1">
+                            ToolTipProperties.Text="{Binding _multiplierText}">
                             <VerticalStackLayout Spacing="2">
-                                <Label Text="Multiplikator"
-                                        x:Name="MultiplierLabelTitle"
+                                <Label Text="{Binding _staticTextMultiplyer}"
                                        FontSize="{OnPlatform 19, Android=14, iOS=14}"
                                        TextColor="#503a8f"
                                        FontAttributes="Bold"
                                        HorizontalOptions="Center"/>
-                                <Label Text="x1,0"
-                                       x:Name="MultiplierLabel"
+                                <Label Text="{Binding _multiplier, StringFormat='x{0:F1}'}"
                                        FontSize="{OnPlatform 17, Android=18, iOS=18}"
                                        FontAttributes="Bold"
                                        TextColor="#4CAF50"
@@ -104,22 +104,19 @@
                             </VerticalStackLayout>
                         </Frame>
                         <Frame 
-                            x:Name="ScoreFrame"
                             BackgroundColor="#FFFFFF"
                             CornerRadius="20"
                             Padding="22,14"
                             HasShadow="True"
                             BorderColor="#a997d7"
-                            ToolTipProperties.Text="Current Score: 0">
+                            ToolTipProperties.Text="{Binding _scoreText}">
                             <VerticalStackLayout Spacing="2">
-                                <Label Text="Aktueller Score"
-                                       x:Name="CurrentScoreLabelTitle"
+                                <Label Text="{Binding _staticTextScore}"
                                        FontSize="{OnPlatform 19, Android=14, iOS=14}"
                                        TextColor="#503a8f"
                                        FontAttributes="Bold"
                                        HorizontalOptions="Center"/>
-                                <Label Text="0"
-                                       x:Name="CurrentScoreLabel"
+                                <Label Text="{Binding _score}"
                                        FontSize="17"
                                        FontAttributes="Bold"
                                        TextColor="#a997d7"
@@ -128,22 +125,19 @@
                         </Frame>
                     </HorizontalStackLayout>
                     <Frame 
-                        x:Name="FailureFrame"
                         BackgroundColor="#FFFFFF"
                         CornerRadius="20"
                         Padding="22,14"
                         HasShadow="True"
                         BorderColor="#a997d7"
-                        ToolTipProperties.Text="Remaining tries: 0">
+                        ToolTipProperties.Text="{Binding _tryText}">
                         <VerticalStackLayout Spacing="2">
-                            <Label Text="Verbleibende Versuche"
-                                   x:Name="TriesLabelTitle"
+                            <Label Text="{Binding _staticTextTrys}"
                                    FontSize="{OnPlatform 19, Android=14, iOS=14}"
                                    TextColor="#503a8f"
                                    FontAttributes="Bold"
                                    HorizontalOptions="Center"/>
-                            <Label Text="0"
-                                   x:Name="CurrentFailsLabel"
+                            <Label Text="{Binding _trys}"
                                    FontSize="{OnPlatform 17, Android=18, iOS=18}"
                                    FontAttributes="Bold"
                                    TextColor="#E57373"
@@ -153,27 +147,35 @@
                 </StackLayout>
                 <HorizontalStackLayout Spacing="8">
                     <ImageButton
-                    x:Name="SearchButton"
-                    Source="nosearch.png"
+                    Source="{Binding _searcherObtained}"
                     BackgroundColor="#F3F7FF"
                     CornerRadius="16"
                     WidthRequest="60"
                     HeightRequest="60"
                     BorderColor="#E0E8FF"
                     BorderWidth="2"
-                    Clicked="Search_OnClicked"
-                    ToolTipProperties.Text="Activate Search item"/>
+                    Command="{Binding _searchCommand}"
+                    ToolTipProperties.Text="{Binding _staticTextSearcherTT}"/>
                     <ImageButton
-                    x:Name="BombButton"
-                    Source="nobomb.png"
+                    Source="{Binding _bombObtained}"
                     BackgroundColor="#F3F7FF"
                     CornerRadius="16"
                     WidthRequest="60"
                     HeightRequest="60"
                     BorderColor="#E0E8FF"
                     BorderWidth="2"
-                    Clicked="Bomb_OnClicked"
-                    ToolTipProperties.Text="Activate Bomb item"/>
+                    Command="{Binding _bombCommand}"
+                    ToolTipProperties.Text="{Binding _staticTextBombTT}"/>
+                    <ImageButton
+                    Source="{Binding _sealObtained}"
+                    BackgroundColor="Transparent"
+                    CornerRadius="16"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    BorderColor="Transparent"
+                    BorderWidth="2"
+                    Command="{Binding _sealCommand}"
+                    ToolTipProperties.Text="{Binding _staticTextSealTT}"/>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
 
@@ -203,6 +205,22 @@
                 </Grid.ColumnDefinitions>
             </Grid>
         </StackLayout>
+
+        <Frame 
+            IsVisible="{Binding _languagesettings}" 
+            HorizontalOptions="Center" 
+            VerticalOptions="Center"
+            BackgroundColor="#FFFFFF"
+            BorderColor="#a997d7"
+            CornerRadius="20"
+            Padding="22,14">
+            <HorizontalStackLayout Spacing="8">
+                <ImageButton HeightRequest="100" WidthRequest="100" CornerRadius="16" BackgroundColor="#F3F7FF" BorderColor="#E0E8FF" BorderWidth="2" Source="german.png" Command="{Binding _germanCommand}"/>
+                <ImageButton HeightRequest="100" WidthRequest="100" CornerRadius="16" BackgroundColor="#F3F7FF" BorderColor="#E0E8FF" BorderWidth="2" Source="frensh.png" Command="{Binding _frenshCommand}"/>
+                <ImageButton HeightRequest="100" WidthRequest="100" CornerRadius="16" BackgroundColor="#F3F7FF" BorderColor="#E0E8FF" BorderWidth="2" Source="english.png" Command="{Binding _englishCommand}"/>
+            </HorizontalStackLayout>
+        </Frame>
+        
         <VerticalStackLayout
             HorizontalOptions="Start"
             VerticalOptions="End"
@@ -210,7 +228,6 @@
             <HorizontalStackLayout
                 Spacing="2">
                 <ImageButton
-                    x:Name="HelpButton"
                     Source="helpicon.png"
                     BackgroundColor="#F3F7FF"
                     CornerRadius="16"
@@ -218,10 +235,9 @@
                     HeightRequest="60"
                     BorderColor="#E0E8FF"
                     BorderWidth="2"
-                    Clicked="HelpButton_OnClicked"
-                    ToolTipProperties.Text="open Tutorial"/>
+                    Command="{Binding _tutorialCommand}"
+                    ToolTipProperties.Text="{Binding _staticTextTutorialTT}"/>
                 <ImageButton
-                    x:Name="LanguageButton"
                     Source="german.png"
                     BackgroundColor="#F3F7FF"
                     CornerRadius="16"
@@ -229,8 +245,8 @@
                     HeightRequest="60"
                     BorderColor="#E0E8FF"
                     BorderWidth="2"
-                    Clicked="LanguageButton_OnClicked"
-                    ToolTipProperties.Text="ändere sprache zu französisch"/>
+                    Command="{Binding _languageCommand}"
+                    ToolTipProperties.Text="{Binding _staticTextLanguageTT}"/>
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </Grid>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FindTheTiles.View.BeehiveView"
+             xmlns:local="using:FindTheTiles.ViewModel"
+             BackgroundColor="#F9FBFF">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
+    <ContentPage.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Color="#ffffff" Offset="0.0" />
+            <GradientStop Color="#FFFFF4BE" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ContentPage.BindingContext>
+        <local:BeehiveViewModel/>
+    </ContentPage.BindingContext>
+    <Grid>
+        <!-- Exit-Button oben rechts -->
+        <ImageButton
+                x:Name="ExitButton"
+                Source="beehive_exit.png"
+                BackgroundColor="#ffffff"
+                BorderColor="#ffbd1c"
+                CornerRadius="16"
+                WidthRequest="60"
+                HeightRequest="60"
+                BorderWidth="2"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                Margin="0,16,16,0"
+                ToolTipProperties.Text="Exit"
+                Clicked="ExitButton_Clicked"/>
+        
+        <VerticalStackLayout 
+            HorizontalOptions="Center" 
+            VerticalOptions="Center"
+            Spacing="16">
+
+            <!-- Progess Bar -->
+            <Frame 
+                x:Name="FortschritsFrame"
+                BackgroundColor="#ffffff"
+                BorderColor="#ffbd1c"
+                CornerRadius="20"
+                Padding="22,14"
+                HasShadow="True"
+                ToolTipProperties.Text="Larven: 0/0">
+                <VerticalStackLayout Spacing="4">
+                    <HorizontalStackLayout HorizontalOptions="Center">
+                        <Label Text="Larven:"
+                            x:Name="ProgressLabel"
+                            FontSize="19"
+                            TextColor="#ffbd1c"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center"/>
+                        <Image Source="larve.png" WidthRequest="22" HeightRequest="22"/>
+                    </HorizontalStackLayout>
+                    <ProgressBar x:Name="FinishProgress" ProgressColor="#ffbd1c" BackgroundColor="#ffe666" Progress="0.001" HeightRequest="{OnPlatform WinUI=20}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Stackpanel Containing the remaining Game Elements -->
+            <HorizontalStackLayout Spacing="8">
+
+                <!-- Stackpanel for the Game Indicators (except for Prgressbar) -->
+                <VerticalStackLayout Spacing="8">
+
+                    <!-- Indicator for the Multiplyer -->
+                    <Frame 
+                        x:Name="MultiplyerFrame"
+                        BackgroundColor="#ffffff"
+                        BorderColor="#ffbd1c"
+                        CornerRadius="20"
+                        Padding="22,14"
+                        HasShadow="True"
+                        ToolTipProperties.Text="Multiplyer: 1">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Multiplikator"
+                                    x:Name="MultiplyerTitel"
+                                    FontSize="19"
+                                    TextColor="#ffbd1c"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"/>
+                            <Label Text="x1,0"
+                                    x:Name="MultiplyerCount"
+                                    FontSize="17"
+                                    FontAttributes="Bold"
+                                    TextColor="#4CAF50"
+                                    HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Indicator for the Game-Score -->
+                    <Frame 
+                        x:Name="ScoreFrame"
+                        BackgroundColor="#ffffff"
+                        BorderColor="#ffbd1c"
+                        CornerRadius="20"
+                        Padding="22,14"
+                        HasShadow="True"
+                        ToolTipProperties.Text="Current Score: 0">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Aktueller Score"
+                                    x:Name="ScoreTitel"
+                                    FontSize="19"
+                                    TextColor="#ffbd1c"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"/>
+                            <Label Text="0"
+                                    x:Name="ScoreCount"
+                                    FontSize="17"
+                                    FontAttributes="Bold"
+                                    TextColor="#4CAF50"
+                                    HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Indicator for the Remaining Attempts -->
+                    <Frame 
+                        x:Name="DummyFrame"
+                        BackgroundColor="#ffffff"
+                        BorderColor="#ffbd1c"
+                        CornerRadius="20"
+                        Padding="22,14"
+                        HasShadow="True"
+                        ToolTipProperties.Text="Remaining Dummys">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Attrappen"
+                                   x:Name="DummyTitel"
+                                   FontSize="19"
+                                   TextColor="#ffbd1c"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"/>
+                            <StackLayout Orientation="Horizontal" Spacing="8" HorizontalOptions="Center">
+                                <Label Text="0"
+                                   x:Name="DummyCount"
+                                   FontSize="17"
+                                   FontAttributes="Bold"
+                                   TextColor="#4CAF50"
+                                   HorizontalOptions="Center"/>
+                                <Image Source="larven_attrape.png" WidthRequest="22" HeightRequest="22"/>
+                            </StackLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                </VerticalStackLayout>
+
+                <!-- MainGrid (Containing the Game elements) -->
+                <Grid x:Name="TilesGrid"
+                  RowSpacing="8"
+                  ColumnSpacing="8"
+                  HorizontalOptions="Center"
+                  VerticalOptions="Center"
+                  Padding="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+
+                <!-- Stackpanel for the Game-Items -->
+                <VerticalStackLayout Spacing="8">
+
+                    <!-- Searcher Game-Item -->
+                    <ImageButton
+                        x:Name="SearchButton"
+                        Source="beehive_searcher.png"
+                        BackgroundColor="#ffffff"
+                        BorderColor="#ffbd1c"
+                        CornerRadius="16"
+                        WidthRequest="60"
+                        HeightRequest="60"
+                        BorderWidth="2"
+                        ToolTipProperties.Text="Activate Search item"/>
+
+                    <!-- Bomb Game-Item -->
+                    <ImageButton
+                        x:Name="BombButton"
+                        Source="beehive_bomb.png"
+                        BackgroundColor="#ffffff"
+                        BorderColor="#ffbd1c"
+                        CornerRadius="16"
+                        WidthRequest="60"
+                        HeightRequest="60"
+                        BorderWidth="2"
+                        ToolTipProperties.Text="Activate Bomb item"/>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <!-- Stackpanel for the Menu-Buttons -->
+        <VerticalStackLayout
+            HorizontalOptions="Start"
+            VerticalOptions="End"
+            Margin="16,0,0,16">
+            <HorizontalStackLayout
+                Spacing="8">
+                <ImageButton
+                    Source="beehive_help.png"
+                    CornerRadius="16"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    BorderWidth="2"
+                    BackgroundColor="#ffffff"
+                        BorderColor="#ffbd1c"
+                    ToolTipProperties.Text="open Tutorial"/>
+                    <ImageButton
+                    Source="beehive_german.png"
+                    CornerRadius="16"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    BorderWidth="2"
+                    BackgroundColor="#ffffff"
+                        BorderColor="#ffbd1c"
+                    ToolTipProperties.Text="change language"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

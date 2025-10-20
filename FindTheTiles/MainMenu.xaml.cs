@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using FindTheTiles.Model;
+using FindTheTiles.View;
 
 namespace FindTheTiles;
 
@@ -78,7 +80,7 @@ public partial class MainMenu
             if (Application.Current?.MainPage?.Navigation != null)
             {
                 Preferences.Set("Resume", false);
-                await Application.Current.MainPage.Navigation.PushAsync(new GameView(), true);
+                await Application.Current.MainPage.Navigation.PushAsync(new Level1View(), true);
             }
         }
         catch (Exception){/*inactive*/}
@@ -131,7 +133,7 @@ public partial class MainMenu
         try
         {
             if (Application.Current?.MainPage?.Navigation != null)
-                await Application.Current.MainPage.Navigation.PushAsync(new GameView(), true);
+                await Application.Current.MainPage.Navigation.PushAsync(new Level1View(), true);
         }
         catch (Exception){/*inactive*/}
     }

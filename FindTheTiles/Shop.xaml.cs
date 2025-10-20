@@ -74,6 +74,7 @@ public partial class Shop
     {
         UpdateLanguage();
         TileCoinsCountLabel.Text = $"{_coins}";
+        StarCountLabel.Text = Preferences.Get("Star", 0).ToString();
         sealCountLabel.Text = Preferences.Get("Seals", 0).ToString();
         BombCountLabel.Text = Preferences.Get("Bombs", 0).ToString();
         SearcherCountLabel.Text = Preferences.Get("Searchers", 0).ToString();
