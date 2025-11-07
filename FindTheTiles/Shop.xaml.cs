@@ -84,8 +84,8 @@ public partial class Shop
         sealCostLabel.Text = 2.ToString();
         BuySearcherCosts.Text = 10.ToString();
         BuyBombCosts.Text = 25.ToString();
-        BuyFailCosts.Text = _triePrices[Preferences.Get("Tries", 1) - 1].ToString();
-        BuyMultiplyerCosts.Text = _multiPrices[Preferences.Get("MultiplyerBuys", 1) - 1].ToString();
+        BuyFailCosts.Text = Preferences.Get("Tries", 1) <=5 ? _triePrices[Preferences.Get("Tries", 1) - 1].ToString() : "-------";
+        BuyMultiplyerCosts.Text = Preferences.Get("MultiplyerBuys", 1) <= 5.0 ? _multiPrices[Preferences.Get("MultiplyerBuys", 1) - 1].ToString() : "-------";
 
         SealFrame.BackgroundColor = _coins >= 2 ? Color.FromArgb("#FFFFFF") : Color.FromArgb("#e2c9f2ff");
 
@@ -165,7 +165,7 @@ public partial class Shop
 
     private void Buy_Fails(object? sender, EventArgs e)
     {
-        if (_coins >= _triePrices[Preferences.Get("Tries", 1) - 1])
+        if (_coins >= _triePrices[Preferences.Get("Tries", 1) - 1] && Preferences.Get("Tries", 1) <=5)
         {
             _coins -= _triePrices[Preferences.Get("Tries", 1) - 1];
             Preferences.Set("Coins", _coins);

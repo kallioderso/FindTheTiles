@@ -88,7 +88,7 @@ public class Level1ViewModel : INotifyPropertyChanged
         {
             _score = Preferences.Get("ResumeScore", 0);
             _multiplier = Preferences.Get("ResumeMultiplier", 1.0);
-            _trys = Preferences.Get("ResumeTrys", 0);
+            _trys = Preferences.Get("ResumeTrys", 1);
             _foundTiles = Preferences.Get("ResumeFound", 0);
             _totalTiles = Preferences.Get("ResumeMax", 0);
             _progress = (double)_foundTiles / _totalTiles;
@@ -96,7 +96,7 @@ public class Level1ViewModel : INotifyPropertyChanged
         else
         {
             _score = 0;
-            _trys = Preferences.Get("Tries", 0);
+            _trys = Preferences.Get("Tries", 1);
             _multiplier = Preferences.Get("Multiplyer", 1.0);
             _progress = 0.01;
         }
@@ -202,10 +202,12 @@ public class Level1ViewModel : INotifyPropertyChanged
         {
             _bombPlaced = true;
             tile._state = _pattern.IsPattern[tile.Row, tile.Column] ? 2 : 3;
+            TileClicked(tile);
             TileClicked(_tiles[tile.Row - 1, tile.Column]);
             TileClicked(_tiles[tile.Row + 1, tile.Column]);
             TileClicked(_tiles[tile.Row, tile.Column - 1]);
             TileClicked(_tiles[tile.Row, tile.Column + 1]);
+            
             _bombPlaced = false;
             _bombMode = false;
             for(int i=0; i<7; i++)
@@ -262,7 +264,7 @@ public class Level1ViewModel : INotifyPropertyChanged
                 return;
             _trys--;
             OnPropertyChanged(nameof(_trys));
-            if (_trys == 0)
+            if (_trys <= 0)
             {
                 _gameOnPause = true;
                 Preferences.Set("Highscore", Preferences.Get("Highscore", 0) < _score ? _score : Preferences.Get("Highscore", 0));
